@@ -12,11 +12,7 @@ class QtWorldMainWindow(QWidget):
     def __init__(self):
         super().__init__()
         
-        self.setWindowTitle("Qt World - Desktop")
-        # self.setWindowFlags(Qt.FramelessWindowHint)
-        # self.setMinimumSize(1280, 720)
-        # self.resize(1280, 720)
-        # self.showMaximized()
+        self.setWindowTitle("Qt Verse - Desktop")
 
         self.current_directory = os.path.dirname(__file__)
         print("current dir:", os.path.dirname(self.current_directory))
@@ -31,7 +27,7 @@ class QtWorldMainWindow(QWidget):
         menubar_layout = QHBoxLayout()
 
         # 'reva menu
-        reva_menu = QMenu("Qt World", self)
+        reva_menu = QMenu("Qt Verse", self)
         
         reva_menu.addAction("Clean Favorites")
         reva_menu.addSeparator()
@@ -39,8 +35,6 @@ class QtWorldMainWindow(QWidget):
         reva_menu.addSeparator()
         reva_menu.addAction("Settings")
         reva_menu.addAction("Quit")
-        
-
 
         # 'Windows' menu
         windows_menu = QMenu("Windows", self)
@@ -78,21 +72,60 @@ class QtWorldMainWindow(QWidget):
         help_menu.addAction("Submit Feedback")
         help_menu.addAction("Report Issue")
 
-        # 'ADMIN' Label 
-        self.admin_label = QLabel("ADMIN")
-
-        self.admin_label_opacity = QGraphicsOpacityEffect(self)
-        self.admin_label_opacity.setOpacity(0.5)
-        self.admin_label.setGraphicsEffect(self.admin_label_opacity)
-
         #### ----- ADD menu's in menubar
         menubar.addMenu(reva_menu)
         menubar.addMenu(windows_menu)
         menubar.addMenu(help_menu)
 
         menubar_layout.addWidget(menubar)
-        menubar_layout.addWidget(self.admin_label)        
         menubar_layout.addSpacing(20)
+
+        # ---------------------------------------------------------------------------
+        # ---------------------------------------------------------------------------
+        # ---------------------------------------------------------------------------
+        # ---------------------------------------------------------------------------
+
+        central_layout = QHBoxLayout()
+
+        sidebar_widget = QListWidget()
+
+        # for each in range(5):
+        #     item = QListWidgetItem("a111")
+        #     item.setSizeHint(QSize(10,30))
+        #     sidebar_widget.addItem(item)
+        
+        item_1 = QListWidgetItem("Boilerplate for Widgets")
+        item_1.setSizeHint(QSize(10,30))
+        
+
+        item_2 = QListWidgetItem("Informatin Widgets")
+        item_2.setSizeHint(QSize(10,30)) 
+
+        item_3 = QListWidgetItem("Notificaition Widgets")
+        item_3.setSizeHint(QSize(10,30)) 
+
+        item_4 = QListWidgetItem("Tool Widgets")
+        item_4.setSizeHint(QSize(10,30)) 
+
+        item_5 = QListWidgetItem("App Widgets")
+        item_5.setSizeHint(QSize(10,30)) 
+
+        sidebar_widget.addItem(item_1)
+        sidebar_widget.addItem(item_2)
+        sidebar_widget.addItem(item_3)
+        sidebar_widget.addItem(item_4)
+        sidebar_widget.addItem(item_5)
+
+        sidebar_widget.setUniformItemSizes(True)
+        preview_widget = QListWidget()
+
+
+        
+
+        central_layout.addWidget(sidebar_widget)
+        central_layout.addWidget(preview_widget)
+        # def onClicked(self, item):
+        #     QMessageBox.information(self, "Info", item.text())
 
 
         # ---------------------------------------------------------------------------
@@ -104,8 +137,9 @@ class QtWorldMainWindow(QWidget):
         # ---------------------------------------------------------------------------
 
         main_layout = QVBoxLayout()
-        main_layout.setSpacing(0)
+        # main_layout.setSpacing(0)
         main_layout.addLayout(menubar_layout)
+        main_layout.addLayout(central_layout)
         main_layout.setContentsMargins(5, 0, 5, 0)
         self.setLayout(main_layout)
 
