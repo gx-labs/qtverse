@@ -1,4 +1,5 @@
 import sys
+import Pyside2
 from PySide2.QtWidgets import QApplication, QWidget, QVBoxLayout, QRadioButton,QHBoxLayout,QPushButton
 
 class RadioButtonsApp(QWidget):
@@ -18,6 +19,7 @@ class RadioButtonsApp(QWidget):
         button7 = QPushButton("ADD")
         button8 = QPushButton("DELETE")
         button9 = QPushButton("REMOVE")
+        push = QPushButton("End For All")
 
         button1.setStyleSheet('''QPushButton {
                                         background-color: white;
@@ -27,6 +29,8 @@ class RadioButtonsApp(QWidget):
                                         padding: 10px 20px;
                                         font-size: 16px;
                                     }
+
+
                                     
                                 QPushButton:hover {
                                         background-color: #3498db;
@@ -150,6 +154,20 @@ class RadioButtonsApp(QWidget):
                               
                                            }
     """)
+        push.setStyleSheet( """QPushButton {
+    background-color: red;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 10em;
+    padding: 6px;
+}
+QPushButton:pressed {
+    background-color: rgb(224, 0, 0);
+    border-style: inset;
+}""")
         # Add radio buttons to the layout
         vbox.addWidget(button1)
         vbox.addWidget(button2)
@@ -158,8 +176,8 @@ class RadioButtonsApp(QWidget):
         vbox.addWidget(button5)
         vbox.addWidget(button6)
         vbox.addWidget(button7)
-        vbox.addWidget(button8)
-        vbox.addWidget(button9)
+        #vbox.addWidget(button8)
+        #vbox.addWidget(button9)
 
         # hbox.addLayout(vbox)
         mainlayout.addLayout(vbox)

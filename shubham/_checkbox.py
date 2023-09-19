@@ -14,51 +14,35 @@ class RadioButtonsApp(QWidget):
         vbox = QVBoxLayout()
 
         # Create radio buttons with labels A, B, and C
-        push = QPushButton("End For All")
         button = QPushButton()
-        button.setIcon(QIcon("D:\Pyside\Icons\X.png"))
         
 
-#        button.setProperty('imageIndex', 0)
-#        button.setStyleSheet('QPushButton {'
-#                                  '   background-color: #3498db;'
-#                                  '   border: none;'
-#                                  '   padding: 10px;'
-#                                  '   background-image: url(' + os.path.join('Icons', 'X.png') + ');'
-#                                  '   background-repeat: no-repeat;'
-#                                  '   background-position: center;'
-#                                 '}'
-#                                  'QPushButton:pressed {'
-#                                  '   background-color: #e74c3c;'
-#                                  '}'
-#                                  'QPushButton[imageIndex="0"] {'
-#                                  '   background-image: url(' + os.path.join('Icons', 'X.png') + ');'
-#                                  '}'
-#                                 'QPushButton[imageIndex="1"] {'
-#                                 '   background-image: url(' + os.path.join('Icons', 'x1.png') + ');'
-#                                  '}')
+        #button.setProperty('imageIndex', 0)
+        #button.setStyleSheet('QPushButton {'
+        #                          '   background-color: #3498db;'
+        #                          '   border: none;'
+        #                          '   padding: 10px;'
+        #                          '   background-image: url(:/Icons/x1.png); '
+        #                          '   background-repeat: no-repeat;'
+        #                          '   background-position: center;'
+        #                         '}')
+                                 # 'QPushButton:pressed {'
+                                #  '   background-color: #e74c3c;'
+                                #  '}'
+                                 # 'QPushButton[imageIndex="0"] {'
+                                 # '   background-image: url('Icons/X.png');'
+                                #  '}'
+                                 #'QPushButton[imageIndex="1"] {'
+                                 #'   background-image: url('Icons/X1.png');'
+                                #  '}')
 
-#        vbox.addWidget(button)
 
-        push.setStyleSheet( """QPushButton {
-    background-color: red;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 10em;
-    padding: 6px;
-}
-QPushButton:pressed {
-    background-color: rgb(224, 0, 0);
-    border-style: inset;
-}""")
+
         checkbox = QCheckBox("CSS")
         checkbox.setStyleSheet('QCheckBox {'
                                '   padding: 10px;'
                                '   border: none;'
-
+                               # '   background-image: url('Icons/X.png'); '
                                '}'
                                'QCheckBox:hover {'
                                '   background-color: blue;'
@@ -67,11 +51,95 @@ QPushButton:pressed {
                                'QCheckBox:checked {'
                                '   background-color: #e74c3c;'
                                '}')
-        vbox.addWidget(push)
-        vbox.addWidget(button)
+        
+        checkbox1 = QCheckBox("CSS")
+        checkbox1.setStyleSheet('''QCheckBox {
+        font-size: 14px;
+        color: Black;
+        border : 3px solid blue;
+    }
+    QCheckBox::indicator {
+        border : 5px solid blue;
+        width: 10px;
+        height: 10px;
+    }
+    QCheckBox::indicator:checked {
+                                
+        background-color: Blue;
+        
+    }
+    QCheckBox::indicator:unchecked {
+        background-color: white;
+    }''')
+        checkbox2 = QCheckBox("OPTION 1")
+        checkbox2.setStyleSheet('''QCheckBox {
+        font-size: 20px;
+        color: Blue;
+    }
+    QCheckBox::indicator {
+        border : 5px solid blue;
+        border-radius: 10px;
+        width: 10px;
+        height: 10px;
+    }
+    QCheckBox::indicator:checked {
+                                
+        background-color: Blue;
+    }
+    QCheckBox::indicator:unchecked {
+        background-color: white;
+    }''')
+        
+        checkbox3 = QCheckBox("OPTION 2")
+        checkbox3.setStyleSheet('''QCheckBox {
+        font-size: 15px;
+        color: Black;
+    }
+    QCheckBox::indicator {
+        border : 5px solid Black;
+        border-radius: 15px;
+        width: 10px;
+        height: 10px;
+                                
+    }
+    QCheckBox::indicator:checked {
+                                
+        background-color: Black;
+    }
+    QCheckBox::indicator:unchecked {
+        background-color: white;
+    }''')
+        
+        checkbox4 = QCheckBox("OPTION 3")
+        checkbox4.setStyleSheet('''QCheckBox {
+        font-size: 20px;
+        color: Blue;
+    }
+    QCheckBox::indicator {
+        border : 8px solid Blue;
+        border-style : groove;                        
+        width: 10px;
+        height: 10px;
+                                
+    }
+    QCheckBox::indicator:checked {
+                                
+        background-color: Blue;
+    }
+    QCheckBox::indicator:unchecked {
+        background-color: white;
+    }''')
+        checkbox4.setLayoutDirection(Qt.RightToLeft)
+        
+        #vbox.addWidget(button)
 
         vbox.addWidget(checkbox)
-       
+        vbox.addWidget(checkbox1)
+        vbox.addWidget(checkbox2)
+        vbox.addWidget(checkbox3)
+        vbox.addWidget(checkbox4)
+
+
         self.setLayout(vbox)
 
         self.setWindowTitle('Widget')
