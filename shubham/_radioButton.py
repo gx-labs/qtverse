@@ -32,19 +32,37 @@ class RadioButtonsApp(QWidget):
         self.radio_button_c.enterEvent = lambda event: self.onHover(self.radio_button_c)
         self.radio_button_c.leaveEvent = lambda event: self.onLeave(self.radio_button_c)
 
-        # Set the layout for the main window
+        radiobutton1 = QRadioButton("Radiobutton 3")
+        radiobutton1.setStyleSheet("""QRadioButton {
+                                                    color: #3498db;
+    }
+                                    QRadioButton::indicator {
+                                                     width: 20px;
+                                                    height: 20px;
+                                                    "border : 5px BLUE;"
+                                                    "border-style : dotted;"
+    }
+                                    QRadioButton::indicator:checked {
+                                                    background-color: blue;
+                                                    border: 2px solid blue;
+        QRadioButton::indicator:unchecked {
+        "border : 2px blue;"
+        "border-style : dotted;"
+    }}
+    """,)
+        vbox.addWidget(radiobutton1)
         self.setLayout(vbox)
 
-        self.setWindowTitle('Styled Radio Buttons Example')
+        self.setWindowTitle('Radio Buttons ')
         self.setGeometry(100, 100, 300, 150)
+
+
+
 
     def onHover(self, radio_button):
         radio_button.setStyleSheet("""QRadioButton {
-                                    display: flex;
-                                    cursor: pointer;
                                     font-weight: 500;
                                     position: relative;
-                                    overflow: hidden;
                                     margin-bottom: 0.375em;
                                    }""")
 
@@ -52,6 +70,7 @@ class RadioButtonsApp(QWidget):
         radio_button.setStyleSheet('QRadioButton {'
                                    '   border: 2px solid #3498db;'
                                    '}')
+
 
 
 if __name__ == '__main__':

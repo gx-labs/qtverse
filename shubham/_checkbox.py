@@ -17,15 +17,15 @@ class RadioButtonsApp(QWidget):
         button = QPushButton()
         
 
-        #button.setProperty('imageIndex', 0)
-        #button.setStyleSheet('QPushButton {'
-        #                          '   background-color: #3498db;'
-        #                          '   border: none;'
-        #                          '   padding: 10px;'
-        #                          '   background-image: url(:/Icons/x1.png); '
-        #                          '   background-repeat: no-repeat;'
-        #                          '   background-position: center;'
-        #                         '}')
+        button.setProperty('imageIndex', 0)
+        button.setStyleSheet('QPushButton {'
+                                  '   background-color: #3498db;'
+                                  '   border: none;'
+                                  '   padding: 10px;'
+                                  '   background-image: url(:/Icons/x1.png); '
+                                  '   background-repeat: no-repeat;'
+                                  '   background-position: center;'
+                                 '}')
                                  # 'QPushButton:pressed {'
                                 #  '   background-color: #e74c3c;'
                                 #  '}'
@@ -131,7 +131,7 @@ class RadioButtonsApp(QWidget):
     }''')
         checkbox4.setLayoutDirection(Qt.RightToLeft)
         
-        #vbox.addWidget(button)
+        vbox.addWidget(button)
 
         vbox.addWidget(checkbox)
         vbox.addWidget(checkbox1)
