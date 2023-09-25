@@ -30,6 +30,7 @@ class SliderApp(QWidget):
 
                                     QSlider::handle {
                                         width: 30px;
+                                        border: groove;
                                         height: 30px;
                                         border-radius: 20%;
                                         background-color: #000000;
