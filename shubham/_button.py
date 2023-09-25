@@ -1,5 +1,5 @@
 import sys
-import Pyside2
+import PySide2
 from PySide2.QtWidgets import QApplication, QWidget, QVBoxLayout, QRadioButton,QHBoxLayout,QPushButton
 
 class RadioButtonsApp(QWidget):

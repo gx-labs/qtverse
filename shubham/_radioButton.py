@@ -34,23 +34,76 @@ class RadioButtonsApp(QWidget):
 
         radiobutton1 = QRadioButton("Radiobutton 3")
         radiobutton1.setStyleSheet("""QRadioButton {
-                                                    color: #3498db;
+                                           font-size: 14px;
+                                            color: blue;
+        spacing: 30px;
+
     }
                                     QRadioButton::indicator {
-                                                     width: 20px;
+                                                    width: 20px;
                                                     height: 20px;
-                                                    "border : 5px BLUE;"
-                                                    "border-style : dotted;"
+                                                    border : 5px BLUE;
+                                                    border-style : groove;
+
     }
                                     QRadioButton::indicator:checked {
-                                                    background-color: blue;
-                                                    border: 2px solid blue;
+        background-color: blue;
+        border : 5px solid white;
+
+}
         QRadioButton::indicator:unchecked {
-        "border : 2px blue;"
-        "border-style : dotted;"
-    }}
-    """,)
+        background-color : white;
+        border : 5px solid blue;
+
+
+    }
+    """)
+        radiobutton2 = QRadioButton("Radiobutton 4")
+        radiobutton2.setStyleSheet("""QRadioButton {
+                                font-size: 20px;
+                                color: black;
+                                border : 1px solid black;
+                                border-radius : 5px;
+    }
+                                QRadioButton::indicator {
+                                border : 1px solid black;
+                                width : 25;
+                                height : 12;
+                                border-radius : 7;
+                                background-color: white;
+
+                               }
+
+                               QCheckBox::indicator:checked {
+
+
+                                  background-color: black;
+                               }
+                                QCheckBox::indicator:unchecked {
+                                  background-color: white;
+                                   }
+                                   """)
+        radiobutton3 = QRadioButton("Radiobutton 5")
+        radiobutton3.setStyleSheet("""QRadioButton {
+                                font-size: 10px;
+                                color: black;
+
+    }
+                            QRadioButton::indicator {
+                                border : 1px solid black;
+                               }
+
+                               QCheckBox::indicator:checked {
+                                  background-color: black;
+                               }
+                                QCheckBox::indicator:unchecked {
+                                  background-color: white;}
+                                   """)
+
         vbox.addWidget(radiobutton1)
+        vbox.addWidget(radiobutton2)
+        vbox.addWidget(radiobutton3)
+
         self.setLayout(vbox)
 
         self.setWindowTitle('Radio Buttons ')
