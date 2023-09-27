@@ -26,38 +26,36 @@ class Window(QWidget):
         layout = QVBoxLayout(self)
 
         red_progressbar1 = ProgressBar(self, minimum=0, maximum=100)
-        red_progressbar1.setObjectName("RedProgressBar")
         red_progressbar1.setStyleSheet('''
-            QProgressBar#RedProgressBar {
+            QProgressBar{
                 text-align: center;
             }
-            QProgressBar#RedProgressBar::chunk {
+            QProgressBar::chunk {
                 background-color: #F44336;
             }
         ''')
         layout.addWidget(red_progressbar1)
 
         red_progressbar2 = ProgressBar(self, minimum=0, maximum=0)
-        red_progressbar2.setObjectName("RedProgressBar")
         red_progressbar2.setStyleSheet('''
-            QProgressBar#RedProgressBar {
+            QProgressBar{
                 text-align: center;
             }
-            QProgressBar#RedProgressBar::chunk {
+            QProgressBar::chunk {
                 background-color: #F44336;
             }
         ''')
         layout.addWidget(red_progressbar2)
 
         green_progressbar1 = ProgressBar(self, minimum=0, maximum=100)
-        green_progressbar1.setObjectName("GreenProgressBar")
         green_progressbar1.setStyleSheet('''
-            QProgressBar#GreenProgressBar {
+            QProgressBar {
                 min-height: 12px;
                 max-height: 12px;
+                text-align: center;
                 border-radius: 6px;
             }
-            QProgressBar#GreenProgressBar::chunk {
+            QProgressBar::chunk {
                 border-radius: 6px;
                 background-color: #009688;
             }
@@ -65,14 +63,14 @@ class Window(QWidget):
         layout.addWidget(green_progressbar1)
 
         green_progressbar2 = ProgressBar(self, minimum=0, maximum=0)
-        green_progressbar2.setObjectName("GreenProgressBar")
         green_progressbar2.setStyleSheet('''
-            QProgressBar#GreenProgressBar {
+            QProgressBar {
                 min-height: 12px;
                 max-height: 12px;
+                text-align: center;
                 border-radius: 6px;
             }
-            QProgressBar#GreenProgressBar::chunk {
+            QProgressBar::chunk {
                 border-radius: 6px;
                 background-color: #009688;
             }
@@ -80,14 +78,14 @@ class Window(QWidget):
         layout.addWidget(green_progressbar2)
 
         blue_progressbar1 = ProgressBar(self, minimum=0, maximum=100)
-        blue_progressbar1.setObjectName("BlueProgressBar")
         blue_progressbar1.setStyleSheet('''
-            QProgressBar#BlueProgressBar {
+            QProgressBar{
                 border: 2px solid #2196F3;
+                text-align: center;
                 border-radius: 5px;
                 background-color: #E0E0E0;
             }
-            QProgressBar#BlueProgressBar::chunk {
+            QProgressBar::chunk {
                 background-color: #2196F3;
                 width: 10px;
                 margin: 0.5px;
@@ -96,14 +94,14 @@ class Window(QWidget):
         layout.addWidget(blue_progressbar1)
 
         blue_progressbar2 = ProgressBar(self, minimum=0, maximum=0)
-        blue_progressbar2.setObjectName("BlueProgressBar")
         blue_progressbar2.setStyleSheet('''
-            QProgressBar#BlueProgressBar {
+            QProgressBar{
                 border: 2px solid #2196F3;
+                text-align: center;
                 border-radius: 5px;
                 background-color: #E0E0E0;
             }
-            QProgressBar#BlueProgressBar::chunk {
+            QProgressBar::chunk {
                 background-color: #2196F3;
                 width: 10px;
                 margin: 0.5px;
