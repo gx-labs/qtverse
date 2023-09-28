@@ -11,7 +11,8 @@ class MyWidget(QWidget):
         layout = QVBoxLayout()
 
         self.slider1 = QSlider(Qt.Horizontal)
-        self.slider1.setMinimumSize(300, 40) 
+        self.slider1.setMinimumSize(300, 40)
+        self.slider1.setValue(50) 
         self.slider1.setStyleSheet("""
                                     QSlider {
                                         border: none;
@@ -43,6 +44,7 @@ class MyWidget(QWidget):
 
         self.slider2 = QSlider(Qt.Horizontal)
         self.slider2.setMinimumSize(300, 40)
+        self.slider2.setValue(50)
         self.slider2.setStyleSheet("""
                                     QSlider::groove:horizontal {
                                         border: 1px solid #999999;
@@ -68,6 +70,7 @@ class MyWidget(QWidget):
         """)
         self.slider3 = QSlider(Qt.Horizontal)
         self.slider3.setMinimumSize(300, 40)
+        self.slider3.setValue(50)
         self.slider3.setStyleSheet("""
                                     QSlider::groove:horizontal {
                                         border: 1px solid #999999;
@@ -98,6 +101,7 @@ class MyWidget(QWidget):
         """)
         self.slider4 = QSlider(Qt.Horizontal)
         self.slider4.setMinimumSize(300, 40)
+        self.slider4.setValue(50)
         self.slider4.setStyleSheet("""
                                     QSlider::groove:horizontal {
                                         height: 6px;
@@ -129,11 +133,41 @@ class MyWidget(QWidget):
                                     }
         """)
 
+        self.slider5 = QSlider(Qt.Horizontal)
+        self.slider5.setMinimumSize(300, 40)
+        self.slider5.setValue(50)
+        self.slider5.setStyleSheet("""
+                                    QSlider::groove:horizontal {
+                                        border-radius: 5px;
+                                        height: 10px;
+                                        margin: 0px;
+                                        background-color: rgb(52, 59, 72);
+                                    }
+                                    QSlider::groove:horizontal:hover {
+                                        background-color: rgb(55, 62, 76);
+                                    }
+                                    QSlider::handle:horizontal {
+                                        background-color: rgb(189, 147, 249);
+                                        border: none;
+                                        height: 10px;
+                                        width: 10px;
+                                        margin: 0px;
+                                        border-radius: 5px;
+                                    }
+                                    QSlider::handle:horizontal:hover {
+                                        background-color: rgb(195, 155, 255);
+                                    }
+                                    QSlider::handle:horizontal:pressed {
+                                        background-color: rgb(255, 121, 198);
+                                    }
+        """)
+
         self.setLayout(layout)
         layout.addWidget(self.slider1, alignment=Qt.AlignCenter)
         layout.addWidget(self.slider2, alignment=Qt.AlignCenter)
         layout.addWidget(self.slider3, alignment=Qt.AlignCenter)
         layout.addWidget(self.slider4, alignment=Qt.AlignCenter)
+        layout.addWidget(self.slider5, alignment=Qt.AlignCenter)
 
 def main():
     app = QApplication(sys.argv)

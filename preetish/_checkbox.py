@@ -86,6 +86,22 @@ class MyWidget(QWidget):
                                         }
         """)
         self.checkbox3 = QCheckBox()
+        self.checkbox3.setStyleSheet("""
+                                        QCheckBox::indicator {
+                                            border: 3px solid rgb(52, 59, 72);
+                                            width: 15px;
+                                            height: 15px;
+                                            border-radius: 10px;
+                                            background: rgb(44, 49, 60);
+                                        }
+                                        QCheckBox::indicator:hover {
+                                            border: 3px solid rgb(58, 66, 81);
+                                        }
+                                        QCheckBox::indicator:checked {
+                                            background: 3px solid red;
+                                            border: 3px solid rgb(52, 59, 72);	
+                                        }
+        """)
         self.checkbox4 = QCheckBox()
         self.checkbox5 = QCheckBox()
 
