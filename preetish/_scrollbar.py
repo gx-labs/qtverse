@@ -145,6 +145,26 @@ class MyWidget(QWidget):
         self.H_scrollbar4 = QScrollBar(Qt.Horizontal)
         self.H_scrollbar4.setMinimumSize(300,10)
         self.H_scrollbar4.setStyleSheet("""
+                                            QScrollBar:horizontal {
+                                                border: none;
+                                                background: #F5F5F5;
+                                                height: 12px;
+                                                margin: 0px 20px 0 20px;
+                                                border-radius: 10px;
+                                            }
+                                            QScrollBar::handle:horizontal {
+                                                background: red;
+                                                min-width: 30px;
+                                                border-radius: 30px;
+                                            }
+                                            QScrollBar::add-line:horizontal {
+                                                border: none;
+                                                background: none;
+                                            }
+                                            QScrollBar::sub-line:horizontal {
+                                                border: none;
+                                                background: none;
+                                            }
         """)
 
         self.H_scrollbar5 = QScrollBar(Qt.Horizontal)

@@ -61,17 +61,17 @@ class MyWidget(QWidget):
         self.button3.setMinimumSize(200, 60) 
         self.button3.setMaximumSize(400, 120)
         self.button3.setStyleSheet("""
-                                    QPushButton{
-                                        background-color: red;
-                                        color: black;
-                                        border-radius: 10em;
-                                        font-weight: 500;
-                                        font: 12pt "STIX MathJax Fraktur";
-                                        padding: 1em 2em;
-                                        cursor: pointer;
-                                        transition: all 0.3s ease-in-out;
-                                        border: 1px solid black;
-                                        box-shadow: 0 0 0 0 black;
+                                    QPushButton {
+                                        color: orange;
+                                        background-color: qlineargradient(spread:pad, x1:0.492, y1:0, x2:0.507, y2:1, stop:0 rgba(15, 32, 39, 98), stop:0.513924 rgba(20, 40, 49, 170), stop:1 rgba(26, 50, 60, 147));
+                                        border: none;
+                                    }
+
+                                    QPushButton::hover{
+                                        color: rgba(20, 40, 49, 170);
+                                        background-color: ;
+                                            background-color: qlineargradient(spread:pad, x1:0.248473, y1:0.483, x2:1, y2:0, stop:0.208955 rgba(131, 62, 40, 231), stop:1 rgba(163, 13, 23, 248));
+                                        border: none;
                                     }
                 """)     
 
