@@ -70,6 +70,21 @@ class PracWidget(QWidget):
                                    color: darkblue;
                                    }
                                    ''')
+
+        self.button5 = QPushButton("Commercial Trial")
+        self.button5.setStyleSheet('''QPushButton{
+                                   font-weight: bold;
+                                   font-size: 13pt;
+                                   color:blue;
+                                   background: #FAF9F6;
+                                   border: 2px solid blue;
+                                   border-radius: 14px;
+                                   padding: 10px;
+                                   }
+                                   QPushButton:Pressed{
+                                   background: grey;
+                                   }
+                                   ''')
         
 
 
@@ -78,6 +93,7 @@ class PracWidget(QWidget):
         self.layout.addWidget(self.button2)
         self.layout.addWidget(self.button3)
         self.layout.addWidget(self.button4)
+        self.layout.addWidget(self.button5)
         self.setLayout(self.layout)
 
 def main():
