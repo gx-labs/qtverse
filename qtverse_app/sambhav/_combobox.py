@@ -47,9 +47,68 @@ class ComboboxWidget(QWidget):
 
         ''')
 
+        self.combobox2 = QComboBox()
+        self.combobox2.addItems(["File 1", "File 2", "File 3"])
+        self.combobox2.setStyleSheet('''
+                                     QComboBox{
+                                        border: 1px solid blue;
+                                        border-radius: 8px;
+                                        padding: 1px 18px 1px 3px;
+                                        min-width: 10em;
+                                        background-color: orange;
+                                        font-size: 14px; 
+                                    }
+                                     QComboBox:drop-down{
+                                        subcontrol-origin: padding;
+                                        subcontrol-position: top right;
+                                        width: 15px;
+                                        height: 20px;
+                                        border-radius: 8px;
+                                        border: 2px solid blue;
+                                    }
+                                     QcomboBox:down-arrow{
+                                        image: url(sambhav\images\downarrow.png);
+                                    }
+                                     QComboBox QAbstractItemView {
+                                        border: 2px solid darkgray;
+                                        selection-background-color: #20b2aa;
+                                    }
+                                     QListView{
+                                        border: none;
+                                        color: #5a6e79;
+                                        font-weight: bold;
+                                        background-color: #ADD8E6;
+                                    }
+        ''')
+
+        self.combobox3 = QComboBox()
+        self.combobox3.addItems(["File 1", "File 2", "File 3"])
+        self.combobox3.setStyleSheet('''
+                                     QComboBox{
+                                        border: 1px solid gray;
+                                        border-radius: 8px;
+                                        padding: 1px 18px 1px 3px;
+                                        min-width: 6em;
+                                        background-color: transparent;
+                                        font-size: 14px; 
+                                    }
+                                     QComboBox:drop-down{
+                                        background-color: #32CD32;
+                                        border-radius: 4px;
+                                    }
+                                     QComboBox:down-arrow{
+                                        image: url(sambhav\images\downarrow.png);
+                                    }
+                                     QComboBox:down-arrow:hover{
+                                        background-color: #228B22;
+                                    }
+        ''')
+
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.label_combo, alignment = Qt.AlignLeft)
         self.layout.addWidget(self.combobox1, alignment = Qt.AlignCenter)
+        self.layout.addWidget(self.combobox2, alignment = Qt.AlignCenter)
+        self.layout.addWidget(self.combobox3, alignment = Qt.AlignCenter)
         self.setLayout(self.layout)
 
 def main():
