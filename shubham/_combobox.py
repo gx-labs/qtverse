@@ -109,7 +109,7 @@ class ComboBoxApp(QWidget):
             QComboBox QAbstractItemView {
                 background-color: pink;
                 border: 1px solid #dddddd;
-                selection-background-color: red;
+                selection-background-color: blue;
 
                                         }
             """
