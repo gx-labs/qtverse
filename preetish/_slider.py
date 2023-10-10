@@ -14,30 +14,21 @@ class MyWidget(QWidget):
         self.slider1.setMinimumSize(300, 40)
         self.slider1.setValue(50) 
         self.slider1.setStyleSheet("""
-                                    QSlider {
-                                        border: none;
-                                        background: #D5DBE1;
-                                        height: 10px;
-                                        border-radius: 5px;
-                                        opacity: 0.7;
-                                        transition: opacity .2s;
+                                    QSlider::groove:horizontal {
+                                        border: 1px solid #555555;
+                                        height: 6px;
+                                        background: #CFD8DC;
+                                        margin: 2px 0;
+                                        border-radius: 2px;
                                     }
-
-                                    QSlider::handle {
-                                        width: 15px;
-                                        height: 15px;
-                                        border-radius: 50%;
-                                        background-color: #000000;
-                                    }
-
-                                    QSlider::handle:pressed {
-                                        background-color: #000000;
-                                        margin-left: -5px; /* Add a slight animation effect when pressed */
-                                    }
-
-                                    QSlider::handle:hover {
-                                        background-color: #000000;
-                                        box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.16);
+                                    
+                                    QSlider::handle:horizontal {
+                                        background: #37474F;
+                                        border: 1px solid #263238;
+                                        width: 12px;
+                                        height: 12px;
+                                        margin: -4px 0;
+                                        border-radius: 2px;
                                     }
         """)
 
