@@ -6,7 +6,7 @@ class MyWidget(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("CheckBoxes")
+        self.setWindowTitle("Sliders")
         self.setFixedSize(800,800)
         layout = QVBoxLayout()
 

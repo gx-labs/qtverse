@@ -1,6 +1,7 @@
 import sys
 from PySide2.QtWidgets import *
 from PySide2.QtCore import *
+from PySide2.QtGui import *
 
 class MyWidget(QWidget):
     def __init__(self):
@@ -122,59 +123,54 @@ class MyWidget(QWidget):
         """)
 
         self.spinbox3 = QSpinBox()
-        self.spinbox3.setAlignment(Qt.AlignHCenter)
-        self.spinbox3.setGeometry(135, 80, 30, 64)
+        self.spinbox3.setAlignment(Qt.AlignCenter)
+        self.spinbox3.setGeometry(0, 0, 200, 200)
         self.spinbox3.setStyleSheet("""
-                                        QSpinBox {
-                                            background: #2c2c2c;
-                                            margin: 5px 0;
-                                            padding: 5px 0;
+                                        QSpinBox
+                                        {
+                                            border: none;
+
+                                            padding-right: 0px;
+                                            padding-left: 0px;
+                                            padding-top: 20px;
+                                            padding-bottom: 20px;
+
+                                            background-image: url(:/Images/CustomSpinBox/SpinBoxBody.png);
+                                            background-color: rgba(0, 0, 0, 0);
+                                            background-repeat: no-repeat;
+                                            background-position: center;
+                                            background-clip: content;
+
                                         }
-                                        
-                                        QSpinBox::down-button,
-                                        QSpinBox::up-button {
-                                            width: 200px;
-                                            height: 10px;
-                                            background-color: #444;
-                                            subcontrol-origin: border;
+
+                                        QSpinBox::up-button
+                                        {
+                                            min-width: 40px;
+                                            min-height: 40px;
+
+                                            top: 25px;
+
+                                            background-image: url(:/Images/CustomSpinBox/SpinBoxPlus.png);
+                                            background-repeat: no-repeat;
+                                            background-position: top center;
+
+                                            subcontrol-position: top center; 
+                                            subcontrol-origin: padding;
                                         }
-                                        
-                                        QSpinBox::up-button {
-                                            subcontrol-position: top center;
-                                        }
-                                        
-                                        QSpinBox::down-button {
-                                            subcontrol-position: bottom center;
-                                        }
-                                        
-                                        QSpinBox::up-arrow,
-                                        QSpinBox::down-arrow{
-                                            width: 12px;
-                                            height: 12px;
-                                            bottom: 3px;
-                                            background-color: transparent;
-                                            image: url(":/icons/QSpinBox/arrow-drop-up-line.png");
-                                        }
-                                        
-                                        QSpinBox::down-arrow{
-                                            top: 3px;
-                                            image: url(":/icons/QSpinBox/arrow-drop-down-line.png");
-                                        }
-                                        
-                                        QSpinBox::up-arrow:hover{
-                                            image: url(":/icons/QSpinBox/arrow-drop-up-line_hover.png");
-                                        }
-                                        
-                                        QSpinBox::down-arrow:hover{
-                                            image: url(":/icons/QSpinBox/arrow-drop-down-line_hover.png");
-                                        }
-                                        
-                                        QSpinBox::up-arrow:pressed{
-                                            image: url(":/icons/QSpinBox/arrow-drop-up-line.png");
-                                        }
-                                        
-                                        QSpinBox::down-arrow:pressed{
-                                            image: url(":/icons/QSpinBox/arrow-drop-down-line.png");
+
+                                        QSpinBox::down-button
+                                        {
+                                            min-width: 40px;
+                                            min-height: 40px;
+
+                                            bottom: 25px;
+
+                                            background-image: url(:/Images/CustomSpinBox/SpinBoxMinus.png);
+                                            background-repeat: no-repeat;
+                                            background-position: bottom center;
+
+                                            subcontrol-position: bottom  center;
+                                            subcontrol-origin: padding;
                                         }
         """)
 
