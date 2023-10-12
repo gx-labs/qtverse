@@ -1,10 +1,16 @@
 import sys
-from PySide2.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem,QVBoxLayout, QWidget
+import os
+from PySide2.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem, QHBoxLayout, QWidget, QTabWidget, QVBoxLayout
 
-from uis.signupPage import signupPage
-from uis.psutilManager import psutilManager
-from uis.tabs import tabs
-from uis.stackedWidget import stackedWidget
+current_dir = os.path.dirname(os.path.realpath(__file__))
+parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+sys.path.append(parent_dir)
+
+from psutilManager.psutilManager import psutilManager
+from signupPage.signupPage import signupPage
+from snippets.tabs import tabs
+from snippets.stackedWidget import stackedWidget
+
 
 class pyviewer(QWidget):
     def __init__(self):
@@ -64,6 +70,7 @@ class pyviewer(QWidget):
     def on_itemClicked(self,item,cloumn):
         if item.text(0) == 'psutilManager.py':
             self.on_psutilManager()
+            
         elif item.text(0) == 'signupPage.py':
             self.on_signupPage()
         elif item.text(0) == 'tabs.py':
