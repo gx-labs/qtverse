@@ -1,0 +1,22 @@
+website:
+  - WIDGETS:
+    - Buttons
+    - Checkbox
+    - Sliders
+    - Progress Bars
+    - Dropdowns
+  - UTILITY:
+    - Seach Bars
+    - Input Bars
+    - Notification Widgets 
+    - Forms 
+    - Radio Button Group
+  - ADVANCED:
+    - Information Widgets
+    - Navigation Widgets
+    - Dashboard Widgets
+  - APPS:
+    - app stylesheets
+    - themes
+    - PALLETE
+  - BOIPLERPLATE:
