@@ -1,10 +1,7 @@
-"""
-auto population of data in tree widget 
-"""
 import os
 import sys
-import importlib
 from PySide2.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget
+import importlib.util
 
 class pyviewer(QWidget):
     def __init__(self):
@@ -19,45 +16,56 @@ class pyviewer(QWidget):
         # tree widget
         self.tree_widget = QTreeWidget(self)
         main_layout.addWidget(self.tree_widget)
-        self.tree_widget.setHeaderLabels([''])
+        self.tree_widget.setHeaderLabels(['pyviewer'])
         self.tree_widget.itemClicked.connect(self.on_itemClicked)
 
-        self.root_path = 'C:\\pyviewer'
-        self.item_actions = {}
+        self.root_path = 'C:\\PROJECTS\\PySide\\qtverse\\esha\\uis'
+        self.item_actions = {}   # storing actions associated with tree items
+        self.ui_instance = None  # storing a reference to the ui instance
 
-        self.tree_items()
+        self.tree_items(self.root_path, self.tree_widget)
 
-    def tree_items(self):
-        for parentItem, subItem, filenames in os.walk(self.root_path):
-            parent = QTreeWidgetItem(self.tree_widget)
-            parent.setText(0, os.path.basename(parentItem))
-            for filename in filenames:
-                if filename.endswith('.py'):
-                    child = QTreeWidgetItem(parent)
-                    child.setText(0, filename)
-                    self.item_actions[filename] = self.create_action_function(filename, parentItem)
+    def tree_items(self, path, parent):   # recursively populating the tree widget with items
+        for entry in os.listdir(path):   # loops over entries in current directory 
+            entry_path = os.path.join(path, entry)
+            if os.path.isdir(entry_path) and not entry.endswith("__pycache__"): # creates parent item and calls tree_items recursively for the subdirectory
+                parentItem = QTreeWidgetItem(parent)
+                parentItem.setText(0, entry)
+                self.tree_items(entry_path, parentItem)
+            elif entry.endswith('.py') and not entry.endswith('.pyc'): # creates child item 
+                child = QTreeWidgetItem(parent)
+                child.setText(0, entry)
+                self.item_actions[entry] = self.action_function(entry, path) #associates action with the child item 
 
-    def create_action_function(self, filename, parentItem):
+    def action_function(self, filename, parent_path):
         def action():
-            class_name = os.path.splitext(filename)[0]
-            module_path = f'pyviewer.{parentItem}.{class_name.lower()}'
-            module = importlib.import_module(module_path)
-            ui_class = getattr(module, class_name)
-            ui_instance = ui_class()
-            ui_instance.show()
+            class_name = os.path.splitext(filename)[0] #extracting the class name 
+            module_path = os.path.join(parent_path, f'{class_name.lower()}.py') # constructing the module path 
+
+            try:
+                spec = importlib.util.spec_from_file_location(class_name, module_path)
+                module = importlib.util.module_from_spec(spec)  # creates an empty module
+                spec.loader.exec_module(module) # executes the module 
+
+                ui_class = getattr(module, class_name)
+                ui_instance = ui_class()
+                ui_instance.show()
+                self.ui_instance = ui_instance  
+            except Exception as e:
+                print(f"Error: {e}")
 
         return action
 
     def on_itemClicked(self, item, column):
-        filename = os.path.basename(item.text(0))
+        filename = item.text(0)
         action = self.item_actions.get(filename)
         if action:
             action()
 
 def main():
     app = QApplication([])
-    main = pyviewer()
-    main.show()
+    main_window = pyviewer()
+    main_window.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
