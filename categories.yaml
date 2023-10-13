@@ -1,30 +1,36 @@
 website:
   - WIDGETS:
-    - Buttons
-    - Checkbox
-    - Sliders
-    - Progress Bars
-    - Dropdowns
+    - button: Buttons
+    - checkbox: Checkbox
+    - slider: Sliders
+    - progress_bar: Progress Bars
+    - dropdown: Dropdowns
   - UTILITY:
-    - Seach Bars
-    - Input Bars
-    - Notification Widgets 
-    - Forms 
-    - Radio Button Group
+    - search_bar: Seach Bars
+    - input_bar: Input Bars
+    - notificaition: Notification Widgets 
+    - form: Forms 
+    - radio_button_grp: Radio Button Group
   - ADVANCED:
-    - Information Widgets
-    - Navigation Widgets
-    - Dashboard Widgets
+    - info_widget: Information Widgets
+    - nav_widget: Navigation Widgets
+    - dashboard: Dashboard Widgets
   - APPS:
-    - app stylesheets
-    - themes
-    - PALLETE
+    - app: app stylesheets
+    - theme: themes
+    - pallete: PALLETE
   - BOIPLERPLATE:
 
-
+# info.yaml parameters reference:
+developers:
+  - ESH: esha
+  - PRT: preetish
+  - SHB: shubham
+  - SMB: sambhav
 name: widget_name_for_user
 approval_status:
   - wip
   - submitted
   - review
   - approved
+
