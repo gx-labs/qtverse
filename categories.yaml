@@ -20,3 +20,11 @@ website:
     - themes
     - PALLETE
   - BOIPLERPLATE:
+
+
+name: widget_name_for_user
+approval_status:
+  - wip
+  - submitted
+  - review
+  - approved
