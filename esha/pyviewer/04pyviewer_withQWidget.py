@@ -1,6 +1,6 @@
 import os
 import sys
-from PySide2.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget
+from PySide2.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem, QHBoxLayout, QWidget
 import importlib.util
 
 class pyviewer(QWidget):
@@ -9,8 +9,8 @@ class pyviewer(QWidget):
 
         # main layout
         self.setWindowTitle('pyviewer')
-        self.setFixedSize(1000, 800)
-        main_layout = QVBoxLayout(self)
+        self.setFixedSize(1400, 800)
+        main_layout = QHBoxLayout(self)
         self.setLayout(main_layout)
 
         # tree widget
@@ -19,27 +19,32 @@ class pyviewer(QWidget):
         self.tree_widget.setHeaderLabels(['pyviewer'])
         self.tree_widget.itemDoubleClicked.connect(self.on_itemDoubleClicked)
 
+        # content widget to display UI instances
+        self.content_widget = QWidget(self)
+        main_layout.addWidget(self.content_widget)
+        self.content_layout = QHBoxLayout(self.content_widget)
+        self.content_layout.setContentsMargins(0, 0, 0, 0)
+
         self.root_path = 'C:\\PROJECTS\\PySide\\qtverse\\esha\\uis'
         self.item_actions = {}   # storing actions associated with tree items
-        # self.ui_instance = None  # storing a reference to the ui instance
 
         self.tree_items(self.root_path, self.tree_widget)
 
     def tree_items(self, path, parent):   # recursively populating the tree widget with items
-        for entry in os.listdir(path):   # loops over entries in current directory 
+        for entry in os.listdir(path):   # loops over entries in the current directory
             entry_path = os.path.join(path, entry)
             if os.path.isdir(entry_path) and not entry.endswith("__pycache__"): # creates parent item and calls tree_items recursively for the subdirectory
                 parentItem = QTreeWidgetItem(parent)
                 parentItem.setText(0, entry)
                 self.tree_items(entry_path, parentItem)
-            elif entry.endswith('.py') and not entry.endswith('.pyc'): # creates child item 
+            elif entry.endswith('.py') and not entry.endswith('.pyc'): # creates a child item
                 child = QTreeWidgetItem(parent)
                 child.setText(0, entry)
-                self.item_actions[entry] = self.action_function(entry, path) #associates action with the child item 
+                self.item_actions[entry] = self.action_function(entry, path) # associates action with the child item
 
     def action_function(self, filename, parent_path):    
         def action():
-            class_name = os.path.splitext(filename)[0] #extracting the class name 
+            class_name = os.path.splitext(filename)[0] # extracting the class name 
             module_path = os.path.join(parent_path, f'{class_name.lower()}.py') # constructing the module path 
 
             try:
@@ -49,9 +54,16 @@ class pyviewer(QWidget):
 
                 ui_class = getattr(module, class_name)
                 ui_instance = ui_class()
-                ui_instance.show()
-                self.ui_instance = ui_instance  
-                        
+
+                # clears the content layout and add the new ui instance
+                while self.content_layout.count():
+                    item = self.content_layout.takeAt(0)
+                    widget = item.widget()
+                    if widget:
+                        widget.setParent(None)
+
+                self.content_layout.addWidget(ui_instance)
+
             except Exception as e:
                 print(f"Error: {e}")
 

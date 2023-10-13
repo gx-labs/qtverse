@@ -11,10 +11,10 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 sys.path.append(parent_dir)
 
-from psutilManager.psutilManager import psutilManager
-from signupPage.signupPage import signupPage
-from snippets.tabs import tabs
-from snippets.stackedWidget import stackedWidget
+from uis.psutilManager.psutilManager import psutilManager
+from uis.signupPage.signupPage import signupPage
+from uis.snippets.tabs import tabs
+from uis.snippets.stackedWidget import stackedWidget
 
 class pyviewer(QWidget):
     def __init__(self):
