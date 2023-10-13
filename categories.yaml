@@ -1,0 +1,30 @@
+website:
+  - WIDGETS:
+    - Buttons
+    - Checkbox
+    - Sliders
+    - Progress Bars
+    - Dropdowns
+  - UTILITY:
+    - Seach Bars
+    - Input Bars
+    - Notification Widgets 
+    - Forms 
+    - Radio Button Group
+  - ADVANCED:
+    - Information Widgets
+    - Navigation Widgets
+    - Dashboard Widgets
+  - APPS:
+    - app stylesheets
+    - themes
+    - PALLETE
+  - BOIPLERPLATE:
+
+
+name: widget_name_for_user
+approval_status:
+  - wip
+  - submitted
+  - review
+  - approved
