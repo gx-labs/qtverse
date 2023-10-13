@@ -9,12 +9,13 @@ class pyviewer(QWidget):
 
         # main layout
         self.setWindowTitle('pyviewer')
-        self.setFixedSize(1400, 800)
+        self.setFixedSize(1200,800)
         main_layout = QHBoxLayout(self)
         self.setLayout(main_layout)
 
         # tree widget
         self.tree_widget = QTreeWidget(self)
+        self.tree_widget.setFixedSize(250,800)
         main_layout.addWidget(self.tree_widget)
         self.tree_widget.setHeaderLabels(['pyviewer'])
         self.tree_widget.itemDoubleClicked.connect(self.on_itemDoubleClicked)

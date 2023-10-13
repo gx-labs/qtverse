@@ -8,7 +8,7 @@ class psutilManager(QWidget):
         super().__init__()
 
         self.setWindowTitle("PSUTIL MANAGER")
-        self.setFixedSize(QSize(1000, 700))     
+        # self.setFixedSize(QSize(1000, 700))     
         self.windowLayout=QHBoxLayout()
         self.windowLayout.setContentsMargins(0,0,0,0)
         self.windowLayout.setSpacing(0)

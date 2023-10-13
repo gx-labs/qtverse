@@ -8,7 +8,7 @@ class stackedWidget(QWidget):
    def __init__(self):
       super().__init__()
      
-      self.setFixedSize(500,400)
+      # self.setFixedSize(500,400)
       #stacked widget
       self.stacked_widget = QStackedWidget(self)
 

@@ -9,7 +9,7 @@ class tabs(QMainWindow):
 
     def initUI(self):
         # central widget to hold the layout
-        self.setFixedSize(500,400)
+        # self.setFixedSize(500,400)
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
 
