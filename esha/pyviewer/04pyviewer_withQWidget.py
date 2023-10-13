@@ -33,11 +33,13 @@ class pyviewer(QWidget):
     def tree_items(self, path, parent):   # recursively populating the tree widget with items
         for entry in os.listdir(path):   # loops over entries in the current directory
             entry_path = os.path.join(path, entry)
+
             if os.path.isdir(entry_path) and not entry.endswith("__pycache__"): # creates parent item and calls tree_items recursively for the subdirectory
                 parentItem = QTreeWidgetItem(parent)
                 parentItem.setText(0, entry)
                 self.tree_items(entry_path, parentItem)
-            elif entry.endswith('.py') and not entry.endswith('.pyc'): # creates a child item
+
+            elif entry.endswith('.py'): # creates a child item
                 child = QTreeWidgetItem(parent)
                 child.setText(0, entry)
                 self.item_actions[entry] = self.action_function(entry, path) # associates action with the child item
