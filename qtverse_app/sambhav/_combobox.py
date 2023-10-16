@@ -69,15 +69,14 @@ class ComboboxWidget(QWidget):
                                      QcomboBox:down-arrow{
                                         image: url(sambhav\images\downarrow.png);
                                     }
-                                     QComboBox QAbstractItemView {
-                                        border: 2px solid darkgray;
-                                        selection-background-color: #20b2aa;
-                                    }
+                                    
                                      QListView{
-                                        border: none;
+                                        
                                         color: #5a6e79;
                                         font-weight: bold;
                                         background-color: #ADD8E6;
+                                        border: 5px solid darkgray;
+                                        selection-background-color: #20b2aa;
                                     }
         ''')
 

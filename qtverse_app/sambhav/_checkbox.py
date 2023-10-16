@@ -14,7 +14,6 @@ class CheckboxWidget(QWidget):
         self.checkbox1 = QCheckBox("Hit me up")
         self.checkbox1.setStyleSheet('''QCheckBox{
                                      font: bold italic "Times New Roman";
-                                     color: black;
                                      }
                                      ''')
         
