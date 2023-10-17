@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import *
+from PySide2.QtWidgets import *
 
 class StyledGroupBoxExample(QWidget):
     def __init__(self):

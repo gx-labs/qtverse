@@ -103,6 +103,8 @@ class MyWidget(QWidget):
                                         }
         """)
         self.checkbox4 = QCheckBox()
+        self.checkbox4.setStyleSheet("""
+        """)
         self.checkbox5 = QCheckBox()
 
 
