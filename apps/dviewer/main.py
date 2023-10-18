@@ -8,7 +8,7 @@ class pyviewer(QWidget):
         super().__init__()
 
         # main layout
-        self.setWindowTitle('pyviewer')
+        self.setWindowTitle('dviewer')
         self.setFixedSize(1200, 800)
         main_layout = QHBoxLayout(self)
         self.setLayout(main_layout)
@@ -17,7 +17,7 @@ class pyviewer(QWidget):
         self.tree_widget = QTreeWidget(self)
         self.tree_widget.setFixedSize(250, 800)
         main_layout.addWidget(self.tree_widget)
-        self.tree_widget.setHeaderLabels(['pyviewer'])
+        self.tree_widget.setHeaderLabels(['dviewer'])
         self.tree_widget.itemDoubleClicked.connect(self.on_itemDoubleClicked)
 
         # content widget to display UI instances
