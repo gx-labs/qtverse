@@ -9,13 +9,13 @@ class pyviewer(QWidget):
 
         # main layout
         self.setWindowTitle('pyviewer')
-        self.setFixedSize(1200,800)
+        self.setFixedSize(1200, 800)
         main_layout = QHBoxLayout(self)
         self.setLayout(main_layout)
 
         # tree widget
         self.tree_widget = QTreeWidget(self)
-        self.tree_widget.setFixedSize(250,800)
+        self.tree_widget.setFixedSize(250, 800)
         main_layout.addWidget(self.tree_widget)
         self.tree_widget.setHeaderLabels(['pyviewer'])
         self.tree_widget.itemDoubleClicked.connect(self.on_itemDoubleClicked)
@@ -27,12 +27,10 @@ class pyviewer(QWidget):
         self.content_layout.setContentsMargins(0, 0, 0, 0)
 
         self.root_path = 'C:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\developed\\src\\WIDGETS'
-        self.item_actions = {}   # storing actions associated with tree items
-
         self.tree_items(self.root_path, self.tree_widget)
 
-    def tree_items(self, path, parent):   # recursively populating the tree widget with items
-        for entry in os.listdir(path):   # loops over entries in the current directory
+    def tree_items(self, path, parent): # recursively populating the tree widget with items
+        for entry in os.listdir(path): # loops over entries in the current directory
             entry_path = os.path.join(path, entry)
 
             if os.path.isdir(entry_path) and not entry.endswith("__pycache__"): # creates parent item and calls tree_items recursively for the subdirectory
@@ -40,15 +38,15 @@ class pyviewer(QWidget):
                 parentItem.setText(0, entry)
                 self.tree_items(entry_path, parentItem)
 
-            elif entry.endswith('.py'): # creates a child item
+            elif entry.endswith('.py'): #create child item
                 child = QTreeWidgetItem(parent)
                 child.setText(0, entry)
-                self.item_actions[entry] = self.action_function(entry, path) # associates action with the child item
+                action = self.action_function(entry_path)
+                child.setData(0, 1, action)  # Storing action function as item data
 
-    def action_function(self, filename, parent_path):    
+    def action_function(self, module_path):    
         def action():
-            class_name = os.path.splitext(filename)[0] # extracting the class name 
-            module_path = os.path.join(parent_path, f'{class_name.lower()}.py') # constructing the module path 
+            class_name = os.path.splitext(os.path.basename(module_path))[0]  # extracting the class name 
 
             try:
                 spec = importlib.util.spec_from_file_location(class_name, module_path)
@@ -73,8 +71,7 @@ class pyviewer(QWidget):
         return action
 
     def on_itemDoubleClicked(self, item, column):
-        filename = item.text(0)
-        action = self.item_actions.get(filename)
+        action = item.data(0, 1)
         if action:
             action()
 
