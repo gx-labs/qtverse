@@ -1,0 +1,38 @@
+categories:
+  - WIDGETS:
+    - button: 
+      - name: Buttons
+      - class: QPushButton
+    - checkbox: Checkbox
+    - slider: Sliders
+    - progress_bar: Progress Bars
+    - dropdown: Dropdowns
+  - UTILITY:
+    - search_bar: Seach Bars
+    - input_bar: Input Bars
+    - notificaition: Notification Widgets 
+    - form: Forms 
+    - radio_button_grp: Radio Button Group
+  - ADVANCED:
+    - info_widget: Information Widgets
+    - nav_widget: Navigation Widgets
+    - dashboard: Dashboard Widgets
+  - APPS:
+    - app: app stylesheets
+    - theme: themes
+    - pallete: PALLETE
+  - BOIPLERPLATE:
+
+# info.yaml parameters reference:
+developers:
+  - ESH: esha
+  - PRT: preetish
+  - SHB: shubham
+  - SMB: sambhav
+name: widget_name_for_user
+status:
+  - wip
+  - submitted
+  - review
+  - approved
+

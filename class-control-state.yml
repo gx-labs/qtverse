@@ -1,0 +1,140 @@
+
+WIDGETS :
+  QLabel:
+    - base
+  QLineEdit:
+    - base
+    - hover
+    - focus
+    - read-only
+    - disabled
+  QTextEdit:
+    - base
+    - hover
+    - focus
+  QPushButton :
+    - base
+    - hover
+    - pressed
+    - focus
+  QToolTip:
+    - base
+
+  QComboBox:
+    - base
+    - hover
+    - focus
+    - editable
+    - on
+
+  QTabWidget:
+    - base
+    - pane
+    - tab-bar
+  QTabBar:
+    - tab
+    - tab:hover
+    - tab:selected
+    - tab:!selected
+    - tab:pressed
+    - tab:focus
+    - tab:top
+    - tab:bottom
+    - tab:left
+    - tab:right
+
+  QToolBox:
+    - base
+    - tab
+    - tab:hover
+    - tab:pressed
+    - tab:selected
+    - tab:!selected
+  QSpinBox:
+    - base
+    - hover
+    - focus
+
+Slider ProgressBar
+  QProgressBar:
+    - base
+    - chunk
+  QStatusBar:
+    - base
+    - item
+    -
+  QSlider:
+    - base
+    - groove
+    - handle
+    - groove:horizontal
+    - groove:vertical
+    - handle:horizontal
+    - handle:vertical
+    - add-page
+    - sub-page
+ScrollBar
+  QScrollBar:
+    - base
+    - hover
+    - handle
+    - handle:hover
+  QScrollArea:
+    - base
+
+
+
+
+
+
+Group :
+
+attributes :
+  COLOR:
+    color :
+    - multi : "red", "green", "blue", "yellow", "cyan", "magenta", "white", "black", "gray" - all light version of it
+    - color
+  BACKGROUND:
+    background:
+      - declaration :
+      - color
+  BORDER:
+    border :
+     - int
+     - multi : "solid", "gradient"
+     - color
+    border-style:
+      - multi
+    border-top:
+      - <line-width> || <line-style> || <color>
+      - int
+      - multi : "none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"
+      - color
+    border-top-width:
+      - int
+    border-top-style:
+      - multi
+    border-top-color:
+      - color
+    border-top-radius:
+      - percent
+  FONT :
+    font-style :
+      - multi : "normal", "italic", "oblique"
+    font-weight :
+      - multi : "normal", "bold", "lighter", "bolder"
+      - int : 100 - 900
+    font-family :
+      - multi : "serif", "sans-serif", "monospace", "cursive", "fantasy", "system-ui", "ui-serif", "ui-sans-serif", "ui-monospace", "ui-rounded", "emoji", "math", "fangsong"
+    font-kerning :
+      - multi : "auto", "normal", "none"
+    font-size :
+      - int
+
+
+
+
+
+
+
+
