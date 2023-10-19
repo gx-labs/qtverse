@@ -1,6 +1,8 @@
-website:
+categories:
   - WIDGETS:
-    - button: Buttons
+    - button: 
+      - name: Buttons
+      - class: QPushButton
     - checkbox: Checkbox
     - slider: Sliders
     - progress_bar: Progress Bars
@@ -28,7 +30,7 @@ developers:
   - SHB: shubham
   - SMB: sambhav
 name: widget_name_for_user
-approval_status:
+status:
   - wip
   - submitted
   - review
