@@ -58,14 +58,7 @@ QLineEdit:hover, QLineEdit:focus {
                 border-radius: 5px;
                 padding: 5px;
             }
-            
-            QLineEdit::placeholder {
-                color: blue;
-                font-style: italic;
-            }
-            QLineEdit::text {
-                color: blue;
-            }
+
         ''')
 
         self.setLayout(layout)

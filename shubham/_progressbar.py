@@ -35,7 +35,7 @@ QProgressBar::chunk {
                                                 border: 2px solid gray;
                                                 border-radius: 5px;
                                                 color: white;
-                                                text-align: center;
+                                                text-align: left;
                                             }
                                             QProgressBar::chunk {
                                                 background-color: red;
