@@ -1,0 +1,12 @@
+entity: WIDGETS
+type: button
+
+# for user
+name: blue button
+tags:
+
+# for development team
+developer: ESH
+status: approved
+
+
