@@ -1,10 +1,10 @@
 entity: WIDGETS
 cateory: Buttons
 
-name: blue button
+name: button
 
 
-developer: preetish
+developer: Preetish
 developer_tag: PRT
 approval_status: approved
 tags:
