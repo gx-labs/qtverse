@@ -18,10 +18,11 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.checkbox1 = QCheckBox("Check me")
-        self.checkbox1.setStyleSheet(css_data)
+        self.group_box1 = QGroupBox("Group Box 1")
+        self.group_box1.setStyleSheet(css_data)
+           
         self.setLayout(layout)
-        layout.addWidget(self.checkbox1, alignment=Qt.AlignCenter)
+        layout.addWidget(self.group_box1, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

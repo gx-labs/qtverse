@@ -1,6 +1,6 @@
 import os
 import sys
-from PySide2.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem, QHBoxLayout, QWidget
+from PySide2.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget
 import importlib.util
 
 class pyviewer(QWidget):
@@ -8,45 +8,39 @@ class pyviewer(QWidget):
         super().__init__()
 
         # main layout
-        self.setWindowTitle('dviewer')
-        self.setFixedSize(1200, 800)
-        main_layout = QHBoxLayout(self)
+        self.setWindowTitle('pyviewer')
+        self.setFixedSize(1000, 800)
+        main_layout = QVBoxLayout(self)
         self.setLayout(main_layout)
 
         # tree widget
         self.tree_widget = QTreeWidget(self)
-        self.tree_widget.setFixedSize(250, 800)
         main_layout.addWidget(self.tree_widget)
-        self.tree_widget.setHeaderLabels(['dviewer'])
+        self.tree_widget.setHeaderLabels(['pyviewer'])
         self.tree_widget.itemDoubleClicked.connect(self.on_itemDoubleClicked)
 
-        # content widget to display UI instances
-        self.content_widget = QWidget(self)
-        main_layout.addWidget(self.content_widget)
-        self.content_layout = QHBoxLayout(self.content_widget)
-        self.content_layout.setContentsMargins(0, 0, 0, 0)
+        self.root_path = 'C:\\PROJECTS\\PySide\\qtverse\\esha\\uis'
+        self.item_actions = {}   # storing actions associated with tree items
+        # self.ui_instance = None  # storing a reference to the ui instance
 
-        self.root_path = 'C:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\developed\\src\\WIDGETS'
         self.tree_items(self.root_path, self.tree_widget)
 
-    def tree_items(self, path, parent): # recursively populating the tree widget with items
-        for entry in os.listdir(path): # loops over entries in the current directory
+    def tree_items(self, path, parent):   # recursively populating the tree widget with items
+        for entry in os.listdir(path):   # loops over entries in current directory 
             entry_path = os.path.join(path, entry)
-
             if os.path.isdir(entry_path) and not entry.endswith("__pycache__"): # creates parent item and calls tree_items recursively for the subdirectory
                 parentItem = QTreeWidgetItem(parent)
                 parentItem.setText(0, entry)
                 self.tree_items(entry_path, parentItem)
-
-            elif entry.endswith('.py'): #create child item
+            elif entry.endswith('.py') and not entry.endswith('.pyc'): # creates child item 
                 child = QTreeWidgetItem(parent)
                 child.setText(0, entry)
-                action = self.action_function(entry_path)
-                child.setData(0, 1, action)  # Storing action function as item data
+                self.item_actions[entry] = self.action_function(entry, path) #associates action with the child item 
 
-    def action_function(self, module_path):    
+    def action_function(self, filename, parent_path):    
         def action():
-            class_name = os.path.splitext(os.path.basename(module_path))[0]  # extracting the class name 
+            class_name = os.path.splitext(filename)[0] #extracting the class name 
+            module_path = os.path.join(parent_path, f'{class_name.lower()}.py') # constructing the module path 
 
             try:
                 spec = importlib.util.spec_from_file_location(class_name, module_path)
@@ -55,23 +49,17 @@ class pyviewer(QWidget):
 
                 ui_class = getattr(module, class_name)
                 ui_instance = ui_class()
-
-                # clears the content layout and add the new ui instance
-                while self.content_layout.count():
-                    item = self.content_layout.takeAt(0)
-                    widget = item.widget()
-                    if widget:
-                        widget.setParent(None)
-
-                self.content_layout.addWidget(ui_instance)
-
+                ui_instance.show()
+                self.ui_instance = ui_instance  
+                        
             except Exception as e:
                 print(f"Error: {e}")
 
         return action
 
     def on_itemDoubleClicked(self, item, column):
-        action = item.data(0, 1)
+        filename = item.text(0)
+        action = self.item_actions.get(filename)
         if action:
             action()
 

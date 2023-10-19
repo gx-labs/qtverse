@@ -18,10 +18,13 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.checkbox1 = QCheckBox("Check me")
-        self.checkbox1.setStyleSheet(css_data)
+        self.slider2 = QSlider(Qt.Horizontal)
+        self.slider2.setMinimumSize(300, 40)
+        self.slider2.setValue(50)
+        self.slider2.setStyleSheet(css_data)
+
         self.setLayout(layout)
-        layout.addWidget(self.checkbox1, alignment=Qt.AlignCenter)
+        layout.addWidget(self.slider2, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

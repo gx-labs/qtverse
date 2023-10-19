@@ -18,10 +18,14 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.checkbox1 = QCheckBox("Check me")
-        self.checkbox1.setStyleSheet(css_data)
+        self.comboBox1 = QComboBox()
+        self.comboBox1.addItem("Option1")
+        self.comboBox1.addItem("Option2")
+        self.comboBox1.addItem("Option3")
+        self.comboBox1.setStyleSheet(css_data)
+
         self.setLayout(layout)
-        layout.addWidget(self.checkbox1, alignment=Qt.AlignCenter)
+        layout.addWidget(self.comboBox1, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

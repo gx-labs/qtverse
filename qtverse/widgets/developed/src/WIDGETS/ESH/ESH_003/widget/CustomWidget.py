@@ -18,10 +18,13 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.checkbox1 = QCheckBox("Check me")
-        self.checkbox1.setStyleSheet(css_data)
+        self.progressBar1 = QProgressBar(self)
+        self.progressBar1.setMinimumSize(300,40)
+        self.progressBar1.setValue(50)
+        self.progressBar1.setStyleSheet(css_data)
+
         self.setLayout(layout)
-        layout.addWidget(self.checkbox1, alignment=Qt.AlignCenter)
+        layout.addWidget(self.progressBar1, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

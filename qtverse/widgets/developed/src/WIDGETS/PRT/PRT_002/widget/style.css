@@ -1,13 +1,35 @@
-QPushButton{
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-weight: 500;
-    font: 12pt "STIX MathJax Fraktur";
-    background: #1F2937;
-    color: white;
-    border: none;
-    position: relative;
-    border-radius: 0.6em;
+QCheckBox {
+    background-color: transparent;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    padding: 5px;
+    color: #3498db;
 }
 
-QPushButton:hover{
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2980b9, stop:1 #1f618d);
+QCheckBox::indicator {
+    width: 20px;
+    height: 20px;
+    transform-origin: center;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #3498db;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    animation: flip 0.5s;
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: transparent;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(180deg);
+    }
+}
