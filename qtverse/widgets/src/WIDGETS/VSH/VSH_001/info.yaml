@@ -1,0 +1,12 @@
+cateory: button
+entity: WIDGETS
+
+# for user
+name: blue button
+tags:
+
+# for development team
+creator_tag: VSH
+approval_status: approved
+
+
