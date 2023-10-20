@@ -26,34 +26,34 @@ class pyviewer(QWidget):
         self.content_layout = QHBoxLayout(self.content_widget)
         self.content_layout.setContentsMargins(0, 0, 0, 0)
 
-        self.root_path = 'C:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\developed\\src\\WIDGETS'
+        self.root_path = 'C:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\src\\WIDGETS'
         self.tree_items(self.root_path, self.tree_widget)
 
     def tree_items(self, path, parent): # recursively populating the tree widget with items
         for entry in os.listdir(path): # loops over entries in the current directory
-            entry_path = os.path.join(path, entry)
+            widget_filepath = os.path.join(path, entry)
 
-            if os.path.isdir(entry_path) and not entry.endswith("__pycache__"): # creates parent item and calls tree_items recursively for the subdirectory
+            if os.path.isdir(widget_filepath) and not entry.endswith("__pycache__"): # creates parent item and calls tree_items recursively for the subdirectory
                 parentItem = QTreeWidgetItem(parent)
                 parentItem.setText(0, entry)
-                self.tree_items(entry_path, parentItem)
+                self.tree_items(widget_filepath, parentItem)
 
             elif entry.endswith('.py'): #create child item
                 child = QTreeWidgetItem(parent)
                 child.setText(0, entry)
-                action = self.action_function(entry_path)
+                action = self.action_function(widget_filepath)
                 child.setData(0, 1, action)  # Storing action function as item data
 
-    def action_function(self, module_path):    
+    def action_function(self, widget_filepath):    
         def action():
-            class_name = os.path.splitext(os.path.basename(module_path))[0]  # extracting the class name 
+            file_name = os.path.splitext(os.path.basename(widget_filepath))[0]  # extracting the class name 
 
             try:
-                spec = importlib.util.spec_from_file_location(class_name, module_path)
+                spec = importlib.util.spec_from_file_location(file_name, widget_filepath)
                 module = importlib.util.module_from_spec(spec)  # creates an empty module
                 spec.loader.exec_module(module) # executes the module 
 
-                ui_class = getattr(module, class_name)
+                ui_class = getattr(module, file_name)
                 ui_instance = ui_class()
 
                 # clears the content layout and add the new ui instance
