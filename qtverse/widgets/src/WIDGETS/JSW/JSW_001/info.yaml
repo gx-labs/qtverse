@@ -1,0 +1,13 @@
+cateory: button
+entity: WIDGETS
+
+# for user
+name: blue button
+tags:
+
+# for development team
+creator: jaswanth
+creator_tag: JSW
+approval_status: approved
+
+

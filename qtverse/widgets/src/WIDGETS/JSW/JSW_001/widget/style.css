@@ -1,0 +1,13 @@
+QPushButton{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-weight: 500;
+    font: 12pt "STIX MathJax Fraktur";
+    background: #1F2937;
+    color: white;
+    border: none;
+    position: relative;
+    border-radius: 0.6em;
+}
+
+QPushButton:hover{
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2980b9, stop:1 #1f618d);
