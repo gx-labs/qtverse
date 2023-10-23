@@ -1,8 +1,8 @@
-cateory: button
+cateory: checkbox
 entity: WIDGETS
 
 # for user
-name: blue button
+name: solid border background
 tags:
 
 # for development team

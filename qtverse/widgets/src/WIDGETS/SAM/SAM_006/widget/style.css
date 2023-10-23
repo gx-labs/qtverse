@@ -1,0 +1,26 @@
+QCheckBox{
+    font-weight: bold;
+    font-size: 13px;
+    background-color: white;
+    color: #3498db;
+    border: 2px solid #3498db;
+    border-radius: 20px;
+    padding: 10px;
+}
+QCheckBox:indicator{
+    width: 20px;
+    height: 20px;
+}
+QCheckBox:indicator:unchecked{
+    border-radius: 10px;
+    border: 2px solid grey;
+    background-color: #D3D3D3;
+}
+QCheckBox:indicator:checked{
+    border-radius: 10px;
+    border: 2px solid #3498db;
+    background-color: pink;
+}
+QCheckBox:indicator:unchecked:hover{
+    border: 2px solid #3498db;
+}

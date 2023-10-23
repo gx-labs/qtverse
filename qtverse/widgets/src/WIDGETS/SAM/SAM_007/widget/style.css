@@ -1,0 +1,16 @@
+QCheckBox{
+    background-color: transparent;
+}
+QCheckBox:indicator{
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color:#D3D3D3;
+}
+QCheckBox:indicator:checked{
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.9, fx:0.5, fy:0.5, stop:0 rgba(255, 165, 0, 255), stop:1 rgba(139, 69, 0, 255));
+}
+QCheckBox:checked {
+    background-color: qradialgradient(spread:pad, cx:0.739, cy:0.278364, radius:0.378, fx:0.997289, fy:0.00289117, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(160, 160, 160, 255));
+}

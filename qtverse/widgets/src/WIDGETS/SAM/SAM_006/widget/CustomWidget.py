@@ -18,13 +18,11 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QPushButton("Click Me!")
-        self.button.setMinimumSize(200, 60)
-        self.button.setMaximumSize(400, 120)
-        self.button.setStyleSheet(css_data)
+        self.checkbox = QCheckBox("Hit me up")
+        self.checkbox.setStyleSheet(css_data)
 
         self.setLayout(layout)
-        layout.addWidget(self.button, alignment=Qt.AlignCenter)
+        layout.addWidget(self.checkbox, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

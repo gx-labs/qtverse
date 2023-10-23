@@ -1,11 +1,12 @@
+cateory: button
 entity: WIDGETS
-cateory: Buttons
 
-name: blue button
-
-
-developer: sambhav
-developer_tag: SMB
-approval_status: approved
+# for user
+name: dotted border button
 tags:
+
+# for development team
+creator: sambhav
+creator_tag: SAM
+approval_status: -
 

@@ -18,16 +18,13 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.comboBox3 = QComboBox()
-        self.comboBox3.addItem("Option1")
-        self.comboBox3.addItem("Option2")
-        self.comboBox3.addItem("Option3")
-        self.comboBox3.setStyleSheet(css_data)
-
-
+        self.button = QPushButton("Click Me!")
+        self.button.setMinimumSize(200, 60)
+        self.button.setMaximumSize(400, 120)
+        self.button.setStyleSheet(css_data)
 
         self.setLayout(layout)
-        layout.addWidget(self.comboBox3, alignment=Qt.AlignCenter)
+        layout.addWidget(self.button, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

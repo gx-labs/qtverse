@@ -2,7 +2,7 @@ cateory: button
 entity: WIDGETS
 
 # for user
-name: blue button
+name: solid border white background button
 tags:
 
 # for development team

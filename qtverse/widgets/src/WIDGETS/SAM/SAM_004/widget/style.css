@@ -1,0 +1,15 @@
+QPushButton{
+    font: bold italic;
+    font-size: 15px;
+    color: blue;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 10px;
+    text-decoration: underline;
+    }
+    QPushButton:hover{
+     font-size: 18px;
+    }
+    QPushButton:pressed{
+    color: darkblue;
+    }
