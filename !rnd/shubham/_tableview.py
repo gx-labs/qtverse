@@ -20,9 +20,9 @@ table_view.setModel(model)
 # Define a stylesheet with sub-controls
 stylesheet = """
 QTableView {
-    background-color: lightgray;
-    selection-background-color: blue;
-    selection-color: white;
+    background-color: yellow;
+    selection-background-color: green;
+    selection-color: red;
 }
 
 QTableView::item {
