@@ -14,16 +14,20 @@ class MyWidget(QWidget):
         self.progressBar1.setMinimumSize(300,40)
         self.progressBar1.setValue(50)
         self.progressBar1.setStyleSheet("""
-                                            QProgressBar {
-                                                border: 2px solid grey;
-                                                border-radius: 5px;
-                                                background-color: #f0f0f0;
-                                                text-align:center;
+                                            QProgressBar
+                                            {
+                                                border: 1px solid #222222;
+                                                background-color: #3d3d3d;
+                                                text-align: center;
+                                                color: #ffffff;
+                                                font-size: 12px;
+                                                font-weight: bold;
+                                                padding: 1px;
+                                                border-radius: 3px;
                                             }
-                                            
-                                            QProgressBar::chunk {
-                                                background-color: #00bcd4;
-                                                width: 10px;
+                                            QProgressBar::chunk
+                                            {
+                                                background-color: #607cff;
                                             }
         """)
 
