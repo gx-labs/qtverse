@@ -2,7 +2,7 @@ cateory: checkbox
 entity: WIDGETS
 
 # for user
-name: orange background checkbox
+name: square checkbox
 tags:
 
 # for development team

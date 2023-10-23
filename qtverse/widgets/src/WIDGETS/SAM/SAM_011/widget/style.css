@@ -1,0 +1,18 @@
+QComboBox{
+   border: 1px solid gray;
+   border-radius: 8px;
+   padding: 1px 18px 1px 3px;
+   min-width: 6em;
+   background-color: transparent;
+   font-size: 14px; 
+}
+QComboBox:drop-down{
+   background-color: #32CD32;
+   border-radius: 4px;
+}
+QComboBox:down-arrow{
+   image: url(sambhav\images\downarrow.png);
+}
+QComboBox:down-arrow:hover{
+   background-color: #228B22;
+}

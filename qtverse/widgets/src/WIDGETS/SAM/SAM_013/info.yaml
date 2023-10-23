@@ -1,8 +1,8 @@
-cateory: checkbox
+cateory: groupbox
 entity: WIDGETS
 
 # for user
-name: orange background checkbox
+name: centre-labelled with margin groupbox
 tags:
 
 # for development team

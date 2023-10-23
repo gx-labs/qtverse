@@ -1,8 +1,8 @@
-cateory: checkbox
+cateory: lineedit
 entity: WIDGETS
 
 # for user
-name: orange background checkbox
+name: yellow background and selection color changed lineedit
 tags:
 
 # for development team

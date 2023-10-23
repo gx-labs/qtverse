@@ -1,8 +1,8 @@
-cateory: checkbox
+cateory: combobox
 entity: WIDGETS
 
 # for user
-name: orange background checkbox
+name: orange color background combobox
 tags:
 
 # for development team

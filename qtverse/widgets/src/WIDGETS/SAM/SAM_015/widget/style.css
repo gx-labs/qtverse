@@ -1,0 +1,6 @@
+QLineEdit{
+   border: 2px solid brown;
+   padding: 5px;
+   min-width: 10em;
+   color: gray;
+}
