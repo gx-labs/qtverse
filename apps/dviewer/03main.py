@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem, QWidget, QVBoxLayout, QComboBox, QPushButton, QHBoxLayout
+from PySide2.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem, QWidget, QVBoxLayout, QComboBox, QPushButton, QHBoxLayout, QScrollArea
 from PySide2.QtCore import Qt
 import os
 import sys
@@ -10,13 +10,13 @@ class pyviewer(QWidget):
 
         # main layout
         self.setWindowTitle('dviewer')
-        self.setMinimumSize(1200, 900)
+        self.setMinimumSize(1200, 800)
         main_layout = QHBoxLayout(self)
         self.setLayout(main_layout)
 
         # viewer widget
         self.viewer = QWidget(self)
-        self.viewer.setFixedSize(320, 900)
+        self.viewer.setFixedSize(320, 800)
         main_layout.addWidget(self.viewer)
         self.viewer_layout = QVBoxLayout(self.viewer)
 
@@ -44,9 +44,13 @@ class pyviewer(QWidget):
         self.statusBtn_layout.addWidget(self.approved)
 
         # tree widget
-        self.tree_widget = QTreeWidget(self)
-        self.tree_widget.setFixedSize(300, 900)
-        self.viewer_layout.addWidget(self.tree_widget)
+        self.tree_scroll_area = QScrollArea(self)
+        self.tree_scroll_area.setWidgetResizable(True)
+        self.viewer_layout.addWidget(self.tree_scroll_area)
+
+        self.tree_widget = QTreeWidget()
+        self.tree_scroll_area.setWidget(self.tree_widget)
+        self.tree_widget.setFixedSize(300, 800)
         self.tree_widget.setHeaderLabels([''])
         self.tree_widget.itemDoubleClicked.connect(self.on_itemDoubleClicked)
 
@@ -58,7 +62,9 @@ class pyviewer(QWidget):
 
         self.root_path = 'C:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\src\\WIDGETS'
         self.tree_items(self.root_path, self.tree_widget)
-        self.expand_all_items(self.tree_widget.invisibleRootItem())  # all items of the tree widget set to expanded
+
+        # Set all items of the tree widget to be expanded
+        self.expand_all_items(self.tree_widget.invisibleRootItem())
 
     def tree_items(self, path, parent):  # recursively populating the tree widget with items
         for entry in os.listdir(path):  # loops over entries in the current directory
