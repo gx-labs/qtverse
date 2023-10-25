@@ -10,7 +10,7 @@ class pyviewer(QWidget):
 
         # main layout
         self.setWindowTitle('dviewer')
-        self.setMinimumSize(1200, 800)
+        self.setFixedSize(1200, 800)
         main_layout = QHBoxLayout(self)
         self.setLayout(main_layout)
 
