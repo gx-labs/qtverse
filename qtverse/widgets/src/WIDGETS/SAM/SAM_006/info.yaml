@@ -2,7 +2,7 @@ cateory: button
 entity: WIDGETS
 
 # for user
-name: lightblue bg button
+name: Rounded Outline button
 tags:
 
 # for development team
