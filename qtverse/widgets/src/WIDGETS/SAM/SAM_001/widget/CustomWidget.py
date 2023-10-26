@@ -18,9 +18,8 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QPushButton("Click Me!")
-        self.button.setMinimumSize(200, 60)
-        self.button.setMaximumSize(400, 120)
+        self.button = QPushButton("Log in")
+        self.button.setFixedSize(110, 49)
         self.button.setStyleSheet(css_data)
 
         self.setLayout(layout)

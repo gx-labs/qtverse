@@ -1,9 +1,17 @@
+QGroupBox{
+    background-color: #4D004C;
+ }
 QPushButton{
-    font: bold italic;
-    font-size: 15pt;
-    color:blue;
-    border: 3px dotted red;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-    padding: 10px;
+    font-family: Arial;
+    font: bold;
+    font-size: 12pt;
+    color: #FFFFF7;
+    background: #4D004C;
+    border: 1px solid #FFFFF7;
+    border-radius: 4px;
+    padding: 8px;
+}
+QPushButton:pressed{
+    color: #4D004C;
+    background-color: #FFFFF7;
     }

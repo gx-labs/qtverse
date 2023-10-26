@@ -18,9 +18,8 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QPushButton("Click Me!")
-        self.button.setMinimumSize(200, 60)
-        self.button.setMaximumSize(400, 120)
+        self.button = QPushButton("Get Your Resume Score")
+        self.button.setFixedSize(250, 49)
         self.button.setStyleSheet(css_data)
 
         self.setLayout(layout)
