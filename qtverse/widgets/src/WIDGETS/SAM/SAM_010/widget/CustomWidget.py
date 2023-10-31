@@ -18,8 +18,8 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.button = QPushButton("Talk To Sales")
-        self.button.setFixedSize(180, 49)
+        self.button = QPushButton("View Plans and Pricing →")
+        self.button.setFixedSize(250, 49)
         self.button.setStyleSheet(css_data)
 
         self.setLayout(layout)
