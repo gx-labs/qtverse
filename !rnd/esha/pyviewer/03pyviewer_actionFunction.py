@@ -19,7 +19,7 @@ class pyviewer(QWidget):
         self.tree_widget.setHeaderLabels(['pyviewer'])
         self.tree_widget.itemDoubleClicked.connect(self.on_itemDoubleClicked)
 
-        self.root_path = 'C:\\PROJECTS\\PySide\\qtverse\\esha\\uis'
+        self.root_path = 'qtverse\widgets\src\WIDGETS'
         self.item_actions = {}   # storing actions associated with tree items
         # self.ui_instance = None  # storing a reference to the ui instance
 
