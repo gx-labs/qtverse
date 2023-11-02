@@ -32,10 +32,6 @@ class dviewer(QWidget):
 
         # combobox
         self.combobox = QComboBox()
-        self.combobox.addItem("ESH")
-        self.combobox.addItem("PRT")
-        self.combobox.addItem("SMB")
-        self.combobox.addItem("SHB")
         self.combobox.currentIndexChanged.connect(self.update_tree_visibility)
         self.viewer_layout.addWidget(self.combobox, alignment=Qt.AlignLeft)
 
@@ -88,6 +84,12 @@ class dviewer(QWidget):
 
         # Set all items of the tree widget to be expanded
         self.expand_all_items(self.tree_widget.invisibleRootItem())
+
+        # Populate combobox with top-level headers
+        for i in range(self.tree_widget.topLevelItemCount()):
+            item = self.tree_widget.topLevelItem(i)
+            header_text = item.text(0)
+            self.combobox.addItem(header_text)
 
     def tree_items(self, path, parent, status=Status.ALL):
         for entry in os.listdir(path):
