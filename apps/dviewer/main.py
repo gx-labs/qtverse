@@ -77,9 +77,14 @@ class dviewer(QWidget):
         main_layout.addWidget(self.content_widget)
         self.content_layout = QHBoxLayout(self.content_widget)
         self.content_layout.setContentsMargins(0, 0, 0, 0)
+ 
+        # path to WIDGETS folder
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_dir = os.path.abspath(os.path.join(current_dir,'..','..'))
 
-        self.root_path = 'qtverse\widgets\src\WIDGETS'
-        self.tree_items(self.root_path, self.tree_widget)
+        self.widget_path = os.path.join(project_dir,"qtverse", "widgets","src","WIDGETS")
+              
+        self.tree_items(self.widget_path, self.tree_widget)
 
         # Set all items of the tree widget to be expanded
         self.expand_all_items(self.tree_widget.invisibleRootItem())
