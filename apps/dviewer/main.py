@@ -26,7 +26,7 @@ class pyviewer(QWidget):
         self.content_layout = QHBoxLayout(self.content_widget)
         self.content_layout.setContentsMargins(0, 0, 0, 0)
 
-        self.root_path = 'C:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\developed\\src\\WIDGETS'
+        self.root_path = 'C:\\Users\\Sambhav\\Downloads\\qtverse\\qtverse\\widgets\\src\\WIDGETS'
         self.tree_items(self.root_path, self.tree_widget)
 
     def tree_items(self, path, parent): # recursively populating the tree widget with items
