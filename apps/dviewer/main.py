@@ -9,24 +9,6 @@ class ClickableLabel(QLabel):
     def mousePressEvent(self, event):
         self.clicked.emit()
 
-class CustomWidget(QWidget):
-    def __init__(self, path):
-        super().__init__()
-
-        # custom widget to add in the list widget
-        customWidget_layout = QVBoxLayout(self)
-        
-        # ClickableLabel 
-        self.foldername_label = ClickableLabel(os.path.basename(path))
-        self.foldername_label.setAlignment(Qt.AlignLeft)
-        customWidget_layout.addWidget(self.foldername_label)
-
-        # Connected label's clicked signal to a custom slot
-        self.foldername_label.clicked.connect(self.label_clicked)
-
-    def label_clicked(self):
-        print('Label Clicked:', self.foldername_label.text())
-        
 class dviewer(QWidget):
     def __init__(self):
         super().__init__()
@@ -94,32 +76,33 @@ class dviewer(QWidget):
         self.combobox.addItems(developer_tags)
 
     def populate_listWidget(self):
-        widgetFolders = self.get_widgetFolders()
+        widgetFolders = self.get_widget_folders()  
 
         self.list_widget.clear()  # Clear existing items
 
         for folder_name in widgetFolders:
-            custom_widget = CustomWidget(os.path.join(self.widgets_path, folder_name))
+            custom_widget = self.create_custom_widget(os.path.join(self.widgets_path, folder_name))
             list_item = QListWidgetItem()
             list_item.setSizeHint(custom_widget.sizeHint())
             self.list_widget.addItem(list_item)
             self.list_widget.setItemWidget(list_item, custom_widget)
+
 
     def list_allWidgets(self):
         self.list_widget.clear()  # Clear existing items
         all_folders = []
 
         for index in range(self.combobox.count()):
-            all_folders.extend(self.get_widgetFolders(self.combobox.itemText(index)))
+            all_folders.extend(self.get_widget_folders(self.combobox.itemText(index)))
 
         for folder_name in all_folders:
-            custom_widget = CustomWidget(os.path.join(self.widgets_path, folder_name))
+            custom_widget = self.create_custom_widget(os.path.join(self.widgets_path, folder_name))
             list_item = QListWidgetItem()
             list_item.setSizeHint(custom_widget.sizeHint())
             self.list_widget.addItem(list_item)
             self.list_widget.setItemWidget(list_item, custom_widget)
 
-    def get_widgetFolders(self, selected_devTag=None):
+    def get_widget_folders(self, selected_devTag=None):
         # Get folder names based on the combobox selection
         if selected_devTag is None:
             selected_devTag = self.combobox.currentText()
@@ -131,6 +114,27 @@ class dviewer(QWidget):
 
         return folder_names
 
+    def create_custom_widget(self, path):
+
+        customWidget_layout = QVBoxLayout()
+        
+        # ClickableLabel 
+        foldername_label = ClickableLabel(os.path.basename(path))
+        foldername_label.setAlignment(Qt.AlignLeft)
+        customWidget_layout.addWidget(foldername_label)
+
+        # Connected label's clicked signal to a custom slot
+        foldername_label.clicked.connect(self.label_clicked)
+
+        # Create and return QWidget
+        custom_widget = QWidget()
+        custom_widget.setLayout(customWidget_layout)
+        return custom_widget
+
+    def label_clicked(self):
+        clicked_label = self.sender()
+        print('Label Clicked:', clicked_label.text())
+
 def main():
     app = QApplication([])
     main_window = dviewer()
@@ -139,5 +143,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 
