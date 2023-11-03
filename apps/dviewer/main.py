@@ -2,6 +2,7 @@ from PySide2.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget, QCombo
 from PySide2.QtCore import Qt, Signal
 import os
 import sys
+import importlib
 
 class ClickableLabel(QLabel):
     clicked = Signal()
@@ -87,6 +88,30 @@ class dviewer(QWidget):
             self.list_widget.addItem(list_item)
             self.list_widget.setItemWidget(list_item, custom_widget)
 
+    def action_function(self, widget_filepath):
+        def action():
+            file_name = os.path.splitext(os.path.basename(widget_filepath))[0]
+
+            try:
+                spec = importlib.util.spec_from_file_location(file_name, widget_filepath)
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+
+                ui_class = getattr(module, file_name)
+                ui_instance = ui_class()
+
+                while self.contents_layout.count():
+                    item = self.contents_layout.takeAt(0)
+                    widget = item.widget()
+                    if widget:
+                        widget.setParent(None)
+
+                self.contents_layout.addWidget(ui_instance)
+
+            except Exception as e:
+                print(f"Error: {e}")
+
+        return action
 
     def list_allWidgets(self):
         self.list_widget.clear()  # Clear existing items
@@ -115,7 +140,6 @@ class dviewer(QWidget):
         return folder_names
 
     def create_custom_widget(self, path):
-
         customWidget_layout = QVBoxLayout()
         
         # ClickableLabel 
@@ -124,16 +148,12 @@ class dviewer(QWidget):
         customWidget_layout.addWidget(foldername_label)
 
         # Connected label's clicked signal to a custom slot
-        foldername_label.clicked.connect(self.label_clicked)
+        foldername_label.clicked.connect(self.action_function(os.path.join(path, "widget", "CustomWidget.py")))
 
         # Create and return QWidget
         custom_widget = QWidget()
         custom_widget.setLayout(customWidget_layout)
         return custom_widget
-
-    def label_clicked(self):
-        clicked_label = self.sender()
-        print('Label Clicked:', clicked_label.text())
 
 def main():
     app = QApplication([])
@@ -143,4 +163,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
