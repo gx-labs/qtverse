@@ -1,17 +1,32 @@
-from PySide2.QtWidgets import *
-from PySide2.QtCore import Qt
+from PySide2.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget, QComboBox, QPushButton, QListWidget, QListWidgetItem, QHBoxLayout
+from PySide2.QtCore import Qt, Signal
 import os
 import sys
+
+class ClickableLabel(QLabel):
+    clicked = Signal()
+
+    def mousePressEvent(self, event):
+        self.clicked.emit()
 
 class CustomWidget(QWidget):
     def __init__(self, path):
         super().__init__()
-        
+
         # custom widget to add in the list widget
         customWidget_layout = QVBoxLayout(self)
-        foldername_label = QLabel(os.path.basename(path))  
-        customWidget_layout.addWidget(foldername_label)
+        
+        # ClickableLabel 
+        self.foldername_label = ClickableLabel(os.path.basename(path))
+        self.foldername_label.setAlignment(Qt.AlignLeft)
+        customWidget_layout.addWidget(self.foldername_label)
 
+        # Connected label's clicked signal to a custom slot
+        self.foldername_label.clicked.connect(self.label_clicked)
+
+    def label_clicked(self):
+        print('Label Clicked:', self.foldername_label.text())
+        
 class dviewer(QWidget):
     def __init__(self):
         super().__init__()
@@ -124,4 +139,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
