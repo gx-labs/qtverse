@@ -94,8 +94,8 @@ class dviewer(QWidget):
         self.list_widget.clear()  # Clear existing items
         all_folders = []
 
-        for idx in range(self.combobox.count()):
-            all_folders.extend(self.get_widgetFolders(self.combobox.itemText(idx)))
+        for index in range(self.combobox.count()):
+            all_folders.extend(self.get_widgetFolders(self.combobox.itemText(index)))
 
         for folder_name in all_folders:
             custom_widget = CustomWidget(os.path.join(self.widgets_path, folder_name))
