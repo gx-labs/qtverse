@@ -1,11 +1,11 @@
 entity: WIDGETS
-cateory: Buttons
+category: Buttons
 
-name: blue button
+name: Neon Purple Button
 
 
-developer: preetish
+developer: Preetish
 developer_tag: PRT
-approval_status: approved
+approval_status: waiting for approval
 tags:
 

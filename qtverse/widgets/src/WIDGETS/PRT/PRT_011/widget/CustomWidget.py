@@ -15,17 +15,16 @@ else:
 class CustomWidget(QWidget):
     def __init__(self):
         super().__init__()
-        
+
         layout = QVBoxLayout()
 
-        self.button = QPushButton("Click Me!")
-        self.button.setMinimumSize(200, 60)
-        self.button.setMaximumSize(400, 120)
-        self.button.setCursor(QCursor(Qt.PointingHandCursor))
-        self.button.setStyleSheet(css_data)
+        self.prgsbar = QProgressBar()
+        self.prgsbar.setValue(80)
+        self.prgsbar.setFixedSize(400, 15)
+        self.prgsbar.setStyleSheet(css_data)
 
         self.setLayout(layout)
-        layout.addWidget(self.button, alignment=Qt.AlignCenter)
+        layout.addWidget(self.prgsbar, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

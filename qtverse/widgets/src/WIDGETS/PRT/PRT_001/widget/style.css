@@ -1,14 +1,14 @@
-QPushButton{
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-weight: 500;
-    font: 12pt "STIX MathJax Fraktur";
-    background: #1F2937;
-    color: white;
-    border: none;
-    position: relative;
-    border-radius: 0.6em;
+QPushButton {
+    background-color: #47a4a6;
+    border-radius: 30px;
+    color: #ffffff;
+    padding: 20px 20px;
+    font-size: 17px;
+    font-weight: bold;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 QPushButton:hover{
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2980b9, stop:1 #1f618d);
+    background-color: #5cb8b9;
 }

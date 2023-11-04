@@ -1,13 +1,12 @@
-cateory: button
+category: button
 entity: WIDGETS
 
 # for user
-name: blue button
-tags:
+name:  Blue Racer Button
 
 # for development team
-creator: preetish
+creator: Preetish
 creator_tag: PRT
-approval_status: approved
+approval_status: waiting for approval
 
 

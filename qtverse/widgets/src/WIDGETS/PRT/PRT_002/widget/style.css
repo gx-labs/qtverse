@@ -1,35 +1,13 @@
-QCheckBox {
-    background-color: transparent;
-    border: 2px solid #3498db;
-    border-radius: 5px;
-    padding: 5px;
-    color: #3498db;
+QPushButton {
+    background-color: #b318ff;
+    border-radius: 30px;
+    color: #ffffff;
+    padding: 20px 20px;
+    font-size: 18px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
-QCheckBox::indicator {
-    width: 20px;
-    height: 20px;
-    transform-origin: center;
-}
-
-QCheckBox::indicator:checked {
-    background-color: #3498db;
-    border: 2px solid #3498db;
-    border-radius: 5px;
-    animation: flip 0.5s;
-}
-
-QCheckBox::indicator:unchecked {
-    background-color: transparent;
-    border: 2px solid #3498db;
-    border-radius: 5px;
-}
-
-@keyframes flip {
-    0% {
-        transform: rotateY(0deg);
-    }
-    100% {
-        transform: rotateY(180deg);
-    }
+QPushButton::hover{
+    background-color: #9c46fd;
 }

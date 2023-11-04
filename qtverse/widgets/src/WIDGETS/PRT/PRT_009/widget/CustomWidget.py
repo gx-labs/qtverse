@@ -18,7 +18,7 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QPushButton("Click Me!")
+        self.button = QPushButton("Sign up with Google ➜")
         self.button.setMinimumSize(200, 60)
         self.button.setMaximumSize(400, 120)
         self.button.setCursor(QCursor(Qt.PointingHandCursor))
