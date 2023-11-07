@@ -73,15 +73,9 @@ class dviewer(QWidget):
         self.populate_listWidget()
 
     def populate_combobox(self):
-        # getting folder names and counts from the WIDGETS directory
-        developer_folders = [(folder, len(self.get_widgetFolders(folder))) for folder in os.listdir(self.widgets_path) if os.path.isdir(os.path.join(self.widgets_path, folder))]
-
-        # Clear existing items in the combobox
-        self.combobox.clear()
-
-        # Adding items to the combobox
-        for developer_tag, folder_count in developer_folders:
-            self.combobox.addItem(f"{developer_tag} ({folder_count})")
+        # getting folder names from the WIDGETS directory
+        developer_tags = [folder for folder in os.listdir(self.widgets_path) if os.path.isdir(os.path.join(self.widgets_path, folder))]
+        self.combobox.addItems(developer_tags)
 
     def populate_listWidget(self):
         widgetFolders = self.get_widgetFolders()
@@ -126,7 +120,7 @@ class dviewer(QWidget):
 
     def get_widgetFolders(self, selected_devTag=None):
         if selected_devTag is None:
-            selected_devTag = self.combobox.currentText().split()[0]  # Extract the developer tag from the combobox text
+            selected_devTag = self.combobox.currentText()
 
         devDir_path = os.path.join(self.widgets_path, selected_devTag)
 
@@ -207,5 +201,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
