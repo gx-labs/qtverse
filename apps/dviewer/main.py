@@ -90,8 +90,6 @@ class dviewer(QWidget):
         def action():
             widgetUI_file = os.path.splitext(os.path.basename(ui_filepath))[0]
 
-            print(f"Loading UI from: {ui_filepath}")
-
             try:
                 spec = importlib.util.spec_from_file_location(widgetUI_file, ui_filepath)
                 module = importlib.util.module_from_spec(spec)
