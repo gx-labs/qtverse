@@ -18,9 +18,9 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QPushButton("Try Fitbod For Free")
-        self.button.setMinimumSize(400, 60)
-        self.button.setMaximumSize(500, 120)
+        self.button = QPushButton("START FREE TRIAL")
+        self.button.setMinimumSize(350, 60)
+        self.button.setMaximumSize(400, 120)
         self.button.setStyleSheet(css_data)
 
         self.setLayout(layout)

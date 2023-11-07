@@ -1,8 +1,12 @@
 QPushButton {
-       background-color: #3498db;
-       border: none;
-       padding: 10px;
-       background-image: url(:/icons/x1.png);
-       background-repeat: no-repeat;
-       background-position: center;
-   }
+    background-color: #fe613e;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+QPushButton::hover {
+    background-color: #e97358;
+}

@@ -1,10 +1,14 @@
-QProgressBar {
-    border: 2px solid gray;
-    border-radius: 5px;
-    color: white;
-    text-align: center;
+QPushButton {
+    background-color: #f2305a;
+    border: 10px solid black;
+    border-radius: 11px; /* Curved corners */
+    padding: 10px;    border-radius: 6px;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
 }
-QProgressBar::chunk {
-    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #000000, stop:1 #333333);
-    width: 20px;
+QPushButton::hover {
+    background-color: rgb(252, 97, 62);
 }
