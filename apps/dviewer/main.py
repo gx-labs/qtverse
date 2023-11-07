@@ -73,9 +73,15 @@ class dviewer(QWidget):
         self.populate_listWidget()
 
     def populate_combobox(self):
-        # getting folder names from the WIDGETS directory
-        developer_tags = [folder for folder in os.listdir(self.widgets_path) if os.path.isdir(os.path.join(self.widgets_path, folder))]
-        self.combobox.addItems(developer_tags)
+        # getting folder names and counts from the WIDGETS directory
+        developer_folders = [(folder, len(self.get_widgetFolders(folder))) for folder in os.listdir(self.widgets_path) if os.path.isdir(os.path.join(self.widgets_path, folder))]
+
+        # Clear existing items in the combobox
+        self.combobox.clear()
+
+        # Adding items to the combobox
+        for developer_tag, folder_count in developer_folders:
+            self.combobox.addItem(f"{developer_tag} ({folder_count})")
 
     def populate_listWidget(self):
         widgetFolders = self.get_widgetFolders()
@@ -120,7 +126,7 @@ class dviewer(QWidget):
 
     def get_widgetFolders(self, selected_devTag=None):
         if selected_devTag is None:
-            selected_devTag = self.combobox.currentText()
+            selected_devTag = self.combobox.currentText().split()[0]  # Extract the developer tag from the combobox text
 
         devDir_path = os.path.join(self.widgets_path, selected_devTag)
 
@@ -167,13 +173,13 @@ class dviewer(QWidget):
 
 
     def set_status(self, folder, button, status):
-        print(f"Setting status of {folder} to {status}")
+        # print(f"Setting status of {folder} to {status}")
         button.setText(f"{status}")
 
         # Store the status in status_dict
         self.status_dict[folder] = status
 
-        print("Updated status_dict:", self.status_dict)
+        # print("Updated status_dict:", self.status_dict)
 
 
     def populate_all_widgets(self):
@@ -201,4 +207,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
