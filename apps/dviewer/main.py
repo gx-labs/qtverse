@@ -63,7 +63,7 @@ class dviewer(QWidget):
         project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
         self.widgets_path = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
 
-        # Populate combobox with folder names
+        # Populate combobox with folder names and counts
         self.populate_combobox()
 
         # Connect combobox signal to slot
@@ -74,16 +74,25 @@ class dviewer(QWidget):
 
     def populate_combobox(self):
         # getting folder names from the WIDGETS directory
-        developer_tags = [folder for folder in os.listdir(self.widgets_path) if os.path.isdir(os.path.join(self.widgets_path, folder))]
-        self.combobox.addItems(developer_tags)
+        developer_folders = [folder for folder in os.listdir(self.widgets_path) if os.path.isdir(os.path.join(self.widgets_path, folder))]
+
+        # Clear existing items in the combobox
+        self.combobox.clear()
+
+        # Add items to the combobox with counts
+        for folder in developer_folders:
+            folder_path = os.path.join(self.widgets_path, folder)
+            count = len([f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))])
+            self.combobox.addItem(f"{folder} ({count})")
 
     def populate_listWidget(self):
-        widgetFolders = self.get_widgetFolders()
+        selected_devTag = self.combobox.currentText().split()[0]
+        widgetFolders = self.get_widgetFolders(selected_devTag)
 
         self.list_widget.clear()  # Clears existing items
 
         for folder_name in widgetFolders:
-            custom_widget = self.create_customWidget(self.combobox.currentText(), folder_name)
+            custom_widget = self.create_customWidget(selected_devTag, folder_name)
             list_item = QListWidgetItem()
             list_item.setSizeHint(custom_widget.sizeHint())
             self.list_widget.addItem(list_item)
@@ -118,10 +127,7 @@ class dviewer(QWidget):
 
         return action
 
-    def get_widgetFolders(self, selected_devTag=None):
-        if selected_devTag is None:
-            selected_devTag = self.combobox.currentText()
-
+    def get_widgetFolders(self, selected_devTag):
         devDir_path = os.path.join(self.widgets_path, selected_devTag)
 
         folder_names = [f for f in os.listdir(devDir_path) if os.path.isdir(os.path.join(devDir_path, f))]
@@ -201,3 +207,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
