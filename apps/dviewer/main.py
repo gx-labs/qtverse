@@ -7,8 +7,8 @@ import importlib.util
 class dviewer(QWidget):
     def __init__(self):
         super().__init__()
-
-        # Initialize status_dict early in __init__
+        
+        # empty dictionary for storing statuses
         self.status_dict = {}
 
         # main layout
@@ -158,7 +158,8 @@ class dviewer(QWidget):
 
         custom_widget = QWidget()
         custom_widget.setLayout(customWidget_layout)
-        custom_widget.status_button = status_button  # Store status_button as an attribute for later reference
+        custom_widget.status_button = status_button  
+        # Storing reference to status_button within custom widget 
         return custom_widget
 
     def status_menu(self, pos, folder, button):
