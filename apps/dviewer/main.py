@@ -1,5 +1,5 @@
 from PySide2.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget, QComboBox, QListWidget, QListWidgetItem, QHBoxLayout, QMenu
-from PySide2.QtCore import Qt, Signal
+from PySide2.QtCore import Qt
 import os
 import sys
 import importlib.util
@@ -7,6 +7,9 @@ import importlib.util
 class dviewer(QWidget):
     def __init__(self):
         super().__init__()
+
+        # Initialize status_dict early in __init__
+        self.status_dict = {}
 
         # main layout
         self.setWindowTitle("dviewer")
@@ -70,12 +73,12 @@ class dviewer(QWidget):
         self.populate_listWidget()
 
     def populate_combobox(self):
-        # getting folder names dynamically from the WIDGETS directory
+        # getting folder names from the WIDGETS directory
         developer_tags = [folder for folder in os.listdir(self.widgets_path) if os.path.isdir(os.path.join(self.widgets_path, folder))]
         self.combobox.addItems(developer_tags)
 
     def populate_listWidget(self):
-        widgetFolders = self.get_widgetFolders()  
+        widgetFolders = self.get_widgetFolders()
 
         self.list_widget.clear()  # Clears existing items
 
@@ -85,6 +88,10 @@ class dviewer(QWidget):
             list_item.setSizeHint(custom_widget.sizeHint())
             self.list_widget.addItem(list_item)
             self.list_widget.setItemWidget(list_item, custom_widget)
+
+            # Set status based on stored status_dict
+            status = self.status_dict.get(folder_name, "None")
+            custom_widget.status_button.setText(status)
 
     def load_widgetUI(self, ui_filepath):
         def action():
@@ -140,8 +147,12 @@ class dviewer(QWidget):
         status_button.setContextMenuPolicy(Qt.CustomContextMenu)
         status_button.customContextMenuRequested.connect(lambda event, folder=folder_name, button=status_button: self.status_menu(event, folder, button))
 
+        status = self.status_dict.get(folder_name, "None")
+        status_button.setText(status)
+
         custom_widget = QWidget()
         custom_widget.setLayout(customWidget_layout)
+        custom_widget.status_button = status_button  # Store status_button as an attribute for later reference
         return custom_widget
 
     def status_menu(self, pos, folder, button):
@@ -154,9 +165,16 @@ class dviewer(QWidget):
 
         menu.exec_(button.mapToGlobal(pos))
 
+
     def set_status(self, folder, button, status):
         print(f"Setting status of {folder} to {status}")
         button.setText(f"{status}")
+
+        # Store the status in status_dict
+        self.status_dict[folder] = status
+
+        print("Updated status_dict:", self.status_dict)
+
 
     def populate_all_widgets(self):
         self.list_widget.clear()
@@ -183,3 +201,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
