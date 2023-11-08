@@ -30,3 +30,4 @@ if __name__ == '__main__':
     widget = CustomWidget()
     widget.show()
     sys.exit(app.exec_())
+    
