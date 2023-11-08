@@ -104,7 +104,7 @@ class ScrollWidget(QWidget):
         ''')
 
         self.scrlbr3 = QScrollBar(Qt.Vertical)
-        self.scrlbr3.setMinimumSize(200,10)
+        self.scrlbr3.setMinimumSize(10,200)
         self.scrlbr3.setStyleSheet('''
                                      QScrollBar:vertical{
                                         border: 2px dotted black;

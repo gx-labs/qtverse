@@ -1,0 +1,11 @@
+QScrollBar:vertical{
+    background: black;
+    width: 8px;
+    height: 15em;
+    border-radius: 8px;
+ }
+ QScrollBar:handle:vertical {
+    background-color: white;
+    min-height: 7em;
+    border-radius: 8px;
+ }
