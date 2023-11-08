@@ -11,8 +11,8 @@ class Status:
     REVIEW = "review"
     APPROVED = "approved"
 
-class dviewer(QWidget):
-    # variable to store widget status
+class pyviewer(QWidget):
+    # Class-level variable to store widget status
     widget_status = {}
 
     def __init__(self):
@@ -77,14 +77,13 @@ class dviewer(QWidget):
         main_layout.addWidget(self.content_widget)
         self.content_layout = QHBoxLayout(self.content_widget)
         self.content_layout.setContentsMargins(0, 0, 0, 0)
- 
-        # path to WIDGETS folder
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        project_dir = os.path.abspath(os.path.join(current_dir,'..','..'))
 
-        self.widget_path = os.path.join(project_dir,"qtverse", "widgets","src","WIDGETS")
-              
-        self.tree_items(self.widget_path, self.tree_widget)
+        file_path = os.path.dirname(__file__)
+        self.root_path = 'qtverse\widgets\src\WIDGETS'
+
+        self.tree_items(self.root_path, self.tree_widget)
+        for each in sys.path:
+            print(each)
 
         # Set all items of the tree widget to be expanded
         self.expand_all_items(self.tree_widget.invisibleRootItem())
@@ -102,10 +101,24 @@ class dviewer(QWidget):
             elif entry.endswith('.py'):
                 child = QTreeWidgetItem(parent)
                 child.setText(0, entry)
+
+                # Add combobox beside each widget
+                combobox = QComboBox()
+                combobox.addItems([Status.WIP, Status.SUBMITTED, Status.REVIEW, Status.APPROVED])
+                index = combobox.findText(status)
+                combobox.setCurrentIndex(index)
+                combobox.currentIndexChanged.connect(lambda index, item=child: self.combobox_state_changed(index, item))
+                self.tree_widget.setItemWidget(child, 0, combobox)
+
                 action = self.action_function(widget_filepath)
                 child.setData(0, 1, action)
                 # Set status for each widget
-                dviewer.widget_status[child] = status
+                pyviewer.widget_status[child] = status
+
+    def combobox_state_changed(self, index, item):
+        # Update the status of the widget when the combobox state changes
+        status = self.combobox.itemText(index)
+        pyviewer.widget_status[item] = status
 
     def update_tree_visibility(self, index):
         selected_item_text = self.combobox.itemText(index)
@@ -152,7 +165,7 @@ class dviewer(QWidget):
     def filter_widgets(self, status):
         for i in range(self.tree_widget.topLevelItemCount()):
             item = self.tree_widget.topLevelItem(i)
-            item_status = dviewer.widget_status.get(item, Status.ALL)
+            item_status = pyviewer.widget_status.get(item, Status.ALL)
 
             if status == Status.ALL or item_status == status:
                 item.setHidden(False)
@@ -161,9 +174,10 @@ class dviewer(QWidget):
 
 def main():
     app = QApplication([])
-    main_window = dviewer()
+    main_window = pyviewer()
     main_window.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
     main()
+

@@ -4,17 +4,7 @@ import os
 import sys
 import importlib.util
 
-class Status:
-    ALL = "ALL"
-    WIP = "wip"
-    SUBMITTED = "submitted"
-    REVIEW = "review"
-    APPROVED = "approved"
-
-class dviewer(QWidget):
-    # variable to store widget status
-    widget_status = {}
-
+class pyviewer(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -54,13 +44,6 @@ class dviewer(QWidget):
         self.approved = QPushButton("approved")
         self.statusBtn_layout.addWidget(self.approved)
 
-        # Connect status buttons to filter functions
-        self.view_all.clicked.connect(lambda: self.filter_widgets(Status.ALL))
-        self.wip.clicked.connect(lambda: self.filter_widgets(Status.WIP))
-        self.submitted.clicked.connect(lambda: self.filter_widgets(Status.SUBMITTED))
-        self.review.clicked.connect(lambda: self.filter_widgets(Status.REVIEW))
-        self.approved.clicked.connect(lambda: self.filter_widgets(Status.APPROVED))
-
         # tree widget
         self.tree_scroll_area = QScrollArea(self)
         self.tree_scroll_area.setWidgetResizable(True)
@@ -77,26 +60,21 @@ class dviewer(QWidget):
         main_layout.addWidget(self.content_widget)
         self.content_layout = QHBoxLayout(self.content_widget)
         self.content_layout.setContentsMargins(0, 0, 0, 0)
- 
-        # path to WIDGETS folder
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        project_dir = os.path.abspath(os.path.join(current_dir,'..','..'))
 
-        self.widget_path = os.path.join(project_dir,"qtverse", "widgets","src","WIDGETS")
-              
-        self.tree_items(self.widget_path, self.tree_widget)
+        self.root_path = 'qtverse\widgets\src\WIDGETS'
+        self.tree_items(self.root_path, self.tree_widget)
 
         # Set all items of the tree widget to be expanded
         self.expand_all_items(self.tree_widget.invisibleRootItem())
 
-    def tree_items(self, path, parent, status=Status.ALL):
+    def tree_items(self, path, parent):  
         for entry in os.listdir(path):
             widget_filepath = os.path.join(path, entry)
 
             if os.path.isdir(widget_filepath) and not entry.endswith("__pycache__"):
                 parentItem = QTreeWidgetItem(parent)
                 parentItem.setText(0, entry)
-                self.tree_items(widget_filepath, parentItem, status)
+                self.tree_items(widget_filepath, parentItem)
                 parentItem.setExpanded(True)
 
             elif entry.endswith('.py'):
@@ -104,8 +82,6 @@ class dviewer(QWidget):
                 child.setText(0, entry)
                 action = self.action_function(widget_filepath)
                 child.setData(0, 1, action)
-                # Set status for each widget
-                dviewer.widget_status[child] = status
 
     def update_tree_visibility(self, index):
         selected_item_text = self.combobox.itemText(index)
@@ -149,19 +125,9 @@ class dviewer(QWidget):
             child_item = item.child(i)
             self.expand_all_items(child_item)
 
-    def filter_widgets(self, status):
-        for i in range(self.tree_widget.topLevelItemCount()):
-            item = self.tree_widget.topLevelItem(i)
-            item_status = dviewer.widget_status.get(item, Status.ALL)
-
-            if status == Status.ALL or item_status == status:
-                item.setHidden(False)
-            else:
-                item.setHidden(True)
-
 def main():
     app = QApplication([])
-    main_window = dviewer()
+    main_window = pyviewer()
     main_window.show()
     sys.exit(app.exec_())
 
