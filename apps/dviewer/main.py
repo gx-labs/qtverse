@@ -7,9 +7,10 @@ import importlib.util
 class dviewer(QWidget):
     def __init__(self):
         super().__init__()
-        
+
         # empty dictionary for storing statuses
         self.status_dict = {}
+        # self.selected_devTag = None  # Add this line to store the selected developer tag
 
         # main layout
         self.setWindowTitle("dviewer")
@@ -32,7 +33,6 @@ class dviewer(QWidget):
         self.viewer_layout.addLayout(self.statusButton_layout)
 
         self.view_all = QPushButton("ALL")
-        self.view_all.clicked.connect(self.populate_all_widgets)
         self.statusButton_layout.addWidget(self.view_all)
 
         self.wip = QPushButton("wip")
@@ -69,6 +69,15 @@ class dviewer(QWidget):
         # Connect combobox signal to slot
         self.combobox.currentIndexChanged.connect(self.populate_listWidget)
 
+        # Connecting status buttons to filter_folders_by_status
+        self.wip.clicked.connect(lambda: self.filter_folders_by_status("wip"))
+        self.submitted.clicked.connect(lambda: self.filter_folders_by_status("submitted"))
+        self.review.clicked.connect(lambda: self.filter_folders_by_status("review"))
+        self.approved.clicked.connect(lambda: self.filter_folders_by_status("approved"))
+
+        # Connecting ALL button to populate all widgets
+        self.view_all.clicked.connect(self.populate_all_widgets)
+
         # Populate list widget 
         self.populate_listWidget()
 
@@ -86,13 +95,20 @@ class dviewer(QWidget):
             self.combobox.addItem(f"{folder} ({count})")
 
     def populate_listWidget(self):
-        selected_devTag = self.combobox.currentText().split()[0]
-        widgetFolders = self.get_widgetFolders(selected_devTag)
+        sender_button = self.sender()
+
+        if sender_button in [self.wip, self.submitted, self.review, self.approved]:
+            # checks if the method is triggered by one of the status buttons
+            folders = self.get_widgetFolders(self.selected_devTag)
+        else:
+            # gets the selected developer tag from the combobox
+            self.selected_devTag = self.combobox.currentText().split()[0]
+            folders = self.get_widgetFolders(self.selected_devTag)
 
         self.list_widget.clear()  # Clears existing items
 
-        for folder_name in widgetFolders:
-            custom_widget = self.create_customWidget(selected_devTag, folder_name)
+        for folder_name in folders:
+            custom_widget = self.create_customWidget(self.selected_devTag, folder_name)
             list_item = QListWidgetItem()
             list_item.setSizeHint(custom_widget.sizeHint())
             self.list_widget.addItem(list_item)
@@ -172,33 +188,42 @@ class dviewer(QWidget):
 
         menu.exec_(button.mapToGlobal(pos))
 
-
     def set_status(self, folder, button, status):
-        # print(f"Setting status of {folder} to {status}")
         button.setText(f"{status}")
-
-        # Store the status in status_dict
         self.status_dict[folder] = status
 
-        # print("Updated status_dict:", self.status_dict)
-
-
     def populate_all_widgets(self):
+        self.filter_folders_by_status("all")
+
+    def filter_folders_by_status(self, status):
+        # Filter widgets based on the selected status
         self.list_widget.clear()
 
-        all_folders = []
-        for developer_tag in os.listdir(self.widgets_path):
-            developer_path = os.path.join(self.widgets_path, developer_tag)
-            if os.path.isdir(developer_path):
-                all_folders.extend([os.path.join(developer_tag, folder) for folder in os.listdir(developer_path) if os.path.isdir(os.path.join(developer_path, folder))])
+        if status == "all":
+            all_folders = []
+            for developer_tag in os.listdir(self.widgets_path):
+                developer_path = os.path.join(self.widgets_path, developer_tag)
+                if os.path.isdir(developer_path):
+                    all_folders.extend([os.path.join(developer_tag, folder) for folder in os.listdir(developer_path) if os.path.isdir(os.path.join(developer_path, folder))])
 
-        for folder_name in all_folders:
-            developer_tag, folder = os.path.split(folder_name)
-            custom_widget = self.create_customWidget(developer_tag, folder)
-            list_item = QListWidgetItem()
-            list_item.setSizeHint(custom_widget.sizeHint())
-            self.list_widget.addItem(list_item)
-            self.list_widget.setItemWidget(list_item, custom_widget)
+            for folder_name in all_folders:
+                developer_tag, folder = os.path.split(folder_name)
+                custom_widget = self.create_customWidget(developer_tag, folder)
+                list_item = QListWidgetItem()
+                list_item.setSizeHint(custom_widget.sizeHint())
+                self.list_widget.addItem(list_item)
+                self.list_widget.setItemWidget(list_item, custom_widget)
+        else:
+            # Get the folders with the selected status
+            filtered_folders = [folder_name for folder_name, folder_status in self.status_dict.items() if folder_status == status]
+
+            for folder_name in filtered_folders:
+                developer_tag, folder = os.path.split(folder_name)
+                custom_widget = self.create_customWidget(self.selected_devTag, folder)
+                list_item = QListWidgetItem()
+                list_item.setSizeHint(custom_widget.sizeHint())
+                self.list_widget.addItem(list_item)
+                self.list_widget.setItemWidget(list_item, custom_widget)
 
 def main():
     app = QApplication([])
@@ -208,4 +233,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
