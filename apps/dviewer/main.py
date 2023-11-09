@@ -1,16 +1,74 @@
-from PySide2.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget, QComboBox, QListWidget, QListWidgetItem, QHBoxLayout, QMenu
-from PySide2.QtCore import Qt
+from PySide2.QtWidgets import QWidget, QHBoxLayout, QLabel, QListWidget, QListWidgetItem, QVBoxLayout, QPushButton, QComboBox, QApplication, QMenu, QAction
+from PySide2.QtCore import Qt, Signal
 import os
-import sys
 import importlib.util
+import yaml
+
+class ClickableLabel(QLabel):
+    clicked = Signal()
+
+    def __init__(self, text='', parent=None):
+        super(ClickableLabel, self).__init__(text, parent)
+        self.setCursor(Qt.PointingHandCursor)
+
+    def mousePressEvent(self, event):
+        self.clicked.emit()
+        super(ClickableLabel, self).mousePressEvent(event)
+
+class CustomWidget(QWidget):
+    folderClicked = Signal(str)
+
+    def __init__(self, name, path):
+        super().__init__()
+
+        self.folder_path = path
+
+        self.main_layout = QHBoxLayout(self)
+
+        # Foldername label
+        self.foldername_label = ClickableLabel(name)
+        self.main_layout.addWidget(self.foldername_label)
+
+        # Status label
+        self.status_label = QLabel()
+        #TODO: set text, fetch from yaml file, if var not found set default label as None 
+        self.main_layout.addWidget(self.status_label)
+
+        # Add context menu to the custom widget
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.show_context_menu)
+
+    def show_context_menu(self, position):
+        menu = QMenu(self)
+
+        # Create actions for the context menu
+        wip_action = QAction("wip", self)
+        submitted_action = QAction("submitted", self)
+        review_action = QAction("review", self)
+        approved_action = QAction("approved", self)
+
+        # Connect actions to update_status function
+        wip_action.triggered.connect(lambda: self.update_status("wip"))
+        submitted_action.triggered.connect(lambda: self.update_status("submitted"))
+        review_action.triggered.connect(lambda: self.update_status("review"))
+        approved_action.triggered.connect(lambda: self.update_status("approved"))
+
+        # Add actions to the menu
+        menu.addAction(wip_action)
+        menu.addAction(submitted_action)
+        menu.addAction(review_action)
+        menu.addAction(approved_action)
+
+        # Show the context menu
+        menu.exec_(self.status_label.mapToGlobal(position))
+
+    def update_status(self, status):
+        self.status_label.setText(status)
+      #TODO: update the status in the yaml file with the changes made in the ui 
 
 class dviewer(QWidget):
     def __init__(self):
         super().__init__()
-
-        # empty dictionary for storing statuses
-        self.status_dict = {}
-        # self.selected_devTag = None  # Add this line to store the selected developer tag
 
         # main layout
         self.setWindowTitle("dviewer")
@@ -34,16 +92,12 @@ class dviewer(QWidget):
 
         self.view_all = QPushButton("ALL")
         self.statusButton_layout.addWidget(self.view_all)
-
         self.wip = QPushButton("wip")
         self.statusButton_layout.addWidget(self.wip)
-
         self.submitted = QPushButton("submitted")
         self.statusButton_layout.addWidget(self.submitted)
-
         self.review = QPushButton("review")
         self.statusButton_layout.addWidget(self.review)
-
         self.approved = QPushButton("approved")
         self.statusButton_layout.addWidget(self.approved)
 
@@ -58,72 +112,84 @@ class dviewer(QWidget):
         self.contents_layout = QVBoxLayout(self.contents_widget)
         self.contents_layout.setContentsMargins(0, 0, 0, 0)
 
-        # Set the path to WIDGETS directory 
+        # Set the root path
         current_dir = os.path.dirname(os.path.abspath(__file__))
         project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
-        self.widgets_path = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
+        self.widgetsDir_path = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
 
-        # Populate combobox with folder names and counts
-        self.populate_combobox()
+        # Populate the QListWidget with folders
+        self.populate_tree_widget()
 
-        # Connect combobox signal to slot
-        self.combobox.currentIndexChanged.connect(self.populate_listWidget)
+        # Connect the signal to the slot function
+        self.list_widget.itemClicked.connect(self.on_item_clicked)
 
-        # Connecting status buttons to filter_folders_by_status
-        self.wip.clicked.connect(lambda: self.filter_folders_by_status("wip"))
-        self.submitted.clicked.connect(lambda: self.filter_folders_by_status("submitted"))
-        self.review.clicked.connect(lambda: self.filter_folders_by_status("review"))
-        self.approved.clicked.connect(lambda: self.filter_folders_by_status("approved"))
+    def get_developer_folders(self):
+        """
+           ["ESH", "PRT", "SHB", "SMB"]
+        """
+        dev_folders = []
+        for entry in os.scandir(self.widgetsDir_path):
+            if entry.is_dir():
+                dev_folders.append(entry.name)
+        return dev_folders
 
-        # Connecting ALL button to populate all widgets
-        self.view_all.clicked.connect(self.populate_all_widgets)
+    def get_widget_folders(self, dev_folder):
+        """
+           {
+           'ESH_001': 'c:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_001', 
+           'ESH_002': 'c:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_002', 
+           'ESH_003': 'c:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_003', 
+           'ESH_004': 'c:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_004'
+           }
+        """
+        widget_folders = {}
 
-        # Populate list widget 
-        self.populate_listWidget()
+        # Get all folders in the specified main folder
+        dev_folder_path = os.path.join(self.widgetsDir_path, dev_folder)
+        if os.path.exists(dev_folder_path):
+            for folder_name in os.listdir(dev_folder_path):
+                folder_path = os.path.join(dev_folder_path, folder_name)
+                if os.path.isdir(folder_path):
+                    widget_folders[folder_name] = folder_path
 
-    def populate_combobox(self):
-        # getting folder names from the WIDGETS directory
-        developer_folders = [folder for folder in os.listdir(self.widgets_path) if os.path.isdir(os.path.join(self.widgets_path, folder))]
+        return widget_folders
 
-        # Clear existing items in the combobox
-        self.combobox.clear()
+    def populate_tree_widget(self):
+        dev_folders = self.get_developer_folders()
 
-        # Add items to the combobox with counts
-        for folder in developer_folders:
-            folder_path = os.path.join(self.widgets_path, folder)
-            count = len([f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))])
-            self.combobox.addItem(f"{folder} ({count})")
+        self.list_widget.clear()  # Clear existing items
 
-    def populate_listWidget(self):
-        sender_button = self.sender()
+        for dev_folder in dev_folders:
+            widget_folders = self.get_widget_folders(dev_folder) 
 
-        if sender_button in [self.wip, self.submitted, self.review, self.approved]:
-            # checks if the method is triggered by one of the status buttons
-            folders = self.get_widgetFolders(self.selected_devTag)
-        else:
-            # gets the selected developer tag from the combobox
-            self.selected_devTag = self.combobox.currentText().split()[0]
-            folders = self.get_widgetFolders(self.selected_devTag)
+            for folder_name, folder_path in widget_folders.items():
+                custom_widget = CustomWidget(folder_name, folder_path)
+                list_item = QListWidgetItem()
+                list_item.setSizeHint(custom_widget.sizeHint())
+                self.list_widget.addItem(list_item)
+                self.list_widget.setItemWidget(list_item, custom_widget)
 
-        self.list_widget.clear()  # Clears existing items
+    def on_item_clicked(self, item):
+        if isinstance(item, QListWidgetItem):
+            widget_item = self.list_widget.itemWidget(item)
+            if widget_item:
+                self.load_widgetUI(widget_item.folder_path)
 
-        for folder_name in folders:
-            custom_widget = self.create_customWidget(self.selected_devTag, folder_name)
-            list_item = QListWidgetItem()
-            list_item.setSizeHint(custom_widget.sizeHint())
-            self.list_widget.addItem(list_item)
-            self.list_widget.setItemWidget(list_item, custom_widget)
+    def load_widgetUI(self, folder_path):
+        # Implement the logic to load the UI from the CustomWidget.py file
+        widget_py_path = os.path.join(folder_path, "widget", "CustomWidget.py")
+        #TODO: load "widget", "CustomWidget.py" from config.yaml 
 
-            # Set status based on stored status_dict
-            status = self.status_dict.get(folder_name, "None")
-            custom_widget.status_button.setText(status)
+        if os.path.exists(widget_py_path):
+            action = self.load_widgetUI_action(widget_py_path)
+            action()
 
-    def load_widgetUI(self, ui_filepath):
+    def load_widgetUI_action(self, widget_py_path):
         def action():
-            widgetUI_file = os.path.splitext(os.path.basename(ui_filepath))[0]
-
+            widgetUI_file = os.path.splitext(os.path.basename(widget_py_path))[0]
+            #TODO: get widget ui filename from config.yaml 
             try:
-                spec = importlib.util.spec_from_file_location(widgetUI_file, ui_filepath)
+                spec = importlib.util.spec_from_file_location(widgetUI_file, widget_py_path)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
 
@@ -143,93 +209,14 @@ class dviewer(QWidget):
 
         return action
 
-    def get_widgetFolders(self, selected_devTag):
-        devDir_path = os.path.join(self.widgets_path, selected_devTag)
-
-        folder_names = [f for f in os.listdir(devDir_path) if os.path.isdir(os.path.join(devDir_path, f))]
-
-        return folder_names
-
-    def create_customWidget(self, developer_tag, folder_name):
-        customWidget_layout = QHBoxLayout()
-
-        folder_button = QPushButton(folder_name)
-        folder_button.setFlat(True)
-        folder_button.setStyleSheet("text-align: left;")
-        customWidget_layout.addWidget(folder_button)
-        folder_button.clicked.connect(
-            self.load_widgetUI(os.path.join(self.widgets_path, developer_tag, folder_name, "widget", "CustomWidget.py"))
-        )
-
-        status_button = QPushButton("None")
-        status_button.setFlat(True)
-        status_button.setStyleSheet("text-align: left;")
-        customWidget_layout.addWidget(status_button)
-
-        status_button.setContextMenuPolicy(Qt.CustomContextMenu)
-        status_button.customContextMenuRequested.connect(lambda event, folder=folder_name, button=status_button: self.status_menu(event, folder, button))
-
-        status = self.status_dict.get(folder_name, "None")
-        status_button.setText(status)
-
-        custom_widget = QWidget()
-        custom_widget.setLayout(customWidget_layout)
-        custom_widget.status_button = status_button  
-        # Storing reference to status_button within custom widget 
-        return custom_widget
-
-    def status_menu(self, pos, folder, button):
-        menu = QMenu(self)
-
-        menu.addAction("wip", lambda: self.set_status(folder, button, "wip"))
-        menu.addAction("submitted", lambda: self.set_status(folder, button, "submitted"))
-        menu.addAction("review", lambda: self.set_status(folder, button, "review"))
-        menu.addAction("approved", lambda: self.set_status(folder, button, "approved"))
-
-        menu.exec_(button.mapToGlobal(pos))
-
-    def set_status(self, folder, button, status):
-        button.setText(f"{status}")
-        self.status_dict[folder] = status
-
-    def populate_all_widgets(self):
-        self.filter_folders_by_status("all")
-
-    def filter_folders_by_status(self, status):
-        # Filter widgets based on the selected status
-        self.list_widget.clear()
-
-        if status == "all":
-            all_folders = []
-            for developer_tag in os.listdir(self.widgets_path):
-                developer_path = os.path.join(self.widgets_path, developer_tag)
-                if os.path.isdir(developer_path):
-                    all_folders.extend([os.path.join(developer_tag, folder) for folder in os.listdir(developer_path) if os.path.isdir(os.path.join(developer_path, folder))])
-
-            for folder_name in all_folders:
-                developer_tag, folder = os.path.split(folder_name)
-                custom_widget = self.create_customWidget(developer_tag, folder)
-                list_item = QListWidgetItem()
-                list_item.setSizeHint(custom_widget.sizeHint())
-                self.list_widget.addItem(list_item)
-                self.list_widget.setItemWidget(list_item, custom_widget)
-        else:
-            # Get the folders with the selected status
-            filtered_folders = [folder_name for folder_name, folder_status in self.status_dict.items() if folder_status == status]
-
-            for folder_name in filtered_folders:
-                developer_tag, folder = os.path.split(folder_name)
-                custom_widget = self.create_customWidget(self.selected_devTag, folder)
-                list_item = QListWidgetItem()
-                list_item.setSizeHint(custom_widget.sizeHint())
-                self.list_widget.addItem(list_item)
-                self.list_widget.setItemWidget(list_item, custom_widget)
 
 def main():
     app = QApplication([])
     main_window = dviewer()
     main_window.show()
-    sys.exit(app.exec_())
+    app.exec_()
+
 
 if __name__ == '__main__':
     main()
+
