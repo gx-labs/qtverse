@@ -1,11 +1,7 @@
-entity: WIDGETS
-cateory: Combobox
-
-name: blue Combobox
-
-
+category: Combobox
 developer: esha
 developer_tag: ESH
+entity: WIDGETS
+name: blue Combobox
 status: approved
-tags:
-
+tags: null

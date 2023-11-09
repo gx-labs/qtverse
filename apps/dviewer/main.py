@@ -176,24 +176,31 @@ class dviewer(QWidget):
                 self.load_widgetUI(widget_item.folder_path)
 
     def load_widgetUI(self, folder_path):
-        # Implement the logic to load the UI from the CustomWidget.py file
-        widget_py_path = os.path.join(folder_path, "widget", "CustomWidget.py")
-        #TODO: load "widget", "CustomWidget.py" from config.yaml 
+        # Implementing the logic to load the UI from the CustomWidget.py file
+        
+        # path to config.yaml file
+        config_file_path = os.path.join(os.path.dirname(__file__), "config.yaml")
+
+        # Read configuration from config.yaml
+        with open(config_file_path, "r") as config_file:
+            config = yaml.safe_load(config_file)
+
+        # Extract folder and file information from the config
+        widget_foldername = config.get("widget_foldername", "widget")
+        widget_filename = config.get("widget_filename", "CustomWidget.py")
+
+         # Construct the path to the widget Python file
+        widget_py_path = os.path.join(folder_path, widget_foldername, widget_filename)
 
         if os.path.exists(widget_py_path):
-            action = self.load_widgetUI_action(widget_py_path)
-            action()
-
-    def load_widgetUI_action(self, widget_py_path):
-        def action():
-            widgetUI_file = os.path.splitext(os.path.basename(widget_py_path))[0]
-            #TODO: get widget ui filename from config.yaml 
             try:
-                spec = importlib.util.spec_from_file_location(widgetUI_file, widget_py_path)
+                widget_filename = os.path.splitext(os.path.basename(widget_py_path))[0]
+
+                spec = importlib.util.spec_from_file_location(widget_filename, widget_py_path)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
 
-                ui_class = getattr(module, widgetUI_file)
+                ui_class = getattr(module, widget_filename)
                 ui_instance = ui_class()
 
                 while self.contents_layout.count():
@@ -207,9 +214,6 @@ class dviewer(QWidget):
             except Exception as e:
                 print(f"Error: {e}")
 
-        return action
-
-
 def main():
     app = QApplication([])
     main_window = dviewer()
@@ -219,4 +223,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
