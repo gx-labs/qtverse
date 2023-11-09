@@ -1,7 +1,7 @@
-from PySide2.QtWidgets import QWidget, QHBoxLayout, QLabel, QListWidget, QListWidgetItem, QVBoxLayout, QPushButton, QComboBox, QApplication, QMenu, QAction
-from PySide2.QtCore import Qt, Signal
+from PySide2.QtWidgets import *
+from PySide2.QtCore import *
 import os
-import importlib.util
+import importlib.util 
 import yaml
 
 class ClickableLabel(QLabel):
@@ -29,14 +29,29 @@ class CustomWidget(QWidget):
         self.foldername_label = ClickableLabel(name)
         self.main_layout.addWidget(self.foldername_label)
 
+        # Category label
+        self.category_label = QLabel()
+        self.main_layout.addWidget(self.category_label)
+
         # Status label
         self.status_label = QLabel()
-        #TODO: set text, fetch from yaml file, if var not found set default label as None 
         self.main_layout.addWidget(self.status_label)
 
         # Add context menu to the custom widget
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.show_context_menu)
+
+        # get status of Custom Widget from info.yaml                                
+        info_yaml_file_path = os.path.join(self.folder_path, "info.yaml")                        
+        if os.path.exists(info_yaml_file_path):
+            with open(info_yaml_file_path, 'r') as file:
+                info_data = yaml.safe_load(file)
+
+            category = info_data.get('category')
+            status = info_data.get('status')
+
+            self.category_label.setText(f"{category}")
+            self.status_label.setText(f"{status}")
 
     def show_context_menu(self, position):
         menu = QMenu(self)
@@ -47,11 +62,11 @@ class CustomWidget(QWidget):
         review_action = QAction("review", self)
         approved_action = QAction("approved", self)
 
-        # Connect actions to update_status function
-        wip_action.triggered.connect(lambda: self.update_status("wip"))
-        submitted_action.triggered.connect(lambda: self.update_status("submitted"))
-        review_action.triggered.connect(lambda: self.update_status("review"))
-        approved_action.triggered.connect(lambda: self.update_status("approved"))
+        # Connect actions to update info.yaml and the displayed status label
+        wip_action.triggered.connect(lambda: self.update_yaml("wip"))
+        submitted_action.triggered.connect(lambda: self.update_yaml("submitted"))
+        review_action.triggered.connect(lambda: self.update_yaml("review"))
+        approved_action.triggered.connect(lambda: self.update_yaml("approved"))
 
         # Add actions to the menu
         menu.addAction(wip_action)
@@ -60,11 +75,23 @@ class CustomWidget(QWidget):
         menu.addAction(approved_action)
 
         # Show the context menu
-        menu.exec_(self.status_label.mapToGlobal(position))
+        menu.exec_(self.mapToGlobal(position))
 
-    def update_status(self, status):
-        self.status_label.setText(status)
-      #TODO: update the status in the yaml file with the changes made in the ui 
+    def update_yaml(self, new_status):
+        info_yaml_file_path = os.path.join(self.folder_path, "info.yaml")
+        if os.path.exists(info_yaml_file_path):
+            with open(info_yaml_file_path, 'r') as file:
+                info_data = yaml.safe_load(file)
+
+            # Update the status in the info data
+            info_data['status'] = new_status
+
+            # Write the updated info data back to the info.yaml file
+            with open(info_yaml_file_path, 'w') as file:
+                yaml.dump(info_data, file)
+
+            # Update the displayed status label
+            self.status_label.setText(f"{new_status}")
 
 class dviewer(QWidget):
     def __init__(self):
@@ -219,7 +246,6 @@ def main():
     main_window = dviewer()
     main_window.show()
     app.exec_()
-
 
 if __name__ == '__main__':
     main()
