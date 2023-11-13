@@ -109,16 +109,36 @@ class dviewer(QWidget):
         self.main_layout.addWidget(self.viewer)
         self.viewer_layout = QVBoxLayout(self.viewer)
 
-        # combobox
-        self.combobox = QComboBox()
-        self.viewer_layout.addWidget(self.combobox, alignment=Qt.AlignLeft)
+        # groupbox 
+        self.groupbox =QGroupBox()
+        self.viewer_layout.addWidget(self.groupbox, alignment=Qt.AlignLeft)  
+       
+        # ALL and Developer buttons 
+        self.groupbox_layout = QHBoxLayout(self.groupbox)
+        self.all_button = QPushButton("ALL")
+        self.groupbox_layout.addWidget(self.all_button)
+        self.all_button.clicked.connect(lambda: self.update_list_widget("ALL"))
+
+        self.esh_button = QPushButton("ESH")
+        self.groupbox_layout.addWidget(self.esh_button)
+        self.esh_button.clicked.connect(lambda: self.update_list_widget("ESH"))
+
+        self.prt_button = QPushButton("PRT")
+        self.groupbox_layout.addWidget(self.prt_button)
+        self.prt_button.clicked.connect(lambda: self.update_list_widget("PRT"))
+
+        self.sam_button = QPushButton("SAM")
+        self.groupbox_layout.addWidget(self.sam_button)
+        self.sam_button.clicked.connect(lambda: self.update_list_widget("SAM"))
+
+        self.shb_button = QPushButton("SHB")
+        self.groupbox_layout.addWidget(self.shb_button)
+        self.shb_button.clicked.connect(lambda: self.update_list_widget("SHB"))
 
         # status buttons
         self.statusButton_layout = QHBoxLayout()
         self.viewer_layout.addLayout(self.statusButton_layout)
 
-        self.view_all = QPushButton("ALL")
-        self.statusButton_layout.addWidget(self.view_all)
         self.wip = QPushButton("wip")
         self.statusButton_layout.addWidget(self.wip)
         self.submitted = QPushButton("submitted")
@@ -144,16 +164,13 @@ class dviewer(QWidget):
         project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
         self.widgetsDir_path = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
 
-        # Populate the QListWidget with folders
-        self.populate_tree_widget()
+        # Populate the QListWidget with folders based on the initial state (ALL)
+        self.update_list_widget("ALL")
 
         # Connect the signal to the slot function
         self.list_widget.itemClicked.connect(self.on_item_clicked)
 
     def get_developer_folders(self):
-        """
-           ["ESH", "PRT", "SHB", "SMB"]
-        """
         dev_folders = []
         for entry in os.scandir(self.widgetsDir_path):
             if entry.is_dir():
@@ -161,14 +178,6 @@ class dviewer(QWidget):
         return dev_folders
 
     def get_widget_folders(self, dev_folder):
-        """
-           {
-           'ESH_001': 'c:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_001', 
-           'ESH_002': 'c:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_002', 
-           'ESH_003': 'c:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_003', 
-           'ESH_004': 'c:\\PROJECTS\\PySide\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_004'
-           }
-        """
         widget_folders = {}
 
         # Get all folders in the specified main folder
@@ -181,20 +190,24 @@ class dviewer(QWidget):
 
         return widget_folders
 
-    def populate_tree_widget(self):
+    def update_list_widget(self, developer):
+        # Store the currently selected developer
+        self.current_developer = developer
+
+        # Clear the list widget
+        self.list_widget.clear()
+
+        # Repopulate the list widget with widgets that match the selected developer
         dev_folders = self.get_developer_folders()
-
-        self.list_widget.clear()  # Clear existing items
-
         for dev_folder in dev_folders:
-            widget_folders = self.get_widget_folders(dev_folder) 
-
-            for folder_name, folder_path in widget_folders.items():
-                custom_widget = CustomWidget(folder_name, folder_path)
-                list_item = QListWidgetItem()
-                list_item.setSizeHint(custom_widget.sizeHint())
-                self.list_widget.addItem(list_item)
-                self.list_widget.setItemWidget(list_item, custom_widget)
+            if self.current_developer == "ALL" or self.current_developer == dev_folder:
+                widget_folders = self.get_widget_folders(dev_folder)
+                for folder_name, folder_path in widget_folders.items():
+                    custom_widget = CustomWidget(folder_name, folder_path)
+                    list_item = QListWidgetItem()
+                    list_item.setSizeHint(custom_widget.sizeHint())
+                    self.list_widget.addItem(list_item)
+                    self.list_widget.setItemWidget(list_item, custom_widget)
 
     def on_item_clicked(self, item):
         if isinstance(item, QListWidgetItem):
@@ -249,3 +262,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
