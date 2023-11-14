@@ -19,7 +19,7 @@ class ClickableLabel(QLabel):
 class CustomWidget(QWidget):
     folderClicked = Signal(str)
 
-    def __init__(self, name, path):
+    def __init__(self, name, path, status_color):
         super().__init__()
 
         self.folder_path = path
@@ -36,6 +36,7 @@ class CustomWidget(QWidget):
 
         # Status label
         self.status_label = QLabel()
+        self.status_label.setStyleSheet(f"color: {status_color};")
         self.main_layout.addWidget(self.status_label)
 
         # Add context menu to the custom widget
@@ -118,23 +119,23 @@ class dviewer(QWidget):
         self.groupbox_layout = QHBoxLayout(self.groupbox)
         self.all_button = QPushButton("ALL")
         self.groupbox_layout.addWidget(self.all_button)
-        self.all_button.clicked.connect(lambda: self.update_list_widget_by_dev("ALL"))
+        self.all_button.clicked.connect(lambda: self.update_list_widget("ALL", self.current_status))
 
         self.esh_button = QPushButton("ESH")
         self.groupbox_layout.addWidget(self.esh_button)
-        self.esh_button.clicked.connect(lambda: self.update_list_widget_by_dev("ESH"))
+        self.esh_button.clicked.connect(lambda: self.update_list_widget("ESH", self.current_status))
 
         self.prt_button = QPushButton("PRT")
         self.groupbox_layout.addWidget(self.prt_button)
-        self.prt_button.clicked.connect(lambda: self.update_list_widget_by_dev("PRT"))
+        self.prt_button.clicked.connect(lambda: self.update_list_widget("PRT", self.current_status))
 
         self.sam_button = QPushButton("SAM")
         self.groupbox_layout.addWidget(self.sam_button)
-        self.sam_button.clicked.connect(lambda: self.update_list_widget_by_dev("SAM"))
+        self.sam_button.clicked.connect(lambda: self.update_list_widget("SAM", self.current_status))
 
         self.shb_button = QPushButton("SHB")
         self.groupbox_layout.addWidget(self.shb_button)
-        self.shb_button.clicked.connect(lambda: self.update_list_widget_by_dev("SHB"))
+        self.shb_button.clicked.connect(lambda: self.update_list_widget("SHB", self.current_status))
 
         # status buttons
         self.statusButton_layout = QHBoxLayout()
@@ -145,28 +146,28 @@ class dviewer(QWidget):
         self.wip.setFont(QFont("Arial", 11, QFont.Bold))
         self.wip.setStyleSheet("color: rgb(50, 193, 255 );") 
         self.statusButton_layout.addWidget(self.wip)
-        self.wip.clicked.connect(lambda: self.update_list_widget_by_status("wip"))
+        self.wip.clicked.connect(lambda: self.update_list_widget(self.current_developer, "wip"))
         
         self.submitted = QPushButton("submitted")
         self.submitted.setFlat(True)
         self.submitted.setFont(QFont("Arial", 11, QFont.Bold))
         self.submitted.setStyleSheet("color: rgb(255, 191, 10 );") 
         self.statusButton_layout.addWidget(self.submitted)
-        self.submitted.clicked.connect(lambda: self.update_list_widget_by_status("submitted"))
+        self.submitted.clicked.connect(lambda: self.update_list_widget(self.current_developer, "submitted"))
         
         self.review = QPushButton("review")
         self.review.setFlat(True)
         self.review.setFont(QFont("Arial", 11, QFont.Bold))
         self.review.setStyleSheet("color: rgb(255, 0, 127 );") 
         self.statusButton_layout.addWidget(self.review)
-        self.review.clicked.connect(lambda: self.update_list_widget_by_status("review"))
+        self.review.clicked.connect(lambda: self.update_list_widget(self.current_developer, "review"))
         
         self.approved = QPushButton("approved")
         self.approved.setFlat(True)
         self.approved.setFont(QFont("Arial", 11, QFont.Bold))
         self.approved.setStyleSheet("color: rgb(0, 168, 107 );") 
         self.statusButton_layout.addWidget(self.approved)
-        self.approved.clicked.connect(lambda: self.update_list_widget_by_status("approved"))
+        self.approved.clicked.connect(lambda: self.update_list_widget(self.current_developer, "approved"))
 
         # list widget
         self.list_widget = QListWidget()
@@ -184,8 +185,12 @@ class dviewer(QWidget):
         project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
         self.widgetsDir_path = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
 
+        # Initialize current developer and status
+        self.current_developer = "ALL"
+        self.current_status = "ALL"
+
         # Populate the QListWidget with folders based on the initial state (ALL)
-        self.update_list_widget_by_dev("ALL")
+        self.update_list_widget(self.current_developer, self.current_status)
 
         # Connect the signal to the slot function
         self.list_widget.itemClicked.connect(self.on_item_clicked)
@@ -210,51 +215,47 @@ class dviewer(QWidget):
 
         return widget_folders
 
-    def update_list_widget_by_dev(self, developer):
-        # Store the currently selected developer
+    def update_list_widget(self, developer, status):
+        # Store the currently selected developer and status
         self.current_developer = developer
-
-        # Clear the list widget
-        self.list_widget.clear()
-
-        # Repopulate the list widget with widgets that match the selected developer
-        dev_folders = self.get_developer_folders()
-        for dev_folder in dev_folders:
-            if self.current_developer == "ALL" or self.current_developer == dev_folder:
-                widget_folders = self.get_widget_folders(dev_folder)
-                for folder_name, folder_path in widget_folders.items():
-                    custom_widget = CustomWidget(folder_name, folder_path)
-                    list_item = QListWidgetItem()
-                    list_item.setSizeHint(custom_widget.sizeHint())
-                    self.list_widget.addItem(list_item)
-                    self.list_widget.setItemWidget(list_item, custom_widget)
-
-    def update_list_widget_by_status(self, status):
-        # Store the currently selected status
         self.current_status = status
 
         # Clear the list widget
         self.list_widget.clear()
 
-        # Repopulate the list widget with widgets that match the selected status
+        # Define color mapping for statuses
+        status_color_map = {
+            "wip": "rgb(50, 193, 255)",
+            "submitted": "rgb(255, 191, 10)",
+            "review": "rgb(255, 0, 127)",
+            "approved": "rgb(0, 168, 107)"
+        }
+
+        # Repopulate the list widget with widgets that match the selected developer and status
         dev_folders = self.get_developer_folders()
         for dev_folder in dev_folders:
-            widget_folders = self.get_widget_folders(dev_folder)
-            for folder_name, folder_path in widget_folders.items():
-                # Read status from info.yaml
-                info_yaml_file_path = os.path.join(folder_path, "info.yaml")
-                if os.path.exists(info_yaml_file_path):
-                    with open(info_yaml_file_path, 'r') as file:
-                        info_data = yaml.safe_load(file)
+            if self.current_developer == "ALL" or self.current_developer == dev_folder:
+                widget_folders = self.get_widget_folders(dev_folder)
+                for folder_name, folder_path in widget_folders.items():
+                    # Read status from info.yaml
+                    info_yaml_file_path = os.path.join(folder_path, "info.yaml")
+                    if os.path.exists(info_yaml_file_path):
+                        with open(info_yaml_file_path, 'r') as file:
+                            info_data = yaml.safe_load(file)
 
-                    folder_status = info_data.get('status')
+                        folder_status = info_data.get('status')
 
-                    if self.current_status == "ALL" or self.current_status == folder_status:
-                        custom_widget = CustomWidget(folder_name, folder_path)
-                        list_item = QListWidgetItem()
-                        list_item.setSizeHint(custom_widget.sizeHint())
-                        self.list_widget.addItem(list_item)
-                        self.list_widget.setItemWidget(list_item, custom_widget)
+                        # Check if the folder matches the selected status or status is "ALL"
+                        if self.current_status == "ALL" or self.current_status == folder_status:
+                            # Set the appropriate status color or default to black
+                            status_color = status_color_map.get(folder_status, "black")
+
+                            custom_widget = CustomWidget(folder_name, folder_path, status_color)
+                            list_item = QListWidgetItem()
+                            list_item.setSizeHint(custom_widget.sizeHint())
+                            self.list_widget.addItem(list_item)
+                            self.list_widget.setItemWidget(list_item, custom_widget)
+
 
     def on_item_clicked(self, item):
         if isinstance(item, QListWidgetItem):
@@ -309,4 +310,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
