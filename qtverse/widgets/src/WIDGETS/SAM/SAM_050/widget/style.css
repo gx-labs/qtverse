@@ -1,0 +1,32 @@
+QScrollBar:horizontal{
+    border: 2px solid black;
+    background: black;
+    height: 18px;
+    margin: 0 20px 0 20px;
+    border-radius: 8px;
+ }
+ QScrollBar::handle:horizontal {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #74E7B8, stop:1 #2EB5D0);
+    min-width: 150px;
+    border-radius: 7px;
+ }
+ QScrollBar::add-line:horizontal {
+    background: transparent;
+    width: 20px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+ }
+ QScrollBar::sub-line:horizontal {
+    border: none;
+    background: transparent;
+    width: 20px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+ }
+ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal{
+    background: black;
+ }
