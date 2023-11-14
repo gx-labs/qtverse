@@ -1,5 +1,6 @@
 from PySide2.QtWidgets import *
 from PySide2.QtCore import *
+from PySide2.QtGui import *
 import os
 import importlib.util 
 import yaml
@@ -105,7 +106,7 @@ class dviewer(QWidget):
 
         # viewer widget
         self.viewer = QWidget(self)
-        self.viewer.setFixedSize(320, 800)
+        self.viewer.setFixedSize(340, 800)
         self.main_layout.addWidget(self.viewer)
         self.viewer_layout = QVBoxLayout(self.viewer)
 
@@ -117,40 +118,59 @@ class dviewer(QWidget):
         self.groupbox_layout = QHBoxLayout(self.groupbox)
         self.all_button = QPushButton("ALL")
         self.groupbox_layout.addWidget(self.all_button)
-        self.all_button.clicked.connect(lambda: self.update_list_widget("ALL"))
+        self.all_button.clicked.connect(lambda: self.update_list_widget_by_dev("ALL"))
 
         self.esh_button = QPushButton("ESH")
         self.groupbox_layout.addWidget(self.esh_button)
-        self.esh_button.clicked.connect(lambda: self.update_list_widget("ESH"))
+        self.esh_button.clicked.connect(lambda: self.update_list_widget_by_dev("ESH"))
 
         self.prt_button = QPushButton("PRT")
         self.groupbox_layout.addWidget(self.prt_button)
-        self.prt_button.clicked.connect(lambda: self.update_list_widget("PRT"))
+        self.prt_button.clicked.connect(lambda: self.update_list_widget_by_dev("PRT"))
 
         self.sam_button = QPushButton("SAM")
         self.groupbox_layout.addWidget(self.sam_button)
-        self.sam_button.clicked.connect(lambda: self.update_list_widget("SAM"))
+        self.sam_button.clicked.connect(lambda: self.update_list_widget_by_dev("SAM"))
 
         self.shb_button = QPushButton("SHB")
         self.groupbox_layout.addWidget(self.shb_button)
-        self.shb_button.clicked.connect(lambda: self.update_list_widget("SHB"))
+        self.shb_button.clicked.connect(lambda: self.update_list_widget_by_dev("SHB"))
 
         # status buttons
         self.statusButton_layout = QHBoxLayout()
         self.viewer_layout.addLayout(self.statusButton_layout)
 
         self.wip = QPushButton("wip")
+        self.wip.setFlat(True)
+        self.wip.setFont(QFont("Arial", 11, QFont.Bold))
+        self.wip.setStyleSheet("color: rgb(50, 193, 255 );") 
         self.statusButton_layout.addWidget(self.wip)
+        self.wip.clicked.connect(lambda: self.update_list_widget_by_status("wip"))
+        
         self.submitted = QPushButton("submitted")
+        self.submitted.setFlat(True)
+        self.submitted.setFont(QFont("Arial", 11, QFont.Bold))
+        self.submitted.setStyleSheet("color: rgb(255, 191, 10 );") 
         self.statusButton_layout.addWidget(self.submitted)
+        self.submitted.clicked.connect(lambda: self.update_list_widget_by_status("submitted"))
+        
         self.review = QPushButton("review")
+        self.review.setFlat(True)
+        self.review.setFont(QFont("Arial", 11, QFont.Bold))
+        self.review.setStyleSheet("color: rgb(255, 0, 127 );") 
         self.statusButton_layout.addWidget(self.review)
+        self.review.clicked.connect(lambda: self.update_list_widget_by_status("review"))
+        
         self.approved = QPushButton("approved")
+        self.approved.setFlat(True)
+        self.approved.setFont(QFont("Arial", 11, QFont.Bold))
+        self.approved.setStyleSheet("color: rgb(0, 168, 107 );") 
         self.statusButton_layout.addWidget(self.approved)
+        self.approved.clicked.connect(lambda: self.update_list_widget_by_status("approved"))
 
         # list widget
         self.list_widget = QListWidget()
-        self.list_widget.setFixedSize(300, 800)
+        self.list_widget.setFixedSize(325, 800)
         self.viewer_layout.addWidget(self.list_widget)
 
         # content widgets to display UI instances
@@ -165,7 +185,7 @@ class dviewer(QWidget):
         self.widgetsDir_path = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
 
         # Populate the QListWidget with folders based on the initial state (ALL)
-        self.update_list_widget("ALL")
+        self.update_list_widget_by_dev("ALL")
 
         # Connect the signal to the slot function
         self.list_widget.itemClicked.connect(self.on_item_clicked)
@@ -190,7 +210,7 @@ class dviewer(QWidget):
 
         return widget_folders
 
-    def update_list_widget(self, developer):
+    def update_list_widget_by_dev(self, developer):
         # Store the currently selected developer
         self.current_developer = developer
 
@@ -208,6 +228,33 @@ class dviewer(QWidget):
                     list_item.setSizeHint(custom_widget.sizeHint())
                     self.list_widget.addItem(list_item)
                     self.list_widget.setItemWidget(list_item, custom_widget)
+
+    def update_list_widget_by_status(self, status):
+        # Store the currently selected status
+        self.current_status = status
+
+        # Clear the list widget
+        self.list_widget.clear()
+
+        # Repopulate the list widget with widgets that match the selected status
+        dev_folders = self.get_developer_folders()
+        for dev_folder in dev_folders:
+            widget_folders = self.get_widget_folders(dev_folder)
+            for folder_name, folder_path in widget_folders.items():
+                # Read status from info.yaml
+                info_yaml_file_path = os.path.join(folder_path, "info.yaml")
+                if os.path.exists(info_yaml_file_path):
+                    with open(info_yaml_file_path, 'r') as file:
+                        info_data = yaml.safe_load(file)
+
+                    folder_status = info_data.get('status')
+
+                    if self.current_status == "ALL" or self.current_status == folder_status:
+                        custom_widget = CustomWidget(folder_name, folder_path)
+                        list_item = QListWidgetItem()
+                        list_item.setSizeHint(custom_widget.sizeHint())
+                        self.list_widget.addItem(list_item)
+                        self.list_widget.setItemWidget(list_item, custom_widget)
 
     def on_item_clicked(self, item):
         if isinstance(item, QListWidgetItem):
