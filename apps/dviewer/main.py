@@ -119,7 +119,7 @@ class dviewer(QWidget):
         self.groupbox_layout = QHBoxLayout(self.groupbox)
         self.all_button = QPushButton("ALL")
         self.groupbox_layout.addWidget(self.all_button)
-        self.all_button.clicked.connect(lambda: self.update_list_widget("ALL", self.current_status))
+        self.all_button.clicked.connect(lambda: self.update_list_widget("ALL", "ALL"))
 
         self.esh_button = QPushButton("ESH")
         self.groupbox_layout.addWidget(self.esh_button)
