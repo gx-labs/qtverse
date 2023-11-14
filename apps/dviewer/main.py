@@ -260,9 +260,9 @@ class dviewer(QWidget):
         if isinstance(item, QListWidgetItem):
             widget_item = self.list_widget.itemWidget(item)
             if widget_item:
-                self.load_widgetUI(widget_item.folder_path)
+                self.load_widget_UI(widget_item.folder_path)
 
-    def load_widgetUI(self, folder_path):
+    def load_widget_UI(self, folder_path):
         # Implementing the logic to load the UI from the CustomWidget.py file
         
         # path to config.yaml file
