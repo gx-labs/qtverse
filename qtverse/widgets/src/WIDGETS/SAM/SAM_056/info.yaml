@@ -2,11 +2,10 @@ cateory: vertical scrollbar
 entity: WIDGETS
 
 # for user
-name: gradient green handle grey bg scrollbar
+name: gradient blue-green handle black bg scrollbar
 tags:
 
 # for development team
 creator: sambhav
 creator_tag: SAM
 approval_status: -
-

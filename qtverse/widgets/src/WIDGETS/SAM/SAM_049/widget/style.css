@@ -1,13 +1,13 @@
 QScrollBar:horizontal{
-    border: 2px solid black;
-    background: black;
+    border: 2px solid grey;
+    background: grey;
     height: 18px;
     margin: 0 20px 0 20px;
     border-radius: 8px;
  }
  QScrollBar::handle:horizontal {
-    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #FA8072, stop:0.3 #C21807, stop:0.6 #FA8072, stop:0.9 #C21807);
-    min-width: 150px;
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #f99bff, stop:1 #2EB5D0);
+    min-width: 70px;
     border-radius: 7px;
  }
  QScrollBar::add-line:horizontal {
@@ -28,5 +28,5 @@ QScrollBar:horizontal{
     subcontrol-origin: margin;
  }
  QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal{
-    background: black;
+    background: grey;
  }

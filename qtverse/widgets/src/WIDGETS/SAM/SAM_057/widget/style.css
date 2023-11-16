@@ -6,7 +6,7 @@ QScrollBar:horizontal{
     border-radius: 8px;
  }
  QScrollBar::handle:horizontal {
-    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #f9de8a , stop:0.2 #fd8b17, stop:0.4 #f9de8a, stop:0.6 #fd8b17, stop:0.8 #f9de8a, stop:1 #fd8b17);
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #74E7B8, stop:1 #2EB5D0);
     min-width: 150px;
     border-radius: 7px;
  }
