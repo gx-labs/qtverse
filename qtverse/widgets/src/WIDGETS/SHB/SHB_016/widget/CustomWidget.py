@@ -18,8 +18,8 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.scrlbr = QScrollBar(Qt.Vertical)
-        self.scrlbr.setMinimumSize(15,400)
+        self.scrlbr = QScrollBar(Qt.Horizontal)
+        self.scrlbr.setMinimumSize(500,15)
         self.scrlbr.setStyleSheet(css_data)
 
         self.setLayout(layout)

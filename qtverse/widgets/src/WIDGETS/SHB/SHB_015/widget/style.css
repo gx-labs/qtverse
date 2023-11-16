@@ -5,11 +5,11 @@ QScrollBar:vertical{
   border-radius: 5px;
 }
 QScrollBar::handle:vertical {
-  background-color: rgb(26, 199, 173);
-  min-height: 150px;
+  background-color: rgb(255, 165, 0);
+  min-height: 200px;
   border: none;
   width: 10px;
-  border: 1px solid rgb(26, 199, 173);
+  border: 1px solid rgb(255, 165, 0);
   border-radius: 5px;
 
 

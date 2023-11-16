@@ -18,12 +18,13 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.scrlbr = QScrollBar(Qt.Vertical)
-        self.scrlbr.setMinimumSize(15,400)
-        self.scrlbr.setStyleSheet(css_data)
+        self.prgsbar = QProgressBar()
+        self.prgsbar.setValue(80)
+        self.prgsbar.setFixedSize(400, 30)
+        self.prgsbar.setStyleSheet(css_data)
 
         self.setLayout(layout)
-        layout.addWidget(self.scrlbr, alignment=Qt.AlignCenter)
+        layout.addWidget(self.prgsbar, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
