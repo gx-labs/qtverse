@@ -5,6 +5,21 @@ import os
 import importlib.util 
 import yaml
 
+def read_yaml(filepath):
+    info_yaml_file_path = filepath
+    if os.path.exists(info_yaml_file_path):
+        with open(info_yaml_file_path, 'r') as file:
+            info_data = yaml.safe_load(file)
+        return info_data
+    return None
+
+STATUS_COLOR_MAP = {
+    "wip": "rgb(18, 46, 204)",
+    "submitted": "rgb(219, 166, 20)",
+    "review": "rgb(255, 0, 127)",
+    "approved": "rgb(0, 168, 107)"
+}
+
 class ClickableLabel(QLabel):
     clicked = Signal()
 
@@ -36,6 +51,7 @@ class CustomWidget(QWidget):
 
         # Status label
         self.status_label = QLabel()
+        self.status_label.setFont(QFont("Arial", 11, QFont.Bold))
         self.status_label.setStyleSheet(f"color: {status_color};")
         self.main_layout.addWidget(self.status_label)
 
@@ -44,16 +60,11 @@ class CustomWidget(QWidget):
         self.customContextMenuRequested.connect(self.show_context_menu)
 
         # get status of Custom Widget from info.yaml                                
-        info_yaml_file_path = os.path.join(self.folder_path, "info.yaml")                        
-        if os.path.exists(info_yaml_file_path):
-            with open(info_yaml_file_path, 'r') as file:
-                info_data = yaml.safe_load(file)
+        info_filepath = os.path.join(self.folder_path, "info.yaml")
+        info_data = read_yaml(filepath=info_filepath)                        
 
-            category = info_data.get('category')
-            status = info_data.get('status')
-
-            self.category_label.setText(f"{category}")
-            self.status_label.setText(f"{status}")
+        self.category_label.setText(f"{info_data.get('category')}") 
+        self.status_label.setText(f"{info_data.get('status')}")
 
     def show_context_menu(self, position):
         menu = QMenu(self)
@@ -82,8 +93,8 @@ class CustomWidget(QWidget):
     def update_yaml(self, new_status):
         info_yaml_file_path = os.path.join(self.folder_path, "info.yaml")
         if os.path.exists(info_yaml_file_path):
-            with open(info_yaml_file_path, 'r') as file:
-                info_data = yaml.safe_load(file)
+            # Reading information from info.yaml using read_yaml function
+            info_data = read_yaml(info_yaml_file_path)
 
             # Update the status in the info data
             info_data['status'] = new_status
@@ -112,30 +123,30 @@ class dviewer(QWidget):
         self.viewer_layout = QVBoxLayout(self.viewer)
 
         # groupbox 
-        self.groupbox =QGroupBox()
+        self.groupbox = QGroupBox()
         self.viewer_layout.addWidget(self.groupbox, alignment=Qt.AlignLeft)  
        
         # ALL and Developer buttons 
         self.groupbox_layout = QHBoxLayout(self.groupbox)
         self.all_button = QPushButton("ALL")
         self.groupbox_layout.addWidget(self.all_button)
-        self.all_button.clicked.connect(lambda: self.update_list_widget("ALL", "ALL"))
+        self.all_button.clicked.connect(lambda: self.filter_by_developer("ALL"))
 
         self.esh_button = QPushButton("ESH")
         self.groupbox_layout.addWidget(self.esh_button)
-        self.esh_button.clicked.connect(lambda: self.update_list_widget("ESH", self.current_status))
+        self.esh_button.clicked.connect(lambda: self.filter_by_developer("ESH"))
 
         self.prt_button = QPushButton("PRT")
         self.groupbox_layout.addWidget(self.prt_button)
-        self.prt_button.clicked.connect(lambda: self.update_list_widget("PRT", self.current_status))
+        self.prt_button.clicked.connect(lambda: self.filter_by_developer("PRT"))
 
         self.sam_button = QPushButton("SAM")
         self.groupbox_layout.addWidget(self.sam_button)
-        self.sam_button.clicked.connect(lambda: self.update_list_widget("SAM", self.current_status))
+        self.sam_button.clicked.connect(lambda: self.filter_by_developer("SAM"))
 
         self.shb_button = QPushButton("SHB")
         self.groupbox_layout.addWidget(self.shb_button)
-        self.shb_button.clicked.connect(lambda: self.update_list_widget("SHB", self.current_status))
+        self.shb_button.clicked.connect(lambda: self.filter_by_developer("SHB"))
 
         # status buttons
         self.statusButton_layout = QHBoxLayout()
@@ -144,30 +155,30 @@ class dviewer(QWidget):
         self.wip = QPushButton("wip")
         self.wip.setFlat(True)
         self.wip.setFont(QFont("Arial", 11, QFont.Bold))
-        self.wip.setStyleSheet("color: rgb(50, 193, 255 );") 
+        self.wip.setStyleSheet(f"color: { STATUS_COLOR_MAP.get('wip')};") 
         self.statusButton_layout.addWidget(self.wip)
-        self.wip.clicked.connect(lambda: self.update_list_widget(self.current_developer, "wip"))
+        self.wip.clicked.connect(lambda: self.filter_by_status("wip"))
         
         self.submitted = QPushButton("submitted")
         self.submitted.setFlat(True)
         self.submitted.setFont(QFont("Arial", 11, QFont.Bold))
-        self.submitted.setStyleSheet("color: rgb(255, 191, 10 );") 
+        self.submitted.setStyleSheet(f"color: { STATUS_COLOR_MAP.get('submitted')};") 
         self.statusButton_layout.addWidget(self.submitted)
-        self.submitted.clicked.connect(lambda: self.update_list_widget(self.current_developer, "submitted"))
+        self.submitted.clicked.connect(lambda: self.filter_by_status("submitted"))
         
         self.review = QPushButton("review")
         self.review.setFlat(True)
         self.review.setFont(QFont("Arial", 11, QFont.Bold))
-        self.review.setStyleSheet("color: rgb(255, 0, 127 );") 
+        self.review.setStyleSheet(f"color: { STATUS_COLOR_MAP.get('review')};") 
         self.statusButton_layout.addWidget(self.review)
-        self.review.clicked.connect(lambda: self.update_list_widget(self.current_developer, "review"))
+        self.review.clicked.connect(lambda: self.filter_by_status("review"))
         
         self.approved = QPushButton("approved")
         self.approved.setFlat(True)
         self.approved.setFont(QFont("Arial", 11, QFont.Bold))
-        self.approved.setStyleSheet("color: rgb(0, 168, 107 );") 
+        self.approved.setStyleSheet(f"color: { STATUS_COLOR_MAP.get('approved')};") 
         self.statusButton_layout.addWidget(self.approved)
-        self.approved.clicked.connect(lambda: self.update_list_widget(self.current_developer, "approved"))
+        self.approved.clicked.connect(lambda: self.filter_by_status("approved"))
 
         # list widget
         self.list_widget = QListWidget()
@@ -185,12 +196,8 @@ class dviewer(QWidget):
         project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
         self.widgetsDir_path = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
 
-        # Initialize current developer and status
-        self.current_developer = "ALL"
-        self.current_status = "ALL"
-
         # Populate the QListWidget with folders based on the initial state (ALL)
-        self.update_list_widget(self.current_developer, self.current_status)
+        self.filter_by_developer("ALL")
 
         # Connect the signal to the slot function
         self.list_widget.itemClicked.connect(self.on_item_clicked)
@@ -215,23 +222,14 @@ class dviewer(QWidget):
 
         return widget_folders
 
-    def update_list_widget(self, developer, status):
-        # Store the currently selected developer and status
+    def filter_by_developer(self, developer):
+        # Store the currently selected developer
         self.current_developer = developer
-        self.current_status = status
 
         # Clear the list widget
         self.list_widget.clear()
 
-        # Define color mapping for statuses
-        status_color_map = {
-            "wip": "rgb(50, 193, 255)",
-            "submitted": "rgb(255, 191, 10)",
-            "review": "rgb(255, 0, 127)",
-            "approved": "rgb(0, 168, 107)"
-        }
-
-        # Repopulate the list widget with widgets that match the selected developer and status
+        # Repopulate the list widget with widgets that match the selected developer
         dev_folders = self.get_developer_folders()
         for dev_folder in dev_folders:
             if self.current_developer == "ALL" or self.current_developer == dev_folder:
@@ -239,50 +237,67 @@ class dviewer(QWidget):
                 for folder_name, folder_path in widget_folders.items():
                     # Read status from info.yaml
                     info_yaml_file_path = os.path.join(folder_path, "info.yaml")
-                    if os.path.exists(info_yaml_file_path):
-                        with open(info_yaml_file_path, 'r') as file:
-                            info_data = yaml.safe_load(file)
+                    info_data = read_yaml(info_yaml_file_path)
 
-                        folder_status = info_data.get('status')
+                    folder_status = info_data.get('status')
+                    status_color = STATUS_COLOR_MAP.get(folder_status, "black")  # Get the color based on status, default to black if not found
 
-                        # Check if the folder matches the selected status or status is "ALL"
-                        if self.current_status == "ALL" or self.current_status == folder_status:
-                            # Set the appropriate status color or default to black
-                            status_color = status_color_map.get(folder_status, "black")
+                    custom_widget = CustomWidget(folder_name, folder_path, status_color)
+                    list_item = QListWidgetItem()
+                    list_item.setSizeHint(custom_widget.sizeHint())
+                    self.list_widget.addItem(list_item)
+                    self.list_widget.setItemWidget(list_item, custom_widget)
 
-                            custom_widget = CustomWidget(folder_name, folder_path, status_color)
-                            list_item = QListWidgetItem()
-                            list_item.setSizeHint(custom_widget.sizeHint())
-                            self.list_widget.addItem(list_item)
-                            self.list_widget.setItemWidget(list_item, custom_widget)
+    def filter_by_status(self, status):
+        # Store the currently selected status
+        self.current_status = status
 
+        # Clear the list widget
+        self.list_widget.clear()
+
+        # Repopulate the list widget with widgets that match the selected status
+        dev_folders = self.get_developer_folders()
+        for dev_folder in dev_folders:
+            widget_folders = self.get_widget_folders(dev_folder)
+            for folder_name, folder_path in widget_folders.items():
+                # Read status from info.yaml
+                info_yaml_file_path = os.path.join(folder_path, "info.yaml")
+                info_data = read_yaml(info_yaml_file_path)
+
+                folder_status = info_data.get('status')
+
+                if self.current_status == "ALL" or self.current_status == folder_status:
+                    status_color = STATUS_COLOR_MAP.get(folder_status, "black")  # Get the color based on status, default to black if not found
+                    custom_widget = CustomWidget(folder_name, folder_path, status_color)
+                    list_item = QListWidgetItem()
+                    list_item.setSizeHint(custom_widget.sizeHint())
+                    self.list_widget.addItem(list_item)
+                    self.list_widget.setItemWidget(list_item, custom_widget)
 
     def on_item_clicked(self, item):
         if isinstance(item, QListWidgetItem):
             widget_item = self.list_widget.itemWidget(item)
             if widget_item:
-                self.load_widget_UI(widget_item.folder_path)
+                self.extract_ui_class(widget_item.folder_path)
 
-    def load_widget_UI(self, folder_path):
+    def extract_ui_class(self, folder_path):
         # Implementing the logic to load the UI from the CustomWidget.py file
         
         # path to config.yaml file
         config_file_path = os.path.join(os.path.dirname(__file__), "config.yaml")
 
         # Read configuration from config.yaml
-        with open(config_file_path, "r") as config_file:
-            config = yaml.safe_load(config_file)
+        read_config = read_yaml(config_file_path)
 
         # Extract folder and file information from the config
-        widget_foldername = config.get("widget_foldername", "widget")
-        widget_filename = config.get("widget_filename", "CustomWidget.py")
+        widget_foldername = read_config.get("widget_foldername")
+        widget_filename = read_config.get("widget_filename")
 
          # Construct the path to the widget Python file
-        widget_py_path = os.path.join(folder_path, widget_foldername, widget_filename)
-
+        widget_py_path = os.path.join(folder_path, widget_foldername, widget_filename + ".py")
+     
         if os.path.exists(widget_py_path):
             try:
-                widget_filename = os.path.splitext(os.path.basename(widget_py_path))[0]
 
                 spec = importlib.util.spec_from_file_location(widget_filename, widget_py_path)
                 module = importlib.util.module_from_spec(spec)
