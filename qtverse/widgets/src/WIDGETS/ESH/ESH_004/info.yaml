@@ -1,11 +1,7 @@
-entity: WIDGETS
-cateory: progress bar
-
-name: blue white progress bar
-
-
+category: progress bar
 developer: esha
 developer_tag: ESH
-approval_status: approved
-tags:
-
+entity: WIDGETS
+name: blue white progress bar
+status: approved
+tags: null
