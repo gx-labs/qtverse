@@ -26,8 +26,8 @@ if __name__ == "__main__":
     button2.setStyleSheet(
         """
         QPushButton {
-            background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                                             stop:0 #8360c3, stop:1 #2ebf91);
+            background-color: qlineargradient(x1:0, y1:1, x2:0, y2:0,
+                                             stop:0 #0f13fa, stop:1 #0cfc08);
             
             color: white;
             padding: 25px;
