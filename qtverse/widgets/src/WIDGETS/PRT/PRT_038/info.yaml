@@ -2,7 +2,7 @@ category: horizontal scrollbar
 entity: WIDGETS
 
 # for user
-name: green handle grey bg scrollbar
+name: red handle grey bg scrollbar
 tags:
 
 # for development team
