@@ -112,7 +112,7 @@ class dviewer(QWidget):
 
         # main layout
         self.setWindowTitle("dviewer")
-        self.setFixedSize(1200, 800)
+        # self.setFixedSize(1200, 800)
         self.main_layout = QHBoxLayout(self)
         self.setLayout(self.main_layout)
 
