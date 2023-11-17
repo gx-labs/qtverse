@@ -1,11 +1,7 @@
-entity: WIDGETS
-cateory: Groupbox
-
-name: Blue group box
-
-
+category: Groupbox
 developer: esha
 developer_tag: ESH
-approval_status: approved
-tags:
-
+entity: WIDGETS
+name: Blue group box
+status: approved
+tags: null
