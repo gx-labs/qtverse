@@ -193,7 +193,7 @@ class dviewer(QWidget):
 
         # Set the root path
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
+        project_dir = os.path.abspath(os.path.join(current_dir, '..', '..', '..'))
         self.widgetsDir_path = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
 
         # Populate the QListWidget with folders based on the initial state (ALL)
