@@ -5,17 +5,16 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-CUR_FILE_DIR = os.path.dirname(__file__)
+from ui.sandbox import WebAppWidget
+from ui.review import dviewer
 
+CUR_FILE_DIR = os.path.dirname(__file__)
 
 class QtWorldMainWindow(QWidget):
     def __init__(self):
         super().__init__()
         
-        self.setWindowTitle("Qt Verse - Desktop")
-
-        self.current_directory = os.path.dirname(__file__)
-        print("current dir:", os.path.dirname(self.current_directory))
+        self.setWindowTitle("qtVerse")
         
         # MENU BAR
         # ---------------------------------------------------------------------------
@@ -26,15 +25,15 @@ class QtWorldMainWindow(QWidget):
         menubar = QMenuBar(self)
         menubar_layout = QHBoxLayout()
 
-        # 'reva menu
-        reva_menu = QMenu("Qt Verse", self)
+        # 'menu
+        qtverse_menu = QMenu("Qt Verse", self)
         
-        reva_menu.addAction("Clean Favorites")
-        reva_menu.addSeparator()
-        reva_menu.addAction("Preferences")
-        reva_menu.addSeparator()
-        reva_menu.addAction("Settings")
-        reva_menu.addAction("Quit")
+        qtverse_menu.addAction("Clean Favorites")
+        qtverse_menu.addSeparator()
+        qtverse_menu.addAction("Preferences")
+        qtverse_menu.addSeparator()
+        qtverse_menu.addAction("Settings")
+        qtverse_menu.addAction("Quit")
 
         # 'Windows' menu
         windows_menu = QMenu("Windows", self)
@@ -73,7 +72,7 @@ class QtWorldMainWindow(QWidget):
         help_menu.addAction("Report Issue")
 
         #### ----- ADD menu's in menubar
-        menubar.addMenu(reva_menu)
+        menubar.addMenu(qtverse_menu)
         menubar.addMenu(windows_menu)
         menubar.addMenu(help_menu)
 
@@ -87,46 +86,35 @@ class QtWorldMainWindow(QWidget):
 
         central_layout = QHBoxLayout()
 
-        sidebar_widget = QListWidget()
+        # sidebar_widget = QListWidget()
 
-        # for each in range(5):
-        #     item = QListWidgetItem("a111")
-        #     item.setSizeHint(QSize(10,30))
-        #     sidebar_widget.addItem(item)
-        
-        item_1 = QListWidgetItem("Boilerplate for Widgets")
-        item_1.setSizeHint(QSize(10,30))
-        
+        # preview_widget = QListWidget()
 
-        item_2 = QListWidgetItem("Informatin Widgets")
-        item_2.setSizeHint(QSize(10,30)) 
 
-        item_3 = QListWidgetItem("Notificaition Widgets")
-        item_3.setSizeHint(QSize(10,30)) 
+        tab_widget = QTabWidget()
 
-        item_4 = QListWidgetItem("Tool Widgets")
-        item_4.setSizeHint(QSize(10,30)) 
+        tab1_layout = QHBoxLayout()
+        tab1_layout.addWidget(dviewer())
 
-        item_5 = QListWidgetItem("App Widgets")
-        item_5.setSizeHint(QSize(10,30)) 
+        tab2_layout = QHBoxLayout()
+        tab2_layout.addWidget(WebAppWidget())
 
-        sidebar_widget.addItem(item_1)
-        sidebar_widget.addItem(item_2)
-        sidebar_widget.addItem(item_3)
-        sidebar_widget.addItem(item_4)
-        sidebar_widget.addItem(item_5)
+        tab_1 = QWidget()
+        tab_1.setLayout(tab1_layout)
 
-        sidebar_widget.setUniformItemSizes(True)
-        preview_widget = QListWidget()
+        tab_2 = QWidget()
+        tab_2.setLayout(tab2_layout)
 
+        tab_widget.addTab(tab_1, "Developer Viewer")
+        tab_widget.addTab(tab_2, "Sandbox")
+
+        central_layout.addWidget(tab_widget)
+
+
+        # central_layout.addWidget(sidebar_widget)
+        # central_layout.addWidget(preview_widget)
 
         
-
-        central_layout.addWidget(sidebar_widget)
-        central_layout.addWidget(preview_widget)
-        # def onClicked(self, item):
-        #     QMessageBox.information(self, "Info", item.text())
-
 
         # ---------------------------------------------------------------------------
         # ---------------------------------------------------------------------------
@@ -137,7 +125,6 @@ class QtWorldMainWindow(QWidget):
         # ---------------------------------------------------------------------------
 
         main_layout = QVBoxLayout()
-        # main_layout.setSpacing(0)
         main_layout.addLayout(menubar_layout)
         main_layout.addLayout(central_layout)
         main_layout.setContentsMargins(5, 0, 5, 0)
@@ -173,8 +160,8 @@ if __name__ == "__main__":
     palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
     palette.setColor(QPalette.HighlightedText, Qt.black)
     
-    app.setPalette(palette)
-    app.setStyle("Fusion")                      # Set Fusion style
+    # app.setPalette(palette)
+    # app.setStyle("Fusion")                      # Set Fusion style
     # app.setStyleSheet(reva_style("app_dark.css"))
     
     window = QtWorldMainWindow()
