@@ -1,8 +1,8 @@
-cateory: horizontal scrollbar
+cateory: vertical scrollbar
 entity: WIDGETS
 
 # for user
-name: black handle grey bg scrollbar
+name: white handle black bg scrollbar
 tags:
 
 # for development team

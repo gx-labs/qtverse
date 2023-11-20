@@ -1,32 +1,20 @@
-QScrollBar:horizontal{
-    border: 2px solid black;
-    background: black;
-    height: 18px;
-    margin: 0 20px 0 20px;
-    border-radius: 8px;
- }
- QScrollBar::handle:horizontal {
-    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #f9de8a , stop:0.2 #fd8b17, stop:0.4 #f9de8a, stop:0.6 #fd8b17, stop:0.8 #f9de8a, stop:1 #fd8b17);
-    min-width: 150px;
-    border-radius: 7px;
- }
- QScrollBar::add-line:horizontal {
-    background: transparent;
-    width: 20px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    subcontrol-position: right;
-    subcontrol-origin: margin;
- }
- QScrollBar::sub-line:horizontal {
-    border: none;
-    background: transparent;
-    width: 20px;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    subcontrol-position: left;
-    subcontrol-origin: margin;
- }
- QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal{
-    background: black;
- }
+QSlider{
+  min-width: 14em;
+  height: 18px;
+  border-radius: 5px;
+}
+QSlider:groove:horizontal{
+  background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #2EB5D0, stop:1 #74E7B8);
+  border: 1px solid none;
+  height: 5px;
+}
+QSlider:handle:horizontal{
+  background: white;
+  width: 15px;
+  margin: -5px;
+  border-radius: 6px;
+  border: 1px solid white;
+}
+QSlider:sub-page:horizontal {
+  background: rgb(37, 133, 37);
+}

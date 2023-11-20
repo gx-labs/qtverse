@@ -2,7 +2,7 @@ cateory: vertical scrollbar
 entity: WIDGETS
 
 # for user
-name: white handle black bg scrollbar
+name: gradient green handle grey bg scrollbar
 tags:
 
 # for development team

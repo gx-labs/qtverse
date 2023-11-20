@@ -1,12 +1,11 @@
-cateory: horizontal scrollbar
+cateory: horizontal sliders
 entity: WIDGETS
 
 # for user
-name: gradient orange handle black bg scrollbar
+name: gradient green groove with white handle
 tags:
 
 # for development team
 creator: sambhav
 creator_tag: SAM
 approval_status: 
-

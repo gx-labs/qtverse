@@ -18,12 +18,11 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.scrlbr = QScrollBar(Qt.Vertical)
-        self.scrlbr.setMinimumSize(10,300)
-        self.scrlbr.setStyleSheet(css_data)
+        self.slider = QSlider(Qt.Horizontal)
+        self.slider.setStyleSheet(css_data)
 
         self.setLayout(layout)
-        layout.addWidget(self.scrlbr, alignment=Qt.AlignCenter)
+        layout.addWidget(self.slider, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

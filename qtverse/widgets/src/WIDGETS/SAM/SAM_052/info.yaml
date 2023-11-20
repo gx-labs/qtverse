@@ -1,8 +1,8 @@
-cateory: vertical scrollbar
+cateory: horizontal sliders
 entity: WIDGETS
 
 # for user
-name: gradient green handle black bg scrollbar
+name: gradient green groove with white handle
 tags:
 
 # for development team
