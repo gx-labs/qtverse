@@ -37,29 +37,22 @@ if __name__ == '__main__':
     window = MyListViewApp()
 
     style = """
+
 QListView {
-    alternate-background-color: yellow;
-}
-QListView {
-    show-decoration-selected: 1; /* make the selection span the entire width of the view */
+    show-decoration-selected: 0.1; /* make the selection span the entire width of the view */
 }
 
-QListView::item:alternate {
-    background: #EEEEEE;
+QListView::item {
+    alternate-background: cyan;
 }
 
-QListView::item:selected {
-    border: 1px solid #6a6ea9;
+
+QListView::item:selected:!active { /*While editing an item*/
+    background: red;
 }
 
-QListView::item:selected:!active {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #ABAFE5, stop: 1 #8588B2);
-}
-
-QListView::item:selected:active {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #6a6ea9, stop: 1 #888dd9);
+QListView::item:selected:active {/*While item selected*/
+    background: yellow;
 }
 
 QListView::item:hover {
