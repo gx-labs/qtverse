@@ -1,0 +1,13 @@
+QCheckBox:indicator{
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+}
+QCheckBox:indicator:unchecked{
+  background-color: rgb(197, 189, 189);
+  border: 5px solid rgb(197, 189, 189);
+}
+QCheckBox:indicator:checked{
+  background-color:rgb(187, 69, 187);
+  border: 5px solid rgb(197, 189, 189);
+}
