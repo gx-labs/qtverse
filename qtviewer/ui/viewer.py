@@ -237,6 +237,7 @@ class DeveloperViewerWidget(QWidget):
 
         self.thumbnail_layout = QHBoxLayout()
         self.thumbnail_widget = ThumbnailViewerWidget()
+        # self.thumbnail_widget.setStyleSheet("margin:5px; border:1px solid rgb(0, 255, 0); ")
         self.thumbnail_layout.addWidget(self.thumbnail_widget)
 
         # -----------------------
@@ -340,11 +341,27 @@ class DeveloperViewerWidget(QWidget):
 
             widget_py_path = os.path.join(each_widget_path, "widget", "CustomWidget.py")
             
+            info_filepath = os.path.join(each_widget_path, "info.yaml")
+            info_dict = read_yaml(filepath=info_filepath)
+
+            css_filepath = os.path.join(each_widget_path, "widget", "style.css")
+            with open(css_filepath) as file:
+                css_data = file.read().replace('\n',' ')
+            
             if os.path.exists(widget_py_path):
                 imported_widget = self._import_ui_as_module("CustomWidget", widget_py_path)
                 print(imported_widget)
 
-                self.custom_thumbnail_widget = ThumbnailWidget(custom_widget=imported_widget, width = 200, height = 100)
+                self.custom_thumbnail_widget = ThumbnailWidget(
+                    widget_name=each_widget_name,
+                    widget_path=each_widget_path,
+                    css_data=css_data,
+                    custom_widget=imported_widget, 
+                    info_dict=info_dict,
+                    width=200, 
+                    height=100
+                    )
+                
                 self.thumbnail_widget.scroll_area_layout.addWidget(self.custom_thumbnail_widget)
 
 
