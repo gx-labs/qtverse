@@ -1,5 +1,5 @@
 import sys
-from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel,QColorDialog
+from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel,QColorDialog,QComboBox,QHBoxLayout
 from PySide2.QtGui import QLinearGradient, QRadialGradient
 from PySide2.QtCore import Qt
 
