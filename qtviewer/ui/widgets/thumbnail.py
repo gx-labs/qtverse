@@ -8,10 +8,10 @@ from PySide2.QtCore import *
 
 class ThumbnailWidget(QWidget):
 
-    def __init__(self, width, height):
+    def __init__(self, custom_widget, width, height):
         super(ThumbnailWidget, self).__init__()
 
-        self.setFixedSize(width, height)
+        # self.setFixedSize(width, height)
 
         self.main_layout = QVBoxLayout()
         self.main_layout.setContentsMargins(0,0,0,0)
@@ -19,12 +19,13 @@ class ThumbnailWidget(QWidget):
         self.thumbnail_and_buttons_layout = QHBoxLayout()
         self.thumbnail_and_buttons_layout.setContentsMargins(0,0,0,0)
 
-        self.preview_label = QLabel("Preview")
-        self.preview_label.setFixedSize(width, height)
-        self.preview_label.setAlignment(Qt.AlignCenter)
-        self.preview_label.setStyleSheet("background-color: rgb(30,30,30)")
+        # self.preview_label = QLabel("Preview")
+        # self.preview_label.setFixedSize(width, height)
+        # self.preview_label.setAlignment(Qt.AlignCenter)
+        # self.preview_label.setStyleSheet("background-color: rgb(30,30,30)")
 
-        self.thumbnail_and_buttons_layout.addWidget(self.preview_label)
+        # self.thumbnail_and_buttons_layout.addWidget(self.preview_label)
+        self.thumbnail_and_buttons_layout.addWidget(custom_widget)
 
 
         self.corner_buttons_layout = QVBoxLayout()
@@ -59,9 +60,6 @@ class ThumbnailWidget(QWidget):
 
         self.thumbnail_and_buttons_layout.addLayout(self.corner_buttons_layout)
         
-
-
-
         self.bottom_layout = QHBoxLayout()
 
 

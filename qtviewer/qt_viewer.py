@@ -5,8 +5,8 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-from ui.sandbox import WebAppWidget
-from ui.viewer import dviewer
+from ui.desktop import DesktopAppWidget
+from ui.viewer import DeveloperViewerWidget
 
 CUR_FILE_DIR = os.path.dirname(__file__)
 
@@ -94,10 +94,10 @@ class QtWorldMainWindow(QWidget):
         tab_widget = QTabWidget()
 
         tab1_layout = QHBoxLayout()
-        tab1_layout.addWidget(dviewer())
+        tab1_layout.addWidget(DeveloperViewerWidget())
 
         tab2_layout = QHBoxLayout()
-        tab2_layout.addWidget(WebAppWidget())
+        tab2_layout.addWidget(DesktopAppWidget())
 
         tab_1 = QWidget()
         tab_1.setLayout(tab1_layout)
