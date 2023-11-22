@@ -23,7 +23,7 @@ project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
 widgetsDir_path = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
 config_file_path = os.path.join(os.path.dirname(__file__), "config", "settings.yaml")
 
-class CustomWidget(QWidget):
+class CustomListWidgetItem(QWidget):
     folderClicked = Signal(str)
 
     def __init__(self, name, path, status_color):
@@ -257,7 +257,7 @@ class dviewer(QWidget):
                     folder_status = info_data.get('status')
                     status_color = STATUS_COLOR_MAP.get(folder_status, "black")  # Get the color based on status, default to black if not found
 
-                    custom_widget = CustomWidget(folder_name, folder_path, status_color)
+                    custom_widget = CustomListWidgetItem(folder_name, folder_path, status_color)
                     list_item = QListWidgetItem()
                     list_item.setSizeHint(custom_widget.sizeHint())
                     self.list_widget.addItem(list_item)
@@ -283,7 +283,7 @@ class dviewer(QWidget):
 
                 if self.current_status == "ALL" or self.current_status == folder_status:
                     status_color = STATUS_COLOR_MAP.get(folder_status, "black")  # Get the color based on status, default to black if not found
-                    custom_widget = CustomWidget(folder_name, folder_path, status_color)
+                    custom_widget = CustomListWidgetItem(folder_name, folder_path, status_color)
                     list_item = QListWidgetItem()
                     list_item.setSizeHint(custom_widget.sizeHint())
                     self.list_widget.addItem(list_item)
@@ -299,7 +299,7 @@ class dviewer(QWidget):
 
     def extract_ui_class(self, folder_path):
         """ 
-        Logic to load the UI from the CustomWidget.py file
+        Logic to load the UI from the CustomListWidgetItem.py file
         """       
 
         config_dict = read_yaml(config_file_path)

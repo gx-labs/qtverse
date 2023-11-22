@@ -6,7 +6,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 from ui.sandbox import WebAppWidget
-from ui.review import dviewer
+from ui.viewer import dviewer
 
 CUR_FILE_DIR = os.path.dirname(__file__)
 
@@ -106,7 +106,7 @@ class QtWorldMainWindow(QWidget):
         tab_2.setLayout(tab2_layout)
 
         tab_widget.addTab(tab_1, "Developer Viewer")
-        tab_widget.addTab(tab_2, "Sandbox")
+        tab_widget.addTab(tab_2, "qtverse Desktop")
 
         central_layout.addWidget(tab_widget)
 
