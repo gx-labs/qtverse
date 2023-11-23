@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "name": "Item 1",
+    "groupname": "Group A",
+    "code1": "pyqt",
+    "code2": "pyside2",
+    "code3": "CSS",
+    "code4": "qt",
+    "image": "https://placekitten.com/400/400?image=1"
+  },
+  {
+    "id": 2,
+    "name": "Item 2",
+    "groupname": "Group B",
+    "code1": "react",
+    "code2": "angular",
+    "code3": "JavaScript",
+    "code4": "vue",
+    "image": "https://placekitten.com/400/400?image=2"
+  },
+  {
+    "id": 3,
+    "name": "Item 3",
+    "groupname": "Group C",
+    "code1": "python",
+    "code2": "django",
+    "code3": "HTML",
+    "code4": "flask",
+    "image": "https://placekitten.com/400/400?image=3"
+  }
+ 
+]
+
+
