@@ -2,7 +2,7 @@ cateory: groupbox
 entity: WIDGETS
 
 # for user
-name:  gradient green colour in rounded-border title groupbox
+name:  gradient blue background of title & groupbox with top-bottom borders
 tags:
 
 # for development team

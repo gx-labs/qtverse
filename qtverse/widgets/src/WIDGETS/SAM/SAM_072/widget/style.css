@@ -14,7 +14,7 @@ QGroupBox:title{
   subcontol-origin: margin;
   subcontol-position: top left;
   background-color:rgb(42, 100, 226);
-  padding: 3px 130px 3px 119.75px;
+  padding: 3px 227px 3px 0;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
