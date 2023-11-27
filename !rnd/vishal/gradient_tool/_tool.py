@@ -1,5 +1,5 @@
 import sys
-from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox, QHBoxLayout
+from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout
 from PySide2.QtGui import QLinearGradient, QRadialGradient
 from PySide2.QtCore import Qt
 
@@ -23,31 +23,28 @@ class GradientGenerator(QMainWindow):
         self.change_gradient_button.clicked.connect(self.change_gradient)
         self.layout.addWidget(self.change_gradient_button)
 
-        self.color_comboboxes = []
-        self.color_comboboxes.append(QComboBox())
-        self.color_comboboxes.append(QComboBox())
-
-        for i, combobox in enumerate(self.color_comboboxes):
-            combobox.setEditable(True)
-            combobox.setPlaceholderText(f'Select Color {i+1}')
-            combobox.currentIndexChanged.connect(self.update_colors)
-            self.layout.addWidget(combobox)
+        self.color_buttons = []
+        self.color_buttons.append(QPushButton('Select Color 1'))
+        self.color_buttons.append(QPushButton('Select Color 2'))
+        for btn in self.color_buttons:
+            btn.clicked.connect(self.choose_color)
+            self.layout.addWidget(btn)
 
         angles = list(range(0, 361, 45))  # Angles from 0 to 360 with 45-degree increment
         self.angle_combo_box = QComboBox()
         for angle in angles:
             self.angle_combo_box.addItem(str(angle))
-        self.angle_combo_box.setCurrentIndex(0)
+        self.angle_combo_box.setCurrentIndex(2)
         self.angle_combo_box.currentIndexChanged.connect(self.rotate_gradient)
 
         angle_layout = QHBoxLayout()
-        angle_layout.addWidget(QLabel("Angle"))
+        angle_layout.addWidget(QLabel("Rotation"))
         angle_layout.addWidget(self.angle_combo_box)
         angle_layout.setSpacing(0)
         angle_layout.setAlignment(Qt.AlignLeft)
 
         self.layout.addLayout(angle_layout)
-
+        
         self.gradient_type = 'linear'
         self.colors = ['#FF0000', '#0000FF']  # Initial colors in hex format
         self.rotation_angle = 0
@@ -76,10 +73,36 @@ class GradientGenerator(QMainWindow):
         self.update_gradient_label()
 
     def rotate_gradient(self, index):
-        angle = int(self.angle_combo_box.itemText(index))
-        self.rotation_angle = angle
+        angle = int(self.sender().itemText(index))
+        if angle == 0:
+            self.gradient= f"qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 {self.colors[0]}, stop:1 {self.colors[1]});"
+        if angle == 45:
+            self.gradient= f"qlineargradient(spread:pad,x1:0, y1:1, x2:1, y2:0, stop:0 {self.colors[0]}, stop:1 {self.colors[1]});"
+        if angle == 90:
+            self.gradient = f"qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 {self.colors[0]}, stop:1 {self.colors[1]});"
+        if angle == 135:
+            self.gradient = f"qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:1, stop:0 {self.colors[0]}, stop:1 {self.colors[1]});"
+        if angle == 180:
+            self.gradient = f"qlineargradient(spread:pad,x1:0, y1:0, x2:0, y2:1, stop:0 {self.colors[0]}, stop:1 {self.colors[1]});"
+        if angle == 225:
+            self.gradient = f"qlineargradient(spread:pad,x1:1, y1:0, x2:0, y2:1, stop:0 {self.colors[0]}, stop:1 {self.colors[1]});"
+        if angle == 270:
+            self.gradient = f"qlineargradient(spread:pad,x1:1, y1:0, x2:0, y2:0, stop:0 {self.colors[0]}, stop:1 {self.colors[1]});"
+        if angle == 315:
+            self.gradient = f"qlineargradient(spread:pad,x1:1, y1:1, x2:0, y2:0, stop:0 {self.colors[0]}, stop:1 {self.colors[1]});"
+        if angle ==360:
+            self.gradient = f"qlineargradient(spread:pad,x1:0, y1:1, x2:0, y2:0, stop:0 {self.colors[0]}, stop:1 {self.colors[1]});"
         self.update_gradient_label()
-
+    def choose_color(self):
+        button = self.sender()
+        color_index = self.color_buttons.index(button)
+        # Open a color dialog to select a color
+        color_dialog = QColorDialog.getColor()
+        
+        if color_dialog.isValid():
+            self.colors[color_index] = color_dialog.name() 
+            self.generate_gradient()
+            self.update_gradient_label()
 def run_app():
     app = QApplication(sys.argv)
     window = GradientGenerator()
