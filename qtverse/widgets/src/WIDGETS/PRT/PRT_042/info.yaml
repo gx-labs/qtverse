@@ -1,8 +1,8 @@
-category: horizontal scrollbar
+category: radiobutton
 entity: WIDGETS
 
 # for user
-name: green handle grey bg scrollbar
+name: red color round shaped radiobutton
 tags:
 
 # for development team

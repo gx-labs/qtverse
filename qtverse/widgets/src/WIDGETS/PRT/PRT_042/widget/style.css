@@ -1,0 +1,19 @@
+QRadioButton{
+   font-size: 20px;
+   color: black; 
+   width: 100px;
+ }
+ QRadioButton:indicator{
+   width: 20px;
+   height: 20px;
+   border-radius: 11px;
+ }
+ QRadioButton:indicator:unchecked{
+   background-color: white;
+   border: 1px solid grey;
+ }
+ QRadioButton:indicator:checked{
+   background-color: red;
+   border: 2px solid white;
+   outline: 1px solid red;
+ }
