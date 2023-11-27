@@ -1,15 +1,16 @@
 QScrollBar:vertical {
-   border: 1px solid #CACACA;
-   background: #B8B8B8;
+   border: 1px solid white;
+   background: white;
    width: 18px;  
    margin: 20px 0 20px 0;
    border-radius: 8px; 
 }
 
 QScrollBar::handle:vertical {
-   background: red;
+   background: rgb(48, 177, 228);
    min-height: 85px;
-   border-radius: 8px;  
+   border-radius: 8px;
+   border: 2px solid white;  
 }
 
 QScrollBar::add-line:vertical {
@@ -30,6 +31,6 @@ QScrollBar::sub-line:vertical {
    subcontrol-origin: margin;
 }
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-   background: #B8B8B8;
+   background: white;
    border-radius: 8px;
 }
