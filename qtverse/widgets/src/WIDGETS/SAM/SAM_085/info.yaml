@@ -2,7 +2,7 @@ cateory: groupbox
 entity: WIDGETS
 
 # for user
-name: center title in square borders with curved groupbox
+name: green colour in square-border title right side aligned and dotted groupbox
 tags:
 
 # for development team
