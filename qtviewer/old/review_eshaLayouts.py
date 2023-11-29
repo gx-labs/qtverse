@@ -7,7 +7,13 @@ from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 
-from utils import read_yaml
+def read_yaml(filepath):
+    info_yaml_file_path = filepath
+    if os.path.exists(info_yaml_file_path):
+        with open(info_yaml_file_path, 'r') as file:
+            info_data = yaml.safe_load(file)
+        return info_data
+    return None
 
 STATUS_COLOR_MAP = {
     "wip": "rgb(18, 46, 204)",
