@@ -1,6 +1,10 @@
 # Check Python Version
 * make sure you have python 3.7 or above
 
+```
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process
+```
+
 ## Create & Load - Virtual ENV
 
 ### Using VSCODE
