@@ -1,6 +1,6 @@
 QProgressBar {
   border: 3px solid #0eea15;
-  border-radius: 15px;
+  border-radius: 10px;
   text-align: center;
   font-style: bold;
 }
