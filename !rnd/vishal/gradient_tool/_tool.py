@@ -1,6 +1,6 @@
 import sys
-from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout
-from PySide2.QtGui import QLinearGradient, QRadialGradient
+from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout,QLineEdit
+from PySide2.QtGui import QLinearGradient, QRadialGradient,QColor
 from PySide2.QtCore import Qt
 
 class GradientGenerator(QMainWindow):
@@ -30,6 +30,18 @@ class GradientGenerator(QMainWindow):
             btn.clicked.connect(self.choose_color)
             self.layout.addWidget(btn)
 
+        self.color_line_edits = []
+        for i in range(len(self.color_buttons)):
+            layout = QHBoxLayout()
+            color_button = self.color_buttons[i]
+            color_button.clicked.connect(self.choose_color)
+            layout.addWidget(color_button)
+            color_line_edit = QLineEdit()
+            color_line_edit.setFixedWidth(70)  # Adjust the width as needed
+            color_line_edit.textChanged.connect(self.change_color_from_hex)
+            layout.addWidget(color_line_edit)
+            self.color_line_edits.append(color_line_edit)
+            self.layout.addLayout(layout)
         angles = list(range(0, 361, 45))  # Angles from 0 to 360 with 45-degree increment
         self.angle_combo_box = QComboBox()
         for angle in angles:
@@ -93,16 +105,32 @@ class GradientGenerator(QMainWindow):
         if angle ==360:
             self.gradient = f"qlineargradient(spread:pad,x1:0, y1:1, x2:0, y2:0, stop:0 {self.colors[0]}, stop:1 {self.colors[1]});"
         self.update_gradient_label()
-    def choose_color(self):
-        button = self.sender()
-        color_index = self.color_buttons.index(button)
-        # Open a color dialog to select a color
-        color_dialog = QColorDialog.getColor()
-        
-        if color_dialog.isValid():
-            self.colors[color_index] = color_dialog.name() 
+    def choose_color(self, color_index):
+        color_dialog = QColorDialog(self)
+        current_color = QColor(self.colors[color_index])
+        color_dialog.setCurrentColor(current_color)
+
+        if color_dialog.exec_():
+            selected_color = color_dialog.selectedColor().name()
+            self.colors[color_index] = selected_color
+
+            # Update the color button text and line edit text with the selected color
+            self.color_buttons[color_index].setStyleSheet(f"background-color: {selected_color}; color: {selected_color};")
+            self.color_line_edits[color_index].setText(selected_color)
+
             self.generate_gradient()
             self.update_gradient_label()
+
+    def change_color_from_hex(self):
+        line_edit = self.sender()
+        index = self.color_line_edits.index(line_edit)
+        hex_color = line_edit.text()
+        if self.is_valid_hex_color(hex_color):
+            self.colors[index] = hex_color
+            self.generate_gradient()
+            self.update_gradient_label()
+    def is_valid_hex_color(self, color):
+        return len(color) == 7 and color[0] == '#' and all(c in '0123456789abcdefABCDEF' for c in color[1:])
 def run_app():
     app = QApplication(sys.argv)
     window = GradientGenerator()
