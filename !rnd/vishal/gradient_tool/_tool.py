@@ -19,7 +19,7 @@ class GradientGenerator(QMainWindow):
         self.gradient_label = QLabel()
         self.layout.addWidget(self.gradient_label)
 
-        self.change_gradient_button = QPushButton('Change Gradient Type')
+        self.change_gradient_button = QPushButton('Linear/ Radial')
         self.change_gradient_button.clicked.connect(self.change_gradient)
         self.layout.addWidget(self.change_gradient_button)
 
