@@ -1,14 +1,14 @@
+import React from 'react'
+import NavBar from './components/NavBar'
+import Footer from './components/Footer'
 
-
-
-function App() {
- 
-
+const App = () => {
   return (
     <>
-      <h1>HELLO WORLD</h1>
+      <NavBar />
+      <Footer />
     </>
-  )
+  );
 }
 
 export default App
