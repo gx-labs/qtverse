@@ -6,6 +6,7 @@ QComboBox{
   background-color: #b04848;
   padding-left: 20px;
   padding-right: 20px;
+  font: 50 12pt "Open Sans"
 }
 
 QComboBox::drop-down {
