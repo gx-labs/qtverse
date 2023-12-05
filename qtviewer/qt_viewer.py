@@ -7,6 +7,7 @@ from PySide2.QtWidgets import *
 
 from ui.desktop import DesktopAppWidget
 from ui.viewer import DeveloperViewerWidget
+from ui.themes import ThemesAppWidget
 
 CUR_FILE_DIR = os.path.dirname(__file__)
 
@@ -99,14 +100,21 @@ class QtWorldMainWindow(QWidget):
         tab2_layout = QHBoxLayout()
         tab2_layout.addWidget(DesktopAppWidget())
 
+        tab3_layout = QHBoxLayout()
+        tab3_layout.addWidget(ThemesAppWidget())
+
         tab_1 = QWidget()
         tab_1.setLayout(tab1_layout)
 
         tab_2 = QWidget()
         tab_2.setLayout(tab2_layout)
 
+        tab_3 = QWidget()
+        tab_3.setLayout(tab3_layout)
+
         tab_widget.addTab(tab_1, "Developer Viewer")
         tab_widget.addTab(tab_2, "qtverse Desktop")
+        tab_widget.addTab(tab_3, "Themes")
 
         central_layout.addWidget(tab_widget)
 
