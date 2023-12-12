@@ -19,7 +19,7 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.button = QPushButton("Register")
-        self.button.setFixedSize(100, 25)
+        self.button.setFixedSize(170, 55)
         self.button.setStyleSheet(css_data)
 
         self.setLayout(layout)

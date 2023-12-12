@@ -18,8 +18,8 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QPushButton("SIGN IN")
-        self.button.setFixedSize(170, 70)
+        self.button = QPushButton("Home")
+        self.button.setFixedSize(170, 55)
         self.button.setStyleSheet(css_data)
 
         self.setLayout(layout)
