@@ -32,6 +32,30 @@ class PushButtonsApp(QWidget):
                                 }
                                 ''')
         
+        button2.setStyleSheet('''QPushButton {
+                                        background-color: #8BEEA2;
+                                    }
+                                QPushButton:hover {
+                                        background-color: #50CEA7;
+                                    }
+                                QPushButton:pressed {
+                                    background-color: #188994;
+                                }
+                              ''')
+        
+        button3.setStyleSheet('''QPushButton {
+                                        background-color: white;
+                                        padding: 10px;
+                                        border: 2px solid;
+                                        border-radius: 10px;
+                                    }
+                                QPushButton:pressed {
+                                    background-color: grey;
+                                    font: white;
+                                }
+                              ''')
+
+        
         master_layout.addWidget(button1)
         master_layout.addWidget(button2)
         master_layout.addWidget(button3)
