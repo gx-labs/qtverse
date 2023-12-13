@@ -2,15 +2,16 @@ QComboBox{
     color: #F5F3F4;
     font-weight: bold;
     border: 2px solid #E5383B;
-    border-radius: 15px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
     background-color: #BA181B;
     padding-left: 20px;
     padding-right: 20px;
 }
 
 QComboBox::drop-down {
-    border: 10px;
-    width: 0px;
+    border: 15px;
+    width: 10px;
 }
 
 QComboBox QAbstractItemView {

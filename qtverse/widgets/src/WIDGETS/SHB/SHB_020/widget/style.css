@@ -8,9 +8,7 @@ QComboBox {
 
 QComboBox:hover {
 		border-color: rgb(164, 163, 163); }
-QComboBox::drop-down {
-			border: none;
-			 }		
+
 QComboBox QAbstractItemView
 			 {    background-color: #404040; 
 				 selection-background-color: #ffa600c2;

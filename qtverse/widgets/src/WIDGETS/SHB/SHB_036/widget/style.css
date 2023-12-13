@@ -1,0 +1,14 @@
+QComboBox {
+	color: #006860;	
+	background: transparent;
+	font : "Times New Roman";
+	font-size : 20px;
+
+}
+
+QComboBox QAbstractItemView {
+	color: #006860;	
+	background: #ffffff;
+	selection-color: #FFFFFF;
+	selection-background-color: #006860;
+}
