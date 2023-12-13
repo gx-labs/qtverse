@@ -2,10 +2,10 @@ QComboBox {
 	background-color: Black;
 	color: #fff;
 	border: 0.05em solid #2c3c4b;
-	border-radius: 0.15em;
+	border-radius: 0.15em; 
 	padding-bottom: 0.2em;
 	padding-left: 0.4em;
-  font: 50 12pt "Sans Serif"
+  	font: 50 12pt "Sans Serif"
 
 }
 QComboBox QAbstractItemView

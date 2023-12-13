@@ -19,14 +19,19 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.combo_box = QComboBox()
-        self.combo_box.setFixedSize(150, 50)
-        self.combo_box.addItem("Item 1")
-        self.combo_box.addItem("Item 2")
-        self.combo_box.addItem("Item 3")
-        self.combo_box.addItem("Item 4")
-        self.combo_box.addItem("Item 5")
+        self.combo_box.setFixedSize(250, 80)
 
         self.combo_box.setStyleSheet(css_data)
+        list = ["Sayian", "Super Sayian", "Super Sayian 2", 
+                                               "Super Sayian B"]       
+        # creating a view
+        view = QListView()
+ 
+        # setting view to combo box
+        self.combo_box.setView(view)
+ 
+        # adding list of items to combo box
+        self.combo_box.addItems(list)
         self.setLayout(layout)
         layout.addWidget(self.combo_box, alignment=Qt.AlignCenter)
 

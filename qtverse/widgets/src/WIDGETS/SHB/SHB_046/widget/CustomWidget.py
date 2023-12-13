@@ -18,17 +18,16 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.combo_box = QComboBox()
-        self.combo_box.setFixedSize(150, 50)
-        self.combo_box.addItem("Item 1")
-        self.combo_box.addItem("Item 2")
-        self.combo_box.addItem("Item 3")
-        self.combo_box.addItem("Item 4")
-        self.combo_box.addItem("Item 5")
+        self.combo_box_1 = QComboBox()
+        self.combo_box_1.setFixedSize(200, 50)
 
-        self.combo_box.setStyleSheet(css_data)
+        self.combo_box_1.setStyleSheet(css_data)
+        list = ["Red", "Orange", "Yellow", 
+                                               "Blue"]       
+
+        self.combo_box_1.addItems(list)
         self.setLayout(layout)
-        layout.addWidget(self.combo_box, alignment=Qt.AlignCenter)
+        layout.addWidget(self.combo_box_1, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

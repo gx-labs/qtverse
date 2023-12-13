@@ -1,26 +1,24 @@
 QComboBox {
-	color: #efa40d;	
+	color: #a9b7c6;	
 	background: #1e1d23;
-	font :  "Times New Roman";
-	font-size : 25px;
-	border-radius: 0.15em; 
-	padding-bottom: 0.15em;
-	padding-left: 0.4em;
+	font : bold italic large "Times New Roman";
+	font-size : 35px;
+	padding-left : 10px;
 }
 QComboBox:editable {
 	background: #1e1d23;
-	color: #ffffff;
+	color: #a9b7c6;
 	selection-background-color: #1e1d23;
 }
 QComboBox QAbstractItemView {
-	color: #efa40d;	
+	color: #a9b7c6;	
 	background: #1e1d23;
-	selection-color: #ffffff;
-	selection-background-color: #efa40d;
+	selection-color: #31e3e3;
+	selection-background-color: #1e1d23;
 	padding-left : 10px;
 
 }
 QComboBox:!editable:on, QComboBox::drop-down:editable:on {
-	color: Grey;	
+	color: #a9b7c6;	
 	background: #1e1d23;
 }
