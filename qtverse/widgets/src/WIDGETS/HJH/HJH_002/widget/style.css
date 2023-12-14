@@ -1,0 +1,12 @@
+QPushButton{
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 25px;
+        font-weight: bolder;
+        color: white;
+        background: #00DF7E;
+        border-radius: 6px;
+}
+
+QPushButton::pressed{
+        background: #00BAA0;
+}
