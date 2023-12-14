@@ -1,0 +1,19 @@
+QGroupBox{
+  border: 1px solid rgb(205, 205, 205);
+  border-radius: 8px;
+  border: 2px solid rgb(106, 142, 197);
+  font-size: 19px;
+  width: 400px;
+  height: 300px;
+  color: rgb(33, 88, 171);
+  margin-top: 5ex;
+  background-color: white;
+}
+QGroupBox:title{
+  subcontrol-origin: margin;
+  subcontrol-position: top left;
+  background-color: #abcdea;
+  padding: 4px 247px 4px 0;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
