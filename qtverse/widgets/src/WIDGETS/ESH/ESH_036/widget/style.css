@@ -1,0 +1,43 @@
+QPushButton {
+    font-family: Arial;
+    font: bold;
+    font-size: 15pt;
+    color: rgb(242, 41, 85);
+    background: rgb(255, 255, 255);
+    border: 1px Solid rgb(242, 41, 85);
+    border-radius: 5px;
+    padding: 2px
+   
+}
+
+QPushButton:disabled {
+    font: bold;
+    font-size: 15pt;
+    border-radius: 5px;
+    padding: 2px;
+    color: rgb(109, 108, 108);
+    background-color: rgb(160, 157, 157); 
+    border: 1px solid rgb(109, 108, 108) 
+
+}
+QPushButton:focus {
+    font: normal;
+    color: rgb(242, 41, 85);
+    background: rgb(255, 255, 255) ;
+    border: 2.5px Solid rgb(104, 8, 37) 
+}
+
+QPushButton:hover {
+    font: bold;
+    color: rgb(242, 41, 85);
+    background-color: rgb(255, 255, 255); 
+    border: 5px solid rgb(242, 41, 85) 
+    
+}
+
+QPushButton:active {
+    color: rgb(255, 255, 255);
+    background-color: rgb(230, 76, 109); 
+    border: 5px solid rgb(242, 41, 85) 
+
+} 
