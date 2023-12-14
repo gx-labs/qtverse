@@ -27,7 +27,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
 
 widgets_src_dir = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
-config_file_path = os.path.join(os.path.dirname(__file__), "config", "settings.yaml")
+config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "settings.yaml")
 
 
 class ThumbnailViewerWidget(QWidget):
