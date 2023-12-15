@@ -2,11 +2,11 @@ QGroupBox{
   border: 2px solid rgb(111, 143, 190);
   font-size: 20px;
   font-weight: bold;
-  width: 500px;
+  width: 400px;
   height: 400px;
   color: black;
   margin-top: 5ex;
-  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0.2 #f0f8ff, stop:0.5 #d4f1f9, stop:1 #6dd7fd);
+  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0.5 #f0f8ff, stop:1 #F0FFFF);
 }
 QGroupBox:title{
   subcontol-origin: margin;
@@ -17,3 +17,4 @@ QGroupBox:title{
   left: 12px;
   padding: 5px;
 }
+ 
