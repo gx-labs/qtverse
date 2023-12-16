@@ -67,12 +67,12 @@ const Login = () => {
           <Input placeholder="password" />
           <Button>LOGIN</Button>
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <NavLink
-              className="navbar-link"
-              onClick={() => setOpenMenu(false)}
-              to="/register"
-            >
-          CREATE A NEW ACCOUNT</NavLink>
+          {/* Render NavLink inside Link */}
+          <Link>
+            <NavLink className="navbar-link" to="/register">
+              CREATE A NEW ACCOUNT
+            </NavLink>
+          </Link>
         </Form>
       </Wrapper>
     </Container>
