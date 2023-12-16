@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const SidebarContainer = styled.div`
-  width: 250px;
+  width: 650px; 
+  // needs to be corrected when made final changes
   background-color: #ccc;
   padding: 0px 2px;
   position: sticky;
