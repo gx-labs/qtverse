@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink ,useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import { CgMenu, CgCloseR } from "react-icons/cg";
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "./LoginButton";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const history = useNavigate();
+  const { isAuthenticated, logout } = useAuth0();
 
   const Nav = styled.nav`
     .navbar-list {
@@ -119,43 +123,6 @@ const Navbar = () => {
     <Nav>
       <div className={openMenu ? "menuIcon active" : "menuIcon"}>
         <ul className="navbar-list">
-          {/* <li>
-            <NavLink
-              className="navbar-link"
-              onClick={() => setOpenMenu(false)}
-              to="/"
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className="navbar-link"
-              onClick={() => setOpenMenu(false)}
-              to="/about"
-            >
-              About
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className="navbar-link"
-              onClick={() => setOpenMenu(false)}
-              to="/service"
-            >
-              Services
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className="navbar-link"
-              onClick={() => setOpenMenu(false)}
-              to="/contact"
-            >
-              Contact
-            </NavLink>
-          </li> */}
-
           <li>
             <NavLink
               className="navbar-link"
@@ -184,6 +151,9 @@ const Navbar = () => {
             >
               Login
             </NavLink>
+          </li>
+          <li>
+            <LoginButton />
           </li>
         </ul>
         {/* //nav icon */}
