@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Item 1",
     "groupname": "Group A",
-    "image": "https://placekitten.com/400/400?image=2",
+    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
     "files": [
       {
         "type": "pyqt",
@@ -27,7 +27,7 @@
     "id": 2,
     "name": "Item 2",
     "groupname": "Group B",
-    "image": "https://placekitten.com/400/400?image=2",
+    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
     "files": [
       {
         "type": "react",
@@ -51,7 +51,7 @@
     "id": 3,
     "name": "Item 3",
     "groupname": "Group B",
-    "image": "https://placekitten.com/400/400?image=2",
+    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
     "files": [
       {
         "type": "react",
@@ -75,7 +75,7 @@
     "id": 4,
     "name": "Item 4",
     "groupname": "Group B",
-    "image": "https://placekitten.com/400/400?image=2",
+    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
     "files": [
       {
         "type": "react",
@@ -99,7 +99,7 @@
     "id": 5,
     "name": "Item 5",
     "groupname": "Group B",
-    "image": "https://placekitten.com/400/400?image=2",
+    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
     "files": [
       {
         "type": "react",
@@ -124,7 +124,7 @@
     "id": 6,
     "name": "Item 6",
     "groupname": "Group C",
-    "image": "https://placekitten.com/400/400?image=2",
+    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
     "files": [
       {
         "type": "python",
