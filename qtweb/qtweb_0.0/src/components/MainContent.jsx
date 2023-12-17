@@ -79,6 +79,7 @@ const CodeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  position: relative;
 `;
 
 const ButtonContainer = styled.div`
@@ -91,12 +92,19 @@ const LanguageButtonsContainer = styled.div`
   margin-right: 10px;
 `;
 
-const LanguageButton = styled.button`
+const Tab = styled.div`
   padding: 10px;
   margin-right: 10px;
   background-color: ${(props) => (props.active ? "#3498db" : "#ccc")};
   color: ${(props) => (props.active ? "#fff" : "#000")};
-  border: none;
+  cursor: pointer;
+`;
+
+const LanguageButton = styled(({ active, ...rest }) => <Tab {...rest} />)`
+  padding: 10px;
+  margin-right: 10px;
+  background-color: ${(props) => (props.active ? "#3498db" : "#ccc")};
+  color: ${(props) => (props.active ? "#fff" : "#000")};
   cursor: pointer;
 `;
 
@@ -109,13 +117,31 @@ const GoBackButton = styled.button`
   margin-bottom: 5px;
 `;
 
+const Tooltip = styled.div`
+  position: absolute;
+  background-color: #3498db;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+  transition: opacity 0.3s ease;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const MainContent = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   const handleBoxClick = (item) => {
-    setSelectedItem(item);
-    setActiveTab(0);
+    // Check if the click happened on a button
+    if (!event.target.classList.contains("button")) {
+      setSelectedItem(item);
+      setActiveTab(0);
+    }
   };
 
   const handleTabClick = (index) => {
@@ -124,6 +150,24 @@ const MainContent = () => {
 
   const handleGoBack = () => {
     setSelectedItem(null);
+  };
+
+  const handleButtonClick = (code) => {
+    // Create a textarea element to facilitate copying to clipboard
+    const textarea = document.createElement("textarea");
+    textarea.value = code;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+
+    // Show the tooltip
+    setTooltipVisible(true);
+
+    // Hide the tooltip after a short delay
+    setTimeout(() => {
+      setTooltipVisible(false);
+    }, 1500);
   };
 
   return (
@@ -143,7 +187,11 @@ const MainContent = () => {
                 </IconsContainer>
                 <ButtonsContainer>
                   {item.files.map((file, index) => (
-                    <Button key={index} onClick={() => handleTabClick(index)}>
+                    <Button
+                      key={index}
+                      onClick={() => handleTabClick(index)}
+                      className="button"
+                    >
                       {file.type}
                     </Button>
                   ))}
@@ -187,6 +235,14 @@ const MainContent = () => {
                     automaticLayout: true,
                   }}
                 />
+                <Tooltip visible={tooltipVisible}>Copied!</Tooltip>
+                <Button
+                  onClick={() =>
+                    handleButtonClick(selectedItem.files[activeTab].code)
+                  }
+                >
+                  Copy Code
+                </Button>
               </CodeContainer>
             </div>
           </div>
