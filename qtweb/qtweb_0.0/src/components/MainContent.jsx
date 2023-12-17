@@ -253,3 +253,6 @@ const MainContent = () => {
 };
 
 export default MainContent;
+
+
+// error with copycode button and not code being copied when hovered button image clicked
