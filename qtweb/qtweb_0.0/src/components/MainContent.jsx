@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBookmark,
-  faThumbsUp,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import MonacoEditor from "react-monaco-editor";
 import data from "../data/maindata.json";
 
@@ -12,13 +9,12 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   max-height: calc(100vh - 60px);
-  max-width:100%;
+  max-width: 100%;
   overflow-y: auto;
 `;
 
 const Box = styled.div`
-  /* width: calc(33.33% - 50px); */
-  width: calc(33.33% - 20px); /* Adjusted width */
+  width: calc(33.33% - 20px);
   margin: 10px;
   position: relative;
   overflow: hidden;
@@ -85,6 +81,25 @@ const CodeContainer = styled.div`
   margin-top: 20px;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const LanguageButtonsContainer = styled.div`
+  display: flex;
+  margin-right: 10px;
+`;
+
+const LanguageButton = styled.button`
+  padding: 10px;
+  margin-right: 10px;
+  background-color: ${(props) => (props.active ? "#3498db" : "#ccc")};
+  color: ${(props) => (props.active ? "#fff" : "#000")};
+  border: none;
+  cursor: pointer;
+`;
+
 const GoBackButton = styled.button`
   padding: 10px;
   background-color: #3498db;
@@ -96,14 +111,15 @@ const GoBackButton = styled.button`
 
 const MainContent = () => {
   const [selectedItem, setSelectedItem] = useState(null);
+  const [activeTab, setActiveTab] = useState(0);
 
   const handleBoxClick = (item) => {
     setSelectedItem(item);
+    setActiveTab(0);
   };
 
-  const handleButtonClick = (code) => {
-    console.log(`Code ${code} copied to clipboard`);
-    // Implement your logic to copy the code to the clipboard here
+  const handleTabClick = (index) => {
+    setActiveTab(index);
   };
 
   const handleGoBack = () => {
@@ -112,7 +128,6 @@ const MainContent = () => {
 
   return (
     <div>
-      {/* Main Content View */}
       {!selectedItem && (
         <Container>
           {data.map((item) => (
@@ -120,13 +135,16 @@ const MainContent = () => {
               <Image src={item.image} alt={item.name} />
               <Overlay>
                 <IconsContainer>
-                  <StyledFontAwesomeIcon icon={faBookmark} aria-label="Add to bookmarks" />
+                  <StyledFontAwesomeIcon
+                    icon={faBookmark}
+                    aria-label="Add to bookmarks"
+                  />
                   <StyledFontAwesomeIcon icon={faThumbsUp} aria-label="Like" />
                 </IconsContainer>
                 <ButtonsContainer>
-                  {[item.code1, item.code2, item.code3, item.code4].map((code, index) => (
-                    <Button key={index} onClick={() => handleButtonClick(code)}>
-                      {code}
+                  {item.files.map((file, index) => (
+                    <Button key={index} onClick={() => handleTabClick(index)}>
+                      {file.type}
                     </Button>
                   ))}
                 </ButtonsContainer>
@@ -136,27 +154,41 @@ const MainContent = () => {
         </Container>
       )}
 
-      {/* Detailed View */}
       {selectedItem && (
-        <div style={{ display: "flex" }}>
-          <div style={{ width: "50%" }}>
+        <div>
+          <ButtonContainer>
             <GoBackButton onClick={handleGoBack}>Go Back</GoBackButton>
-            <Image src={selectedItem.image} alt={selectedItem.name} />
-          </div>
-          <div style={{ width: "50%", padding: "10px" }}>
-            <CodeContainer>
-              <MonacoEditor
-                width="100%"
-                height="400"
-                language="html"
-                theme="vs-dark"
-                value={selectedItem.code1}
-                options={{
-                  readOnly: false,
-                  automaticLayout: true,
-                }}
-              />
-            </CodeContainer>
+            <LanguageButtonsContainer>
+              {selectedItem.files.map((file, index) => (
+                <LanguageButton
+                  key={index}
+                  active={index === activeTab}
+                  onClick={() => handleTabClick(index)}
+                >
+                  {file.type}
+                </LanguageButton>
+              ))}
+            </LanguageButtonsContainer>
+          </ButtonContainer>
+          <div style={{ display: "flex" }}>
+            <div style={{ width: "50%" }}>
+              <Image src={selectedItem.image} alt={selectedItem.name} />
+            </div>
+            <div style={{ width: "50%", padding: "10px" }}>
+              <CodeContainer>
+                <MonacoEditor
+                  width="100%"
+                  height="400"
+                  language="javascript" // Assuming JavaScript as the default language
+                  theme="vs-dark"
+                  value={selectedItem.files[activeTab].code}
+                  options={{
+                    readOnly: false,
+                    automaticLayout: true,
+                  }}
+                />
+              </CodeContainer>
+            </div>
           </div>
         </div>
       )}
