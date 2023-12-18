@@ -1,13 +1,22 @@
-QProgressBar{
-  text-align:center;
-  color:#fff;
-  border-radius:7px;
-  font: 75 12pt "Open Sans";
-  
-  }
-  
-  QProgressBar::chunk{
-  background-color:    background-color:qlineargradient(x1:0, y1:0, x2:1, y2:0,
-  stop: 0 #6ec05a, stop: 1 #58cc3b); ;
-  width:20px;
-  }
+QComboBox {
+	background-color: rgb(73, 77, 91);
+	color: #ffffff;
+	/* border : 5px solid rgb(73, 77, 91); */
+	border-radius: 0.4em; 
+	padding-bottom: 0.2em;
+	padding-left: 0.6em;
+  	font: 60 10pt"Sans Serif"
+}
+QComboBox:hover{
+    border : 5px solid;
+    border-color : #2a51bb;                                  
+                                     }
+QComboBox QAbstractItemView
+{   background-color: rgb(73, 77, 91); 
+    selection-color: #ffffff;
+	selection-background-color: #2b2e34;
+	outline: 0;
+	padding-left: 0.2em;
+	padding-right: 0.2em;
+  	color : #a5b5cd
+}

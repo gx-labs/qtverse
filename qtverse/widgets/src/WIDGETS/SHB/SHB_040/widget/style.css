@@ -8,12 +8,8 @@ QComboBox {
   	font: 30 12pt "Sans Serif"
 
 }
-QComboBox:editable {
-	background: #33363b;
-	color: #ffffff;
-	selection-background-color: #33363b;
-}
-QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+
+QComboBox:!editable:on{
 	color: white;	
 	background: #2e3440;
 }
@@ -26,5 +22,5 @@ QComboBox QAbstractItemView
 }
 QComboBox QAbstractItemView::item
 {
-	min-height: 70px; min-width: 70px;
+	min-height: 70px; 
 }

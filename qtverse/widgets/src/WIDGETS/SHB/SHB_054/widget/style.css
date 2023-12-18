@@ -1,0 +1,27 @@
+QComboBox {
+	color: #ffffff;	
+	background: #24b1c3;
+	font :  "Times New Roman";
+	font-size : 25px;
+	padding-left: 0.3em;
+}
+QComboBox:editable {
+	background: #1f9dac;
+	color: #ffffff;
+	selection-background-color: #24b1c3;
+}
+QComboBox QAbstractItemView {
+	color: #ffffff;	
+	background: #1f9dac;
+	selection-color: #000000;
+	selection-background-color: #ffffff;
+	outline : 0;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+
+
+}
+QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+	color: #ffffff;	
+	background: #24b1c3;
+}
