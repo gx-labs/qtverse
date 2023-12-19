@@ -6,7 +6,13 @@ QPushButton {
     background: rgb(78, 82, 79);
     border: 1px Solid rgb(255, 255, 255);
     border-radius: 25px;
-    padding: 15px
+    padding: 15px;
+    background: qradialgradient(
+                    cx: 0.3, cy: -0.4,
+                    fx: 0.3, fy: -0.4,
+                    radius: 1.35,
+                    stop: 0 rgb(124, 126, 124), stop: 1 rgb(78, 82, 79)
+                );
    
 }
 
