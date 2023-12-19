@@ -20,24 +20,26 @@ QPushButton:disabled {
     border: 1px solid rgb(109, 108, 108) 
 
 }
-QPushButton:focus {
+
+/* QPushButton:focus {
     font: normal;
-    color: rgb(242, 41, 85);
+    color: rgb(9, 48, 221);
     background: rgb(255, 255, 255) ;
     border: 2.5px Solid rgb(104, 8, 37) 
-}
+} */
 
 QPushButton:hover {
     font: bold;
-    color: rgb(242, 41, 85);
+    color: rgb(23, 179, 49);
     background-color: rgb(255, 255, 255); 
     border: 5px solid rgb(242, 41, 85) 
     
 }
-
+/*
 QPushButton:active {
     color: rgb(255, 255, 255);
     background-color: rgb(230, 76, 109); 
     border: 5px solid rgb(242, 41, 85) 
 
 } 
+*/

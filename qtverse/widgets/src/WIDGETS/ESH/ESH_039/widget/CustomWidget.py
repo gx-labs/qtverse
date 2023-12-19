@@ -18,7 +18,7 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QPushButton("REGISTER")
+        self.button = QPushButton("COPY URL")
         self.button.setFixedSize(170, 55)
         self.button.setStyleSheet(css_data)
 
