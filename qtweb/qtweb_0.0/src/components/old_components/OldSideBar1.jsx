@@ -56,31 +56,6 @@ const Sidebar = () => {
       <ul>
         <SidebarItem>Buttons</SidebarItem>
         <SidebarItem>Radio Buttons</SidebarItem>
-        <SidebarItem>Check Box </SidebarItem>
-        <SidebarItem>Combo Box </SidebarItem>
-        <SidebarItem>Group Box </SidebarItem>
-        <SidebarItem>Spin Box </SidebarItem>
-        <SidebarItem>Tool Box</SidebarItem>
-        <SidebarItem>Sliders </SidebarItem>
-        <SidebarItem>Line Edit </SidebarItem>
-        <SidebarItem>Calendar </SidebarItem>
-        <SidebarItem>List View </SidebarItem>
-        <SidebarItem>Table View</SidebarItem>
-        <SidebarItem>Tree View </SidebarItem>
-        <SidebarItem>Loading Bars</SidebarItem>
-        <SidebarItem>Tab Widget</SidebarItem>
-        <SidebarItem>List Widget</SidebarItem>
-        <SidebarItem>Labels</SidebarItem>
-        <SidebarItem>Widgets 2</SidebarItem>
-        <SidebarItem>QDockWidget</SidebarItem>
-        <SidebarItem>QSizeGrip</SidebarItem>
-        <SidebarItem>QHeaderView</SidebarItem>
-        <SidebarItem>QSplitter</SidebarItem>
-        <SidebarItem>QToolButton</SidebarItem>
-        <SidebarItem>QToolTip</SidebarItem>
-        <SidebarItem>QMainWindow</SidebarItem>
-        <SidebarItem>QMenu</SidebarItem>
-        <SidebarItem>QWidget</SidebarItem>
       </ul>
 
       <SidebarMainFolder>Dialogs</SidebarMainFolder>
@@ -88,8 +63,6 @@ const Sidebar = () => {
       <ul>
         <SidebarItem>Input Dialog </SidebarItem>
         <SidebarItem>Color Dialog</SidebarItem>
-        <SidebarItem>File Dialog </SidebarItem>
-        <SidebarItem>Font Dialog </SidebarItem>
       </ul>
 
       <SidebarMainFolder>Bars</SidebarMainFolder>
@@ -97,9 +70,6 @@ const Sidebar = () => {
       <ul>
         <SidebarItem>Scroll Bars </SidebarItem>
         <SidebarItem>Menu Bar</SidebarItem>
-        <SidebarItem>Tool Bar </SidebarItem>
-        <SidebarItem>Status Bar</SidebarItem>
-        <SidebarItem>Tab Bar </SidebarItem>
       </ul>
 
       <SidebarHeader>CUSTOM</SidebarHeader>
