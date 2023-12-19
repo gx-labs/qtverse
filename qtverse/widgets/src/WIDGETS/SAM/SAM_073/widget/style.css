@@ -4,7 +4,7 @@ QGroupBox{
   border-right: 2px solid transparent;
   font-size: 17px;
   font-weight: bold;
-  width: 300px;
+  width: 400px;
   height: 300px;
   color: rgb(0, 0, 0);
   margin-top: 6ex;
@@ -13,7 +13,7 @@ QGroupBox{
 QGroupBox:title{
   subcontol-origin: margin;
   subcontol-position: left top;
-  padding: 2px 126px 2px 0;
+  padding: 2px 226px 2px 0;
   background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0.4 #f0f8ff, stop:1 #d4f1f9);
   top: -26px;
 }
