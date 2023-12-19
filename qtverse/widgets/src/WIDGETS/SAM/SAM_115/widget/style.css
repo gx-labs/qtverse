@@ -12,7 +12,7 @@ QGroupBox:title{
   subcontrol-origin: margin;
   subcontrol-position: top left;
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.5 #E5E4E2, stop: 1 white);
-  border-right: 2px solid  rgb(168, 167, 167);
-  border-bottom: 2px solid  rgb(168, 167, 167);
-  padding: 4px 246px 4px 0;
+  border: 2px solid  rgb(168, 167, 167);
+  border-top: 2px solid  transparent;
+  padding: 4px 244px 4px 0;
 }
