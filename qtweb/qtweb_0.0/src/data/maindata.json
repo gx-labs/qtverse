@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Item 1",
     "groupname": "Group A",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
         "type": "pyqt",
@@ -27,7 +27,7 @@
     "id": 2,
     "name": "Item 2",
     "groupname": "Group B",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
         "type": "react",
@@ -51,7 +51,7 @@
     "id": 3,
     "name": "Item 3",
     "groupname": "Group B",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
         "type": "react",
@@ -75,7 +75,7 @@
     "id": 4,
     "name": "Item 4",
     "groupname": "Group B",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
         "type": "react",
@@ -99,7 +99,7 @@
     "id": 5,
     "name": "Item 5",
     "groupname": "Group B",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
         "type": "react",
@@ -124,7 +124,7 @@
     "id": 6,
     "name": "Item 6",
     "groupname": "Group B",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
         "type": "react",
@@ -149,7 +149,7 @@
     "id": 7,
     "name": "Item 7",
     "groupname": "Group B",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
         "type": "react",
@@ -174,7 +174,7 @@
     "id": 8,
     "name": "Item 8",
     "groupname": "Group B",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
         "type": "react",
@@ -199,7 +199,7 @@
     "id": 9,
     "name": "Item 9",
     "groupname": "Group C",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
         "type": "python",
