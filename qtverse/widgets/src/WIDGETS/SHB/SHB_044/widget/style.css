@@ -9,7 +9,6 @@ QComboBox {
 	padding-bottom : 0.2em;
 
 }
-
 QComboBox:editable {
 		background: #2e3440;
 		color: #7b7b7b;

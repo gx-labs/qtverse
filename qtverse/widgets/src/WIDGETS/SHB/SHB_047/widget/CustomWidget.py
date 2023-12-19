@@ -19,7 +19,7 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.combo_box = QComboBox()
-        self.combo_box.setFixedSize(200, 50)
+        self.combo_box.setFixedSize(200, 60)
         self.combo_box.addItem("Jumla")
         self.combo_box.addItem("Wordpress")
         self.combo_box.addItem("Drupal")
