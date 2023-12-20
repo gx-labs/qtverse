@@ -23,7 +23,7 @@ class CustomWidget(QWidget):
         self.button.setStyleSheet(css_data)
 
         self.shadow = QGraphicsDropShadowEffect()
-        self.shadow.setBlurRadius(40)
+        self.shadow.setBlurRadius(10)
         self.shadow.setColor("#174caf")
         self.shadow.setOffset(10,10)
         self.button.setGraphicsEffect(self.shadow)
