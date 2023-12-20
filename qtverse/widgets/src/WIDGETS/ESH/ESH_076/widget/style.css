@@ -1,14 +1,10 @@
-QWidget{
-    background: rgb(71, 226, 180);
-}
-
 QPushButton{
     font-family: Arial;
     font: normal;
     font-size: 13pt;
     color: rgb(255, 255, 255); 
     background: rgba(255, 255, 255);
-    border: 0px Solid rgb(76, 133, 160);
+    border: 4px Solid rgb(71, 226, 180);
     border-radius: 4px;
     padding: 2px;
     background: qradialgradient(

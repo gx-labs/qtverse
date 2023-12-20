@@ -18,19 +18,11 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.widget = QWidget()
-        self.widget.setFixedSize(160, 65)
-        self.widget.setStyleSheet(css_data)
-
-        widget_layout = QVBoxLayout(self.widget)  
-        widget_layout.setAlignment(Qt.AlignCenter)  
-
         self.button = QPushButton("Next Page >>")  
         self.button.setFixedSize(140, 45)
         self.button.setStyleSheet(css_data)
 
-        layout.addWidget(self.widget, alignment=Qt.AlignCenter)  
-        widget_layout.addWidget(self.button) 
+        layout.addWidget(self.button) 
         self.setLayout(layout)
 
 if __name__ == '__main__':
