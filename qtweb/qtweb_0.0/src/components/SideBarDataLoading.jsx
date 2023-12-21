@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import data from "../data/finaldestination.json";
+import jsonData from "../data/data.json"; // Adjust the import path based on your project structure
 
 const SidebarContainer = styled.div`
-  width: 650px;
+  width: 250px;
   background-color: #ccc;
-  padding: 0px 2px;
+  padding: 10px;
   position: sticky;
-  top: 60px;
-  bottom: 0;
+  top: 0;
   overflow-y: auto;
   height: 100vh;
 `;
 
 const SidebarHeader = styled.h2`
-  font-size: 25px;
+  font-size: 18px;
   margin: 10px 0px;
   background-color: #ddd;
 `;
@@ -48,111 +47,73 @@ const SidebarItem = styled.li`
 `;
 
 const Sidebar = () => {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
 
-  const handleSelectItem = (itemName) => {
-    // Find the selected item in the JSON data
-    let selectedItem = null;
+  const handleCategoryClick = (category) => {
+    const filteredCategoryData = jsonData.filter(
+      (item) => item.category === category
+    );
+    setFilteredData(filteredCategoryData);
+    console.log("Filtered Category Data:", filteredCategoryData);
+  };
 
-    for (const category of data.categories) {
-      for (const group of category.groups) {
-        for (const type of group.types) {
-          selectedItem = type.items.find((item) => item.name === itemName);
-          if (selectedItem) break;
-        }
-        if (selectedItem) break;
-      }
-      if (selectedItem) break;
-    }
-
-    // Log the relevant information
-    if (selectedItem) {
-      console.log("Selected Category:", selectedItem.groupname);
-      console.log("Selected Type:", selectedItem.type);
-      console.log("Selected Item:", selectedItem.name);
-      console.log("Selected Item ID:", selectedItem.id);
-      console.log("Selected Item Image:", selectedItem.image);
-      console.log("Selected Item Files:", selectedItem.files);
-    } else {
-      console.error("Selected item not found");
-    }
+  const handleGroupClick = (group) => {
+    const filteredGroupData = jsonData.filter((item) => item.group === group);
+    setFilteredData(filteredGroupData);
+    console.log("Filtered Group Data:", filteredGroupData);
   };
 
   return (
     <SidebarContainer>
       <SidebarHeader>WIDGETS</SidebarHeader>
 
-      <SidebarMainFolder
-        onClick={() => handleSelectItem("Widgets", null, null)}
-      >
+      <SidebarMainFolder onClick={() => handleCategoryClick("Widgets")}>
         Widgets
       </SidebarMainFolder>
 
       <ul>
-        <SidebarItem
-          onClick={() => handleSelectItem("Buttons", "Buttons", "Widgets")}
-        >
+        <SidebarItem onClick={() => handleGroupClick("Buttons")}>
           Buttons
         </SidebarItem>
-        <SidebarItem
-          onClick={() =>
-            handleSelectItem("Radio Buttons", "Radio Buttons", "Widgets")
-          }
-        >
+        <SidebarItem onClick={() => handleGroupClick("Radio Buttons")}>
           Radio Buttons
         </SidebarItem>
       </ul>
 
-      <SidebarMainFolder
-        onClick={() => handleSelectItem("Dialogs", null, null)}
-      >
+      <SidebarMainFolder onClick={() => handleCategoryClick("Dialogs")}>
         Dialogs
       </SidebarMainFolder>
 
       <ul>
-        <SidebarItem
-          onClick={() =>
-            handleSelectItem("Input Dialog", "Input Dialog", "Dialogs")
-          }
-        >
-          Input Dialog
+        <SidebarItem onClick={() => handleGroupClick("Input Dialogs")}>
+          Input Dialogs
         </SidebarItem>
-        <SidebarItem
-          onClick={() =>
-            handleSelectItem("Color Dialog", "Color Dialog", "Dialogs")
-          }
-        >
-          Color Dialog
+        <SidebarItem onClick={() => handleGroupClick("Color Dialogs")}>
+          Color Dialogs
         </SidebarItem>
       </ul>
 
-      <SidebarMainFolder onClick={() => handleSelectItem("Bars", null, null)}>
+      <SidebarMainFolder onClick={() => handleCategoryClick("Bars")}>
         Bars
       </SidebarMainFolder>
 
       <ul>
-        <SidebarItem
-          onClick={() => handleSelectItem("Scroll Bars", "Scroll Bars", "Bars")}
-        >
+        <SidebarItem onClick={() => handleGroupClick("Scroll Bars")}>
           Scroll Bars
         </SidebarItem>
-        <SidebarItem
-          onClick={() => handleSelectItem("Menu Bar", "Menu Bar", "Bars")}
-        >
-          Menu Bar
+        <SidebarItem onClick={() => handleGroupClick("Menu Bars")}>
+          Menu Bars
         </SidebarItem>
       </ul>
 
       <SidebarHeader>CUSTOM</SidebarHeader>
 
-      <SidebarMainFolder onClick={() => handleSelectItem("Custom", null, null)}>
+      <SidebarMainFolder onClick={() => handleCategoryClick("Custom")}>
         Custom
       </SidebarMainFolder>
 
       <ul>
-        <SidebarItem
-          onClick={() => handleSelectItem("Custom", "Custom", "Custom")}
-        >
+        <SidebarItem onClick={() => handleGroupClick("Custom")}>
           Custom
         </SidebarItem>
       </ul>
