@@ -11,10 +11,9 @@ import {
 const FooterContainer = styled.footer`
   text-align: center;
   padding: 5px;
-  // position: fixed;
-  bottom: 0;
-  width: 100%;
+  /* position: fixed; */
   background-color: #f2f2f2; /* Light grey color */
+  height: 160px;
 `;
 const Logo = styled.img`
   max-width: 100px; /* Adjust the size as needed */

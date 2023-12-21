@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+
 import styled from "styled-components";
-import SideBar from "./SideBar"
+
 
 const NavbarContainer = styled.div`
   display: flex;
@@ -11,14 +11,7 @@ const NavbarContainer = styled.div`
   color: #fff;
 `;
 
-const Hamburger = styled.div`
-  cursor: pointer;
-  display: none;
 
-  @media (max-width: 768px) {
-    display: block;
-  }
-`;
 
 const Logo = styled.div`
   font-size: 1.5rem;
@@ -43,16 +36,12 @@ const NavLink = styled.a`
 `;
 
 const NavBar = () => {
-  const [isSideBarOpen, setSideBarOpen] = useState(false);
-
-  const toggleSideBar = () => {
-    setSideBarOpen(!isSideBarOpen);
-  };
+  
 
   return (
     <>
       <NavbarContainer>
-        <Hamburger onClick={toggleSideBar}>☰</Hamburger>
+        
         <Logo>
           LOGO
         </Logo>
@@ -62,7 +51,7 @@ const NavBar = () => {
           <NavLink href="#">Login</NavLink>
         </NavLinks>
       </NavbarContainer>
-      <SideBar isOpen={isSideBarOpen} toggleSideBar={toggleSideBar} />
+     
     </>
   );
 };
