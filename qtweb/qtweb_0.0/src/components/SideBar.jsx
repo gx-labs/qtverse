@@ -1,3 +1,8 @@
+// clicking on widgets buttons not loading anything yet rest dialogs , bars working fine now
+//maincontent blank till clcik
+//add more data.
+
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import jsonData from "../data/data.json";
