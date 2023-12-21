@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import MonacoEditor from "react-monaco-editor";
-import data from "../data/maindata.json";
+
 
 const Container = styled.div`
   display: flex;
@@ -131,17 +131,14 @@ const Tooltip = styled.div`
   transform: translateX(-50%);
 `;
 
-const MainContent = () => {
+const MainContent = ({ selectedData }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
   const [tooltipVisible, setTooltipVisible] = useState(false);
 
   const handleBoxClick = (item) => {
-    // Check if the click happened on a button
-    if (!event.target.classList.contains("button")) {
-      setSelectedItem(item);
-      setActiveTab(0);
-    }
+    setSelectedItem(item);
+    setActiveTab(0);
   };
 
   const handleTabClick = (index) => {
@@ -152,29 +149,29 @@ const MainContent = () => {
     setSelectedItem(null);
   };
 
-  const handleButtonClick = (code) => {
-    // Create a textarea element to facilitate copying to clipboard
+  const handleButtonClick = (event, code) => {
+    event.stopPropagation();
     const textarea = document.createElement("textarea");
     textarea.value = code;
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-
-    // Show the tooltip
     setTooltipVisible(true);
 
-    // Hide the tooltip after a short delay
     setTimeout(() => {
       setTooltipVisible(false);
     }, 1500);
   };
 
+  const filteredData =
+    selectedItem && selectedItem.files ? selectedItem.files : selectedData;
+
   return (
     <div>
       {!selectedItem && (
         <Container>
-          {data.map((item) => (
+          {selectedData.map((item) => (
             <Box key={item.id} onClick={() => handleBoxClick(item)}>
               <Image src={item.image} alt={item.name} />
               <Overlay>
@@ -227,7 +224,7 @@ const MainContent = () => {
                 <MonacoEditor
                   width="100%"
                   height="400"
-                  language="javascript" // Assuming JavaScript as the default language
+                  language="javascript"
                   theme="vs-dark"
                   value={selectedItem.files[activeTab].code}
                   options={{
@@ -237,8 +234,8 @@ const MainContent = () => {
                 />
                 <Tooltip visible={tooltipVisible}>Copied!</Tooltip>
                 <Button
-                  onClick={() =>
-                    handleButtonClick(selectedItem.files[activeTab].code)
+                  onClick={(event) =>
+                    handleButtonClick(event, selectedItem.files[activeTab].code)
                   }
                 >
                   Copy Code
@@ -253,6 +250,3 @@ const MainContent = () => {
 };
 
 export default MainContent;
-
-
-// error with copycode button and not code being copied when hovered button image clicked

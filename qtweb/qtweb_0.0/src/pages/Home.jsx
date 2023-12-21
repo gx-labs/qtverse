@@ -1,18 +1,21 @@
-import React from 'react'
-import Sidebar from '../components/SideBar';
-import MainContent from '../components/MainContent';
+import React, { useState } from "react";
+import Sidebar from "../components/SideBar";
+import MainContent from "../components/MainContent";
+// import jsonData from "../data/data.json";
 
+const App = () => {
+  const [selectedData, setSelectedData] = useState([]);
 
-const Home = () => {
+  const handleSidebarItemClick = (data) => {
+    setSelectedData(data);
+  };
+
   return (
-
- 
-      <div style={{ display: "flex", flexGrow: 1 }}>
-        <Sidebar />
-        <MainContent />
-      </div>
-   
+    <div style={{ display: "flex" }}>
+      <Sidebar onSidebarItemClick={handleSidebarItemClick} />
+      <MainContent selectedData={selectedData} />
+    </div>
   );
-}
+};
 
-export default Home
+export default App;

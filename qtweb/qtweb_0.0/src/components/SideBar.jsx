@@ -1,19 +1,19 @@
+import React, { useState } from "react";
 import styled from "styled-components";
+import jsonData from "../data/data.json";
 
 const SidebarContainer = styled.div`
-  width: 650px;
-  // needs to be corrected when made final changes
+  width: 250px;
   background-color: #ccc;
-  padding: 0px 2px;
+  padding: 10px;
   position: sticky;
-  top: 60px;
-  bottom: 0;
+  top: 0;
   overflow-y: auto;
   height: 100vh;
 `;
 
 const SidebarHeader = styled.h2`
-  font-size: 25px;
+  font-size: 18px;
   margin: 10px 0px;
   background-color: #ddd;
 `;
@@ -26,11 +26,11 @@ const SidebarMainFolder = styled.div`
   background-color: #666;
   color: #fff;
   text-align: center;
-  padding: 5px; /* Add padding to create space inside the main folder */
-  user-select: none; /* Disable text selection for better interaction */
+  padding: 5px;
+  user-select: none;
 
   &:hover {
-    background-color: #555; /* Darken the background on hover */
+    background-color: #555;
   }
 `;
 
@@ -42,45 +42,80 @@ const SidebarItem = styled.li`
   user-select: none;
 
   &:hover {
-    background-color: #fff; /* Darken the background on hover */
+    background-color: #fff;
   }
 `;
 
-const Sidebar = () => {
+const Sidebar = ({ onSidebarItemClick }) => {
+  const [filteredData, setFilteredData] = useState([]);
+
+  const handleCategoryClick = (category) => {
+    const filteredCategoryData = jsonData.filter(
+      (item) => item.category === category
+    );
+    setFilteredData(filteredCategoryData);
+    onSidebarItemClick(filteredCategoryData);
+  };
+
+  const handleGroupClick = (group) => {
+    const filteredGroupData = jsonData.filter((item) => item.group === group);
+    setFilteredData(filteredGroupData);
+    onSidebarItemClick(filteredGroupData);
+  };
+
   return (
     <SidebarContainer>
       <SidebarHeader>WIDGETS</SidebarHeader>
 
-      <SidebarMainFolder>Widgets</SidebarMainFolder>
+      <SidebarMainFolder onClick={() => handleCategoryClick("Widgets")}>
+        Widgets
+      </SidebarMainFolder>
 
       <ul>
-        <SidebarItem>Buttons</SidebarItem>
-        <SidebarItem>Radio Buttons</SidebarItem>
-     
+        <SidebarItem onClick={() => handleGroupClick("Buttons")}>
+          Buttons
+        </SidebarItem>
+        <SidebarItem onClick={() => handleGroupClick("Radio Buttons")}>
+          Radio Buttons
+        </SidebarItem>
       </ul>
 
-      <SidebarMainFolder>Dialogs</SidebarMainFolder>
+      <SidebarMainFolder onClick={() => handleCategoryClick("Dialogs")}>
+        Dialogs
+      </SidebarMainFolder>
 
       <ul>
-        <SidebarItem>Input Dialog </SidebarItem>
-        <SidebarItem>Color Dialog</SidebarItem>
-    
+        <SidebarItem onClick={() => handleGroupClick("Input Dialogs")}>
+          Input Dialogs
+        </SidebarItem>
+        <SidebarItem onClick={() => handleGroupClick("Color Dialogs")}>
+          Color Dialogs
+        </SidebarItem>
       </ul>
 
-      <SidebarMainFolder>Bars</SidebarMainFolder>
+      <SidebarMainFolder onClick={() => handleCategoryClick("Bars")}>
+        Bars
+      </SidebarMainFolder>
 
       <ul>
-        <SidebarItem>Scroll Bars </SidebarItem>
-        <SidebarItem>Menu Bar</SidebarItem>
-  
+        <SidebarItem onClick={() => handleGroupClick("Scroll Bars")}>
+          Scroll Bars
+        </SidebarItem>
+        <SidebarItem onClick={() => handleGroupClick("Menu Bars")}>
+          Menu Bars
+        </SidebarItem>
       </ul>
 
       <SidebarHeader>CUSTOM</SidebarHeader>
 
-      <SidebarMainFolder>Custom</SidebarMainFolder>
+      <SidebarMainFolder onClick={() => handleCategoryClick("Custom")}>
+        Custom
+      </SidebarMainFolder>
 
       <ul>
-        <SidebarItem>Custom </SidebarItem>
+        <SidebarItem onClick={() => handleGroupClick("Custom")}>
+          Custom
+        </SidebarItem>
       </ul>
     </SidebarContainer>
   );

@@ -86,7 +86,7 @@
     "group": "Radio Buttons",
     "type": "Radio Button",
     "name": "Radio Button 1",
-    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+    "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
     "files": [
       {
         "type": "pyqt",
@@ -113,7 +113,7 @@
     "group": "Radio Buttons",
     "type": "Radio Button",
     "name": "Radio Button 2",
-    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+    "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
     "files": [
       {
         "type": "pyqt",
@@ -140,7 +140,7 @@
     "group": "Radio Buttons",
     "type": "Radio Button",
     "name": "Radio Button 3",
-    "image": "https://media.giphy.com/media/d3YvByIyt3eiuMM4/giphy.gif",
+    "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
     "files": [
       {
         "type": "pyqt",
@@ -190,7 +190,7 @@
     "group": "Color Dialogs",
     "type": "Color Dialog",
     "name": "Color Dialog 1",
-    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+    "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
     "files": [
       {
         "type": "pyqt",
@@ -236,7 +236,7 @@
     "group": "Color Dialogs",
     "type": "Color Dialog",
     "name": "Color Dialog 2",
-    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+    "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
     "files": [
       {
         "type": "pyqt",
@@ -282,7 +282,7 @@
   "group": "Menu Bars",
   "type": "Menu Bar",
   "name": "Menu Bar 1",
-  "image": "https://media.giphy.com/media/d3YvByIyt3eiuMM4/giphy.gif",
+  "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
   "files": [
     {
       "type": "pyqt",
@@ -328,7 +328,7 @@
   "group": "Menu Bars",
   "type": "Menu Bar",
   "name": "Menu Bar 2",
-  "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+  "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
   "files": [
     {
       "type": "pyqt",
@@ -373,7 +373,7 @@
   "group": "Menu Bars",
   "type": "Menu Bar",
   "name": "Menu Bar 3",
-  "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+  "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
   "files": [
     {
       "type": "pyqt",
