@@ -1,8 +1,10 @@
 [
   {
     "id": 1,
-    "name": "Item 1",
-    "groupname": "Group A",
+    "category": "widgets",
+    "group": "Buttons",
+    "type": "Button",
+    "name": "Button 1",
     "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
@@ -23,52 +25,369 @@
       }
     ]
   },
+
   {
     "id": 2,
-    "name": "Item 2",
-    "groupname": "Group B",
-    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+    "category": "widgets",
+    "group": "Buttons",
+    "type": "Button",
+    "name": "Button 2",
+    "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
     "files": [
       {
-        "type": "react",
-        "code": "// Example React code\nimport React from 'react';\nfunction App() {\n  return <div>Hello, React!</div>;\n}\nexport default App;"
+        "type": "pyqt",
+        "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QPushButton\napp = QApplication([])\nbutton = QPushButton('Click me, PyQt!')\nbutton.show()\napp.exec_()"
       },
       {
-        "type": "angular",
-        "code": "// Example Angular code\nimport { Component } from '@angular/core';\n@Component({\n  selector: 'app-root',\n  template: '<div>Hello, Angular!</div>',\n})\nexport class AppComponent {}"
+        "type": "pyside2",
+        "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QPushButton\napp = QApplication([])\nbutton = QPushButton('Click me, PySide2!')\nbutton.show()\napp.exec_()"
       },
       {
-        "type": "JavaScript",
-        "code": "// Example JavaScript code\nconsole.log('Hello, JavaScript!');"
+        "type": "CSS",
+        "code": "/* Example CSS code */\nbutton {\n  background-color: #e74c3c;\n  color: #fff;\n}"
       },
       {
-        "type": "vue",
-        "code": "<!-- Example Vue code -->\n<template>\n  <div>Hello, Vue!</div>\n</template>\n<script>\nexport default {\n  name: 'App',\n};\n</script>"
+        "type": "qt",
+        "code": "# Example Qt code\n#include <QApplication>\n#include <QPushButton>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    QPushButton button(\"Click me, Qt!\");\n    button.show();\n    return app.exec();\n}"
       }
     ]
   },
+
   {
     "id": 3,
-    "name": "Item 3",
-    "groupname": "Group B",
+    "category": "widgets",
+    "group": "Buttons",
+    "type": "Button",
+    "name": "Button 3",
+    "image": "https://media.giphy.com/media/d3YvByIyt3eiuMM4/giphy.gif",
+    "files": [
+      {
+        "type": "pyqt",
+        "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QPushButton\napp = QApplication([])\nbutton = QPushButton('Press me, PyQt!')\nbutton.show()\napp.exec_()"
+      },
+      {
+        "type": "pyside2",
+        "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QPushButton\napp = QApplication([])\nbutton = QPushButton('Press me, PySide2!')\nbutton.show()\napp.exec_()"
+      },
+      {
+        "type": "CSS",
+        "code": "/* Example CSS code */\nbutton {\n  background-color: #2ecc71;\n  color: #fff;\n}"
+      },
+      {
+        "type": "qt",
+        "code": "# Example Qt code\n#include <QApplication>\n#include <QPushButton>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    QPushButton button(\"Press me, Qt!\");\n    button.show();\n    return app.exec();\n}"
+      }
+    ]
+  },
+
+  {
+    "id": 4,
+    "category": "widgets",
+    "group": "Radio Buttons",
+    "type": "Radio Button",
+    "name": "Radio Button 1",
     "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
     "files": [
       {
-        "type": "react",
-        "code": "// Example React code\nimport React from 'react';\nfunction App() {\n  return <div>Hello, React!</div>;\n}\nexport default App;"
+        "type": "pyqt",
+        "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QRadioButton\napp = QApplication([])\nradio_button = QRadioButton('Select me, PyQt!')\nradio_button.show()\napp.exec_()"
       },
       {
-        "type": "angular",
-        "code": "// Example Angular code\nimport { Component } from '@angular/core';\n@Component({\n  selector: 'app-root',\n  template: '<div>Hello, Angular!</div>',\n})\nexport class AppComponent {}"
+        "type": "pyside2",
+        "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QRadioButton\napp = QApplication([])\nradio_button = QRadioButton('Select me, PySide2!')\nradio_button.show()\napp.exec_()"
       },
       {
-        "type": "JavaScript",
-        "code": "// Example JavaScript code\nconsole.log('Hello, JavaScript!');"
+        "type": "CSS",
+        "code": "/* Example CSS code */\ninput[type='radio'] {\n  background-color: #3498db;\n  color: #fff;\n}"
       },
       {
-        "type": "vue",
-        "code": "<!-- Example Vue code -->\n<template>\n  <div>Hello, Vue!</div>\n</template>\n<script>\nexport default {\n  name: 'App',\n};\n</script>"
+        "type": "qt",
+        "code": "# Example Qt code\n#include <QApplication>\n#include <QRadioButton>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    QRadioButton radio_button(\"Select me, Qt!\");\n    radio_button.show();\n    return app.exec();\n}"
       }
     ]
-  }
+  },
+
+  {
+    "id": 5,
+    "category": "widgets",
+    "group": "Radio Buttons",
+    "type": "Radio Button",
+    "name": "Radio Button 2",
+    "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
+    "files": [
+      {
+        "type": "pyqt",
+        "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QRadioButton\napp = QApplication([])\nradio_button = QRadioButton('Choose me, PyQt!')\nradio_button.show()\napp.exec_()"
+      },
+      {
+        "type": "pyside2",
+        "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QRadioButton\napp = QApplication([])\nradio_button = QRadioButton('Choose me, PySide2!')\nradio_button.show()\napp.exec_()"
+      },
+      {
+        "type": "CSS",
+        "code": "/* Example CSS code */\ninput[type='radio'] {\n  background-color: #e74c3c;\n  color: #fff;\n}"
+      },
+      {
+        "type": "qt",
+        "code": "# Example Qt code\n#include <QApplication>\n#include <QRadioButton>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    QRadioButton radio_button(\"Choose me, Qt!\");\n    radio_button.show();\n    return app.exec();\n}"
+      }
+    ]
+  },
+
+  {
+    "id": 6,
+    "category": "widgets",
+    "group": "Radio Buttons",
+    "type": "Radio Button",
+    "name": "Radio Button 3",
+    "image": "https://media.giphy.com/media/d3YvByIyt3eiuMM4/giphy.gif",
+    "files": [
+      {
+        "type": "pyqt",
+        "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QRadioButton\napp = QApplication([])\nradio_button = QRadioButton('Pick me, PyQt!')\nradio_button.show()\napp.exec_()"
+      },
+      {
+        "type": "pyside2",
+        "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QRadioButton\napp = QApplication([])\nradio_button = QRadioButton('Pick me, PySide2!')\nradio_button.show()\napp.exec_()"
+      },
+      {
+        "type": "CSS",
+        "code": "/* Example CSS code */\ninput[type='radio'] {\n  background-color: #2ecc71;\n  color: #fff;\n}"
+      },
+      {
+        "type": "qt",
+        "code": "# Example Qt code\n#include <QApplication>\n#include <QRadioButton>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    QRadioButton radio_button(\"Pick me, Qt!\");\n    radio_button.show();\n    return app.exec();\n}"
+      }
+    ]
+  },
+
+  {
+    "id": 7,
+    "category": "Dialogs",
+    "group": "Input Dialogs",
+    "type": "Input Dialog",
+    "name": "Input Dialog 1",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+    "files": [
+      {
+        "type": "pyqt",
+        "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QInputDialog\napp = QApplication([])\ninput_text, ok_pressed = QInputDialog.getText(None, 'Input Dialog', 'Enter your text:')\nif ok_pressed:\n    print(f'You entered: {input_text}')"
+      },
+      {
+        "type": "pyside2",
+        "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QInputDialog\napp = QApplication([])\ninput_text, ok_pressed = QInputDialog.getText(None, 'Input Dialog', 'Enter your text:')\nif ok_pressed:\n    print(f'You entered: {input_text}')"
+      },
+      {
+        "type": "qt",
+        "code": "# Example Qt code\n#include <QApplication>\n#include <QInputDialog>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    bool ok_pressed;\n    QString input_text = QInputDialog::getText(NULL, \"Input Dialog\", \"Enter your text:\", QLineEdit::Normal, QString(), &ok_pressed);\n    if (ok_pressed) {\n        qDebug() << \"You entered: \" << input_text;\n    }\n    return app.exec();\n}"
+      }
+    ]
+  },
+
+  {
+    "id": 8,
+    "category": "Dialogs",
+    "group": "Color Dialogs",
+    "type": "Color Dialog",
+    "name": "Color Dialog 1",
+    "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
+    "files": [
+      {
+        "type": "pyqt",
+        "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QColorDialog\napp = QApplication([])\ncolor = QColorDialog.getColor()\nif color.isValid():\n    print(f'Selected color: {color.name()}')"
+      },
+      {
+        "type": "pyside2",
+        "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QColorDialog\napp = QApplication([])\ncolor = QColorDialog.getColor()\nif color.isValid():\n    print(f'Selected color: {color.name()}')"
+      },
+      {
+        "type": "qt",
+        "code": "# Example Qt code\n#include <QApplication>\n#include <QColorDialog>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    QColor color = QColorDialog::getColor();\n    if (color.isValid()) {\n        qDebug() << \"Selected color: \" << color.name();\n    }\n    return app.exec();\n}"
+      }
+    ]
+  },
+
+  {
+    "id": 9,
+    "category": "Dialogs",
+    "group": "Input Dialogs",
+    "type": "Input Dialog",
+    "name": "Input Dialog 2",
+    "image": "https://media.giphy.com/media/d3YvByIyt3eiuMM4/giphy.gif",
+    "files": [
+      {
+        "type": "pyqt",
+        "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QInputDialog\napp = QApplication([])\ninput_text, ok_pressed = QInputDialog.getText(None, 'Input Dialog', 'Enter your text:')\nif ok_pressed:\n    print(f'You entered: {input_text}')"
+      },
+      {
+        "type": "pyside2",
+        "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QInputDialog\napp = QApplication([])\ninput_text, ok_pressed = QInputDialog.getText(None, 'Input Dialog', 'Enter your text:')\nif ok_pressed:\n    print(f'You entered: {input_text}')"
+      },
+      {
+        "type": "qt",
+        "code": "# Example Qt code\n#include <QApplication>\n#include <QInputDialog>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    bool ok_pressed;\n    QString input_text = QInputDialog::getText(NULL, \"Input Dialog\", \"Enter your text:\", QLineEdit::Normal, QString(), &ok_pressed);\n    if (ok_pressed) {\n        qDebug() << \"You entered: \" << input_text;\n    }\n    return app.exec();\n}"
+      }
+    ]
+  },
+
+  {
+    "id": 10,
+    "category": "Dialogs",
+    "group": "Color Dialogs",
+    "type": "Color Dialog",
+    "name": "Color Dialog 2",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+    "files": [
+      {
+        "type": "pyqt",
+        "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QColorDialog\napp = QApplication([])\ncolor = QColorDialog.getColor()\nif color.isValid():\n    print(f'Selected color: {color.name()}')"
+      },
+      {
+        "type": "pyside2",
+        "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QColorDialog\napp = QApplication([])\ncolor = QColorDialog.getColor()\nif color.isValid():\n    print(f'Selected color: {color.name()}')"
+      },
+      {
+        "type": "qt",
+        "code": "# Example Qt code\n#include <QApplication>\n#include <QColorDialog>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    QColor color = QColorDialog::getColor();\n    if (color.isValid()) {\n        qDebug() << \"Selected color: \" << color.name();\n    }\n    return app.exec();\n}"
+      }
+    ]
+  },
+
+  {
+  "id": 11,
+  "category": "Bars",
+  "group": "Scroll Bars",
+  "type": "Scroll Bar",
+  "name": "Scroll Bar 1",
+  "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
+  "files": [
+    {
+      "type": "pyqt",
+      "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QScrollBar, QVBoxLayout, QWidget\napp= QApplication([])\n\n# Create a widget\nwidget = QWidget()\n\n# Create a vertical layout\nlayout = QVBoxLayout(widget)\n\n# Create a scroll bar\nscroll_bar = QScrollBar()\n\n# Add the scroll bar to the layout\nlayout.addWidget(scroll_bar)\n\n# Show the widget\nwidget.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "pyside2",
+      "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QScrollBar, QVBoxLayout, QWidget\napp = QApplication([])\n\n# Create a widget\nwidget = QWidget()\n\n# Create a vertical layout\nlayout = QVBoxLayout(widget)\n\n# Create a scroll bar\nscroll_bar = QScrollBar()\n\n# Add the scroll bar to the layout\nlayout.addWidget(scroll_bar)\n\n# Show the widget\nwidget.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "qt",
+      "code": "# Example Qt code\n#include <QApplication>\n#include <QScrollBar>\n#include <QVBoxLayout>\n#include <QWidget>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    // Create a widget\n    QWidget widget;\n    // Create a vertical layout\n    QVBoxLayout layout(&widget);\n    // Create a scroll bar\n    QScrollBar scroll_bar;\n    // Add the scroll bar to the layout\n    layout.addWidget(&scroll_bar);\n    // Show the widget\n    widget.show();\n    // Start the application\n    return app.exec();\n}"
+    }
+  ]
+},
+
+{
+  "id": 12,
+  "category": "Bars",
+  "group": "Menu Bars",
+  "type": "Menu Bar",
+  "name": "Menu Bar 1",
+  "image": "https://media.giphy.com/media/d3YvByIyt3eiuMM4/giphy.gif",
+  "files": [
+    {
+      "type": "pyqt",
+      "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QMainWindow, QMenuBar, QMenu\napp = QApplication([])\n\n# Create a main window\nmain_window = QMainWindow()\n\n# Create a menu bar\nmenu_bar = main_window.menuBar()\n\n# Create a menu\nfile_menu = menu_bar.addMenu('File')\n\n# Show the main window\nmain_window.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "pyside2",
+      "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QMainWindow, QMenuBar, QMenu\napp = QApplication([])\n\n# Create a main window\nmain_window = QMainWindow()\n\n# Create a menu bar\nmenu_bar = main_window.menuBar()\n\n# Create a menu\nfile_menu = menu_bar.addMenu('File')\n\n# Show the main window\nmain_window.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "qt",
+      "code": "# Example Qt code\n#include <QApplication>\n#include <QMainWindow>\n#include <QMenuBar>\n#include <QMenu>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    // Create a main window\n    QMainWindow main_window;\n    // Create a menu bar\n    QMenuBar menu_bar = main_window.menuBar();\n    // Create a menu\n    QMenu *file_menu = menu_bar.addMenu(\"File\");\n    // Show the main window\n    main_window.show();\n    // Start the application\n    return app.exec();\n}"
+    }
+  ]
+},
+
+{
+  "id": 13,
+  "category": "Bars",
+  "group": "Scroll Bars",
+  "type": "Scroll Bar",
+  "name": "Scroll Bar 2",
+  "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+  "files": [
+    {
+      "type": "pyqt",
+      "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QScrollBar, QVBoxLayout, QWidget\napp = QApplication([])\n\n# Create a widget\nwidget = QWidget()\n\n# Create a vertical layout\nlayout = QVBoxLayout(widget)\n\n# Create a scroll bar\nscroll_bar = QScrollBar()\n\n# Add the scroll bar to the layout\nlayout.addWidget(scroll_bar)\n\n# Show the widget\nwidget.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "pyside2",
+      "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QScrollBar, QVBoxLayout, QWidget\napp = QApplication([])\n\n# Create a widget\nwidget = QWidget()\n\n# Create a vertical layout\nlayout = QVBoxLayout(widget)\n\n# Create a scroll bar\nscroll_bar = QScrollBar()\n\n# Add the scroll bar to the layout\nlayout.addWidget(scroll_bar)\n\n# Show the widget\nwidget.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "qt",
+      "code": "# Example Qt code\n#include <QApplication>\n#include <QScrollBar>\n#include <QVBoxLayout>\n#include <QWidget>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    // Create a widget\n    QWidget widget;\n    // Create a vertical layout\n    QVBoxLayout layout(&widget);\n    // Create a scroll bar\n    QScrollBar scroll_bar;\n    // Add the scroll bar to the layout\n    layout.addWidget(&scroll_bar);\n    // Show the widget\n    widget.show();\n    // Start the application\n    return app.exec();\n}"
+    }
+  ]
+},
+
+{
+  "id": 14,
+  "category": "Bars",
+  "group": "Menu Bars",
+  "type": "Menu Bar",
+  "name": "Menu Bar 2",
+  "image": "https://media.giphy.com/media/xUA7bdpLxQhsSQdyog/giphy.gif",
+  "files": [
+    {
+      "type": "pyqt",
+      "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QMainWindow, QMenuBar, QMenu\napp = QApplication([])\n\n# Create a main window\nmain_window = QMainWindow()\n\n# Create a menu bar\nmenu_bar = main_window.menuBar()\n\n# Create a menu\nfile_menu = menu_bar.addMenu('File')\n\n# Show the main window\nmain_window.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "pyside2",
+      "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QScrollBar, QVBoxLayout, QWidget\napp = QApplication([])\n\n# Create a widget\nwidget = QWidget()\n\n# Create a vertical layout\nlayout = QVBoxLayout(widget)\n\n# Create a scroll bar\nscroll_bar = QScrollBar()\n\n# Add the scroll bar to the layout\nlayout.addWidget(scroll_bar)\n\n# Show the widget\nwidget.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "qt",
+      "code": "# Example Qt code\n#include <QApplication>\n#include <QScrollBar>\n#include <QVBoxLayout>\n#include <QWidget>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    // Create a widget\n    QWidget widget;\n    // Create a vertical layout\n    QVBoxLayout layout(&widget);\n    // Create a scroll bar\n    QScrollBar scroll_bar;\n    // Add the scroll bar to the layout\n    layout.addWidget(&scroll_bar);\n    // Show the widget\n    widget.show();\n    // Start the application\n    return app.exec();\n}"
+    }
+  ]
+},
+
+{
+  "id": 15,
+  "category": "Bars",
+  "group": "Scroll Bars",
+  "type": "Scroll Bar",
+  "name": "Scroll Bar 3",
+  "image": "https://media.giphy.com/media/d3YvByIyt3eiuMM4/giphy.gif",
+  "files": [
+    {
+      "type": "pyqt",
+      "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QScrollBar, QVBoxLayout, QWidget\napp = QApplication([])\n\n# Create a widget\nwidget = QWidget()\n\n# Create a vertical layout\nlayout = QVBoxLayout(widget)\n\n# Create a scroll bar\nscroll_bar = QScrollBar()\n\n# Add the scroll bar to the layout\nlayout.addWidget(scroll_bar)\n\n# Show the widget\nwidget.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "pyside2",
+      "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QScrollBar, QVBoxLayout, QWidget\napp = QApplication([])\n\n# Create a widget\nwidget = QWidget()\n\n# Create a vertical layout\nlayout = QVBoxLayout(widget)\n\n# Create a scroll bar\nscroll_bar = QScrollBar()\n\n# Add the scroll bar to the layout\nlayout.addWidget(scroll_bar)\n\n# Show the widget\nwidget.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "qt",
+      "code": "# Example Qt code\n#include <QApplication>\n#include <QScrollBar>\n#include <QVBoxLayout>\n#include <QWidget>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    // Create a widget\n    QWidget widget;\n    // Create a vertical layout\n    QVBoxLayout layout(&widget);\n    // Create a scroll bar\n    QScrollBar scroll_bar;\n    // Add the scroll bar to the layout\n    layout.addWidget(&scroll_bar);\n    // Show the widget\n    widget.show();\n    // Start the application\n    return app.exec();\n}"
+    }
+  ]
+},
+{
+  "id": 16,
+  "category": "Bars",
+  "group": "Menu Bars",
+  "type": "Menu Bar",
+  "name": "Menu Bar 3",
+  "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+  "files": [
+    {
+      "type": "pyqt",
+      "code": "# Example PyQt code\nfrom PyQt5.QtWidgets import QApplication, QMainWindow, QMenuBar, QMenu\napp = QApplication([])\n\n# Create a main window\nmain_window = QMainWindow()\n\n# Create a menu bar\nmenu_bar = main_window.menuBar()\n\n# Create a menu\nfile_menu = menu_bar.addMenu('File')\n\n# Show the main window\nmain_window.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "pyside2",
+      "code": "# Example PySide2 code\nfrom PySide2.QtWidgets import QApplication, QMainWindow, QMenuBar, QMenu\napp = QApplication([])\n\n# Create a main window\nmain_window = QMainWindow()\n\n# Create a menu bar\nmenu_bar = main_window.menuBar()\n\n# Create a menu\nfile_menu = menu_bar.addMenu('File')\n\n# Show the main window\nmain_window.show()\n\n# Start the application\napp.exec_()"
+    },
+    {
+      "type": "qt",
+      "code": "# Example Qt code\n#include <QApplication>\n#include <QMainWindow>\n#include <QMenuBar>\n#include <QMenu>\nint main(int argc, char *argv[]) {\n    QApplication app(argc, argv);\n    // Create a main window\n    QMainWindow main_window;\n    // Create a menu bar\n    QMenuBar menu_bar = main_window.menuBar();\n    // Create a menu\n    QMenu *file_menu = menu_bar.addMenu(\"File\");\n    // Show the main window\n    main_window.show();\n    // Start the application\n    return app.exec();\n}"
+    }
+  ]
+}
+
 ]

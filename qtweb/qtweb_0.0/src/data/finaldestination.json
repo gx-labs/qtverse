@@ -1,0 +1,347 @@
+{
+  "categories": [
+    {
+      "name": "WIDGETS",
+      "groups": [
+        {
+          "name": "Widgets",
+          "types": [
+            {
+              "name": "Buttons",
+              "items": [
+                {
+                  "id": 1,
+                  "name": "Button 1",
+                  "image": "URL_TO_BUTTON_1_IMAGE",
+                  "files": [
+                    {
+                      "type": "react",
+                      "code": "import React from 'react';\nfunction Button1() {\n  return <button>Button 1</button>;\n}\nexport default Button1;"
+                    },
+                    {
+                      "type": "angular",
+                      "code": "import { Component } from '@angular/core';\n@Component({\n  selector: 'app-button1',\n  template: '<button>Button 1</button>',\n})\nexport class Button1Component {}"
+                    },
+                    {
+                      "type": "JavaScript",
+                      "code": "console.log('Button 1 clicked');"
+                    },
+                    {
+                      "type": "vue",
+                      "code": "<template>\n  <button>Button 1</button>\n</template>\n<script>\nexport default {\n  name: 'Button1',\n};\n</script>"
+                    }
+                  ]
+                },
+                {
+                  "id": 2,
+                  "name": "Button 2",
+                  "image": "URL_TO_BUTTON_2_IMAGE",
+                  "files": [
+                    {
+                      "type": "react",
+                      "code": "import React from 'react';\nfunction Button2() {\n  return <button>Button 2</button>;\n}\nexport default Button2;"
+                    },
+                    {
+                      "type": "angular",
+                      "code": "import { Component } from '@angular/core';\n@Component({\n  selector: 'app-button2',\n  template: '<button>Button 2</button>',\n})\nexport class Button2Component {}"
+                    },
+                    {
+                      "type": "JavaScript",
+                      "code": "console.log('Button 2 clicked');"
+                    },
+                    {
+                      "type": "vue",
+                      "code": "<template>\n  <button>Button 2</button>\n</template>\n<script>\nexport default {\n  name: 'Button2',\n};\n</script>"
+                    }
+                  ]
+                }
+                
+              ]
+            },
+            {
+              "name": "Radio Buttons",
+              "items": [
+                {
+                  "id": 3,
+                  "name": "Radio Button 1",
+                  "image": "URL_TO_RADIO_BUTTON_1_IMAGE",
+                  "files": [
+                    {
+                      "type": "react",
+                      "code": "import React from 'react';\nfunction RadioButton1() {\n  return <input type='radio' name='group' />;\n}\nexport default RadioButton1;"
+                    },
+                    {
+                      "type": "angular",
+                      "code": "import { Component } from '@angular/core';\n@Component({\n  selector: 'app-radio-button1',\n  template: '<input type=\"radio\" name=\"group\" />',\n})\nexport class RadioButton1Component {}"
+                    },
+                    {
+                      "type": "JavaScript",
+                      "code": "console.log('Radio Button 1 clicked');"
+                    },
+                    {
+                      "type": "vue",
+                      "code": "<template>\n  <input type='radio' name='group' />\n</template>\n<script>\nexport default {\n  name: 'RadioButton1',\n};\n</script>"
+                    }
+                  ]
+                },
+                {
+                  "id": 4,
+                  "name": "Radio Button 2",
+                  "image": "URL_TO_RADIO_BUTTON_2_IMAGE",
+                  "files": [
+                    {
+                      "type": "react",
+                      "code": "import React from 'react';\nfunction RadioButton2() {\n  return <input type='radio' name='group' />;\n}\nexport default RadioButton2;"
+                    },
+                    {
+                      "type": "angular",
+                      "code": "import { Component } from '@angular/core';\n@Component({\n  selector: 'app-radio-button2',\n  template: '<input type=\"radio\" name=\"group\" />',\n})\nexport class RadioButton2Component {}"
+                    },
+                    {
+                      "type": "JavaScript",
+                      "code": "console.log('Radio Button 2 clicked');"
+                    },
+                    {
+                      "type": "vue",
+                      "code": "<template>\n  <input type='radio' name='group' />\n</template>\n<script>\nexport default {\n  name: 'RadioButton2',\n};\n</script>"
+                    }
+                  ]
+                }
+                
+              ]
+            }
+            
+          ]
+        },
+        {
+          "name": "Dialogs",
+          "types": [
+            {
+              "name": "Input Dialog",
+              "items": [
+                {
+                  "id": 5,
+                  "name": "Input Dialog 1",
+                  "image": "URL_TO_INPUT_DIALOG_1_IMAGE",
+                  "files": [
+                    {
+                      "type": "react",
+                      "code": "import React from 'react';\nfunction InputDialog1() {\n  return <input type='text' />;\n}\nexport default InputDialog1;"
+                    },
+                    {
+                      "type": "angular",
+                      "code": "import { Component } from '@angular/core';\n@Component({\n  selector: 'app-input-dialog1',\n  template: '<input type=\"text\" />',\n})\nexport class InputDialog1Component {}"
+                    },
+                    {
+                      "type": "JavaScript",
+                      "code": "console.log('Input Dialog 1 opened');"
+                    },
+                    {
+                      "type": "vue",
+                      "code": "<template>\n  <input type='text' />\n</template>\n<script>\nexport default {\n  name: 'InputDialog1',\n};\n</script>"
+                    }
+                  ]
+                },
+                {
+                  "id": 6,
+                  "name": "Input Dialog 2",
+                  "image": "URL_TO_INPUT_DIALOG_2_IMAGE",
+                  "files": [
+                    {
+                      "type": "react",
+                      "code": "import React from 'react';\nfunction InputDialog2() {\n  return <input type='text' />;\n}\nexport default InputDialog2;"
+                    },
+                    {
+                      "type": "angular",
+                      "code": "import { Component } from '@angular/core';\n@Component({\n  selector: 'app-input-dialog2',\n  template: '<input type=\"text\" />',\n})\nexport class InputDialog2Component {}"
+                    },
+                    {
+                      "type": "JavaScript",
+                      "code": "console.log('Input Dialog 2 opened');"
+                    },
+                    {
+                                              "type": "vue",
+                      "code": "<template>\n  <input type='text' />\n</template>\n<script>\nexport default {\n  name: 'InputDialog2',\n};\n</script>"
+                    }
+                  ]
+                }
+                
+              ]
+            },
+            {
+              "name": "Color Dialog",
+              "items": [
+                {
+                  "id": 7,
+                  "name": "Color Dialog 1",
+                  "image": "URL_TO_COLOR_DIALOG_1_IMAGE",
+                  "files": [
+                    {
+                      "type": "react",
+                      "code": "import React from 'react';\nfunction ColorDialog1() {\n  return <div style={{ backgroundColor: 'red', width: '100px', height: '100px' }}></div>;\n}\nexport default ColorDialog1;"
+                    },
+                    {
+                      "type": "angular",
+                      "code": "import { Component } from '@angular/core';\n@Component({\n  selector: 'app-color-dialog1',\n  template: '<div style=\"background-color: red; width: 100px; height: 100px;\"></div>',\n})\nexport class ColorDialog1Component {}"
+                    },
+                    {
+                      "type": "JavaScript",
+                      "code": "console.log('Color Dialog 1 opened');"
+                    },
+                    {
+                      "type": "vue",
+                      "code": "<template>\n  <div style=\"background-color: red; width: 100px; height: 100px;\"></div>\n</template>\n<script>\nexport default {\n  name: 'ColorDialog1',\n};\n</script>"
+                    }
+                  ]
+                },
+                {
+                  "id": 8,
+                  "name": "Color Dialog 2",
+                  "image": "URL_TO_COLOR_DIALOG_2_IMAGE",
+                  "files": [
+                    {
+                      "type": "react",
+                      "code": "import React from 'react';\nfunction ColorDialog2() {\n  return <div style={{ backgroundColor: 'blue', width: '100px', height: '100px' }}></div>;\n}\nexport default ColorDialog2;"
+                    },
+                    {
+                      "type": "angular",
+                      "code": "import { Component } from '@angular/core';\n@Component({\n  selector: 'app-color-dialog2',\n  template: '<div style=\"background-color: blue; width: 100px; height: 100px;\"></div>',\n})\nexport class ColorDialog2Component {}"
+                    },
+                    {
+                      "type": "JavaScript",
+                      "code": "console.log('Color Dialog 2 opened');"
+                    },
+                    {
+                      "type": "vue",
+                      "code": "<template>\n  <div style=\"background-color: blue; width: 100px; height: 100px;\"></div>\n</template>\n<script>\nexport default {\n  name: 'ColorDialog2',\n};\n</script>"
+                    }
+                  ]
+                }
+               
+              ]
+            },
+            {
+              "name": "Bars",
+              "items": [
+                {
+                  "id": 9,
+                  "name": "Scroll Bars",
+                  "image": "URL_TO_SCROLL_BARS_IMAGE",
+                  "files": [
+                    {
+                      "type": "react",
+                      "code": "import React from 'react';\nfunction ScrollBars() {\n  return <div>Scroll Bars</div>;\n}\nexport default ScrollBars;"
+                    },
+                    {
+                      "type": "angular",
+                      "code": "import { Component } from '@angular/core';\n@Component({\n  selector: 'app-scroll-bars',\n  template: '<div>Scroll Bars</div>',\n})\nexport class ScrollBarsComponent {}"
+                    },
+                    {
+                      "type": "JavaScript",
+                      "code": "console.log('Scroll Bars activated');"
+                    },
+                    {
+                      "type": "vue",
+                      "code": "<template>\n  <div>Scroll Bars</div>\n</template>\n<script>\nexport default {\n  name: 'ScrollBars',\n};\n</script>"
+                    }
+                  ]
+                },
+                {
+                  "id": 10,
+                  "name": "Menu Bar",
+                  "image": "URL_TO_MENU_BAR_IMAGE",
+                  "files": [
+                    {
+                      "type": "react",
+                      "code": "import React from 'react';\nfunction MenuBar() {\n  return <div>Menu Bar</div>;\n}\nexport default MenuBar;"
+                    },
+                    {
+                      "type": "angular",
+                      "code": "import { Component } from '@angular/core';\n@Component({\n  selector: 'app-menu-bar',\n  template: '<div>Menu Bar</div>',\n})\nexport class MenuBarComponent {}"
+                    },
+                    {
+                      "type": "JavaScript",
+                      "code": "console.log('Menu Bar activated');"
+                    },
+                    {
+                      "type": "vue",
+                      "code": "<template>\n  <div>Menu Bar</div>\n</template>\n<script>\nexport default {\n  name: 'MenuBar',\n};\n</script>"
+                    }
+                  ]
+                }
+                
+              ]
+            }
+            
+          ]
+        },
+        {
+          "name": "Bars",
+          "types": [
+            
+          ]
+        },
+        {
+          "name": "CUSTOM",
+          "groups": [
+            {
+              "name": "Custom",
+              "types": 
+                {
+                  "name": "Custom",
+                  "items": [
+                    {
+                      "id": 11,
+                      "name": "Custom Item 1",
+                      "image": "URL_TO_CUSTOM_ITEM_1_IMAGE",
+                      "files": [
+                       
+                      ]
+                    },
+                    {
+                      "id": 12,
+                      "name": "Custom Item 2",
+                      "image": "URL_TO_CUSTOM_ITEM_2_IMAGE",
+                      "files": [
+                       
+                      ]
+                    }
+                   
+                  ]
+                }
+               
+                },
+                {
+                  "name": "Another Custom Type",
+                  "items": [
+                    {
+                      "id": 13,
+                      "name": "Another Custom Item 1",
+                      "image": "URL_TO_ANOTHER_CUSTOM_ITEM_1_IMAGE",
+                      "files": [
+                       
+                      ]
+                    },
+                    {
+                      "id": 14,
+                      "name": "Another Custom Item 2",
+                      "image": "URL_TO_ANOTHER_CUSTOM_ITEM_2_IMAGE",
+                      "files": [
+                        
+                      ]
+                    }
+                   
+                  ]
+                }
+                
+              ]
+            }
+            
+          ]
+        }
+        
+      ]
+    }
+  
+
+              
