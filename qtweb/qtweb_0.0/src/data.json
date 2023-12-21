@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "category": "widgets",
+    "group": "CustomWidget",
+    "type": "Button",
+    "name": "CustomWidget 1",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+    "files": [
+      {
+        "type": "py",
+        "code": "import os\r\nimport sys\r\n\r\nfrom PySide2.QtWidgets import *\r\nfrom PySide2.QtCore import *\r\nfrom PySide2.QtGui import *\r\n\r\ncss_file = os.path.join(os.path.dirname(__file__), \"style.css\")\r\nif os.path.exists(css_file):\r\n    with open(css_file, 'r') as f:\r\n        css_data = f.read()\r\nelse:\r\n    print(\"CSS File does not exist\")\r\n\r\nclass CustomWidget(QWidget):\r\n    def __init__(self):\r\n        super().__init__()\r\n        \r\n        layout = QVBoxLayout()\r\n\r\n        self.button = QPushButton(\"SET UP YOUR FREE WALLET \")\r\n        self.button.setMinimumSize(200, 60)\r\n        self.button.setMaximumSize(400, 120)\r\n        self.button.setCursor(QCursor(Qt.PointingHandCursor))\r\n        self.button.setStyleSheet(css_data)\r\n\r\n        self.setLayout(layout)\r\n        layout.addWidget(self.button, alignment=Qt.AlignCenter)\r\n\r\nif __name__ == '__main__':\r\n    app = QApplication(sys.argv)\r\n    widget = CustomWidget()\r\n    widget.show()\r\n    sys.exit(app.exec_())"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "category": "widgets",
+    "group": "style",
+    "type": "Button",
+    "name": "style 1",
+    "image": "https://media.giphy.com/media/3oKIPz3VFkF3kT5qwo/giphy.gif",
+    "files": [
+      {
+        "type": "css",
+        "code": "QPushButton {\r\n    background-color: #47a4a6;\r\n    border-radius: 30px;\r\n    color: #ffffff;\r\n    padding: 20px 20px;\r\n    font-size: 17px;\r\n    font-weight: bold;\r\n    padding-left: 40px;\r\n    padding-right: 40px;\r\n}\r\n\r\nQPushButton:hover{\r\n    background-color: #5cb8b9;\r\n}"
+      }
+    ]
+  }
+]
