@@ -1,5 +1,5 @@
 QGroupBox{
-  border: 2px dotted #e992b2;
+  border: 2px dotted #a491f1;
   font-size: 20px;
   width: 400px;
   height: 300px;
@@ -10,7 +10,7 @@ QGroupBox{
 QGroupBox:title{
   subcontol-origin: margin;
   subcontol-position: left top;
-  border: 1px solid #e8c0cf;
+  border: 1px solid #e98cae;
   background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0.2 #BA559D, stop: 0.5 #DE8EAB, stop:1 #9E64B6);
   top: -10px;
   left: 12px;
