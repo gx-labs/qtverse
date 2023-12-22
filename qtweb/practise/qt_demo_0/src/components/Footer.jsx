@@ -12,7 +12,7 @@ const FooterContainer = styled.footer`
   text-align: center;
   padding: 5px;
   /* position: fixed; */
-  background-color: #21232c;
+  background-color: #282a35;
   height: 160px;
 `;
 const Logo = styled.img`

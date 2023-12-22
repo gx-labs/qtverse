@@ -1,12 +1,21 @@
 
 import styled from "styled-components";
 
-const SideBarContainer = styled.div`
-  width: 200px;
-  background-color: #282a35;
-  /* position: fixed; */
-  overflow-y: auto;
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 200px 1fr; /* Sidebar width and the rest of the page */
+  grid-template-rows: auto 1fr auto; /* Navbar, content, and footer heights */
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar content"
+    "footer footer";
   height: 100vh;
+`;
+
+const SideBarContainer = styled.div`
+  grid-area: sidebar;
+  background-color: #21232c;
+  overflow-y: scroll;
 `;
 
 const SideBarHeader = styled.h2`
@@ -26,10 +35,10 @@ const SideBarMainFolder = styled.div`
   color: #fff;
   text-align: center;
   padding: 2px; /* Add padding to create space inside the main folder */
-  user-select: none; /* Disable text selection for better interaction */
+  user-select: none;
 
   &:hover {
-    background-color: #555; /* Darken the background on hover */
+    background-color: #555;
   }
 `;
 
@@ -43,7 +52,7 @@ const SideBarItem = styled.li`
   color: #fff;
 
   &:hover {
-    background-color: #ffffff34; /* Darken the background on hover */
+    background-color: #ffffff34;
   }
 `;
 
@@ -81,7 +90,7 @@ const SideBar = () => {
         <SideBarItem>QToolTip</SideBarItem>
         <SideBarItem>QMainWindow</SideBarItem>
         <SideBarItem>QMenu</SideBarItem>
-        <SideBarItem>QWidget</SideBarItem>
+        <SideBarItem>QWidget</SideBarItem>  
       </ul>
 
       <SideBarMainFolder>Dialogs</SideBarMainFolder>
