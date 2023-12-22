@@ -7,7 +7,7 @@ const NavbarContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #333;
+  background-color: #21232c;
   color: #fff;
 `;
 
@@ -31,7 +31,7 @@ const NavLinks = styled.div`
 
 const NavLink = styled.a`
   margin: 0 1rem;
-  color: #fff;
+  color: #e3e3e3;
   text-decoration: none;
 `;
 

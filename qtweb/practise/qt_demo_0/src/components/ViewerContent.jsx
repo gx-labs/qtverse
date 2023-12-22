@@ -90,7 +90,7 @@ const GoBackButton = styled.button`
 `;
 
 const ViewerContentWrapper = styled.div`
-  background-color: #0d1117;
+  background-color: #282a35;
   color: #c9d1d9;
   height: 100vh;
 `;

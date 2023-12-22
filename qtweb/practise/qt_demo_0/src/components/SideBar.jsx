@@ -3,18 +3,17 @@ import styled from "styled-components";
 
 const SideBarContainer = styled.div`
   width: 200px;
-  background-color: #ccc;
-  padding: 0px 2px;
+  background-color: #282a35;
   /* position: fixed; */
   overflow-y: auto;
   height: 100vh;
-  
 `;
 
 const SideBarHeader = styled.h2`
   font-size: 25px;
   margin: 10px 0px;
-  background-color: #ddd;
+  background-color: #00a300;
+  color: #fff;
   text-align: center;
 `;
 
@@ -23,7 +22,7 @@ const SideBarMainFolder = styled.div`
   cursor: pointer;
   margin: 5px 10px;
   border: 1px solid #000;
-  background-color: #666;
+  background-color: #04aa6d;
   color: #fff;
   text-align: center;
   padding: 2px; /* Add padding to create space inside the main folder */
@@ -41,9 +40,10 @@ const SideBarItem = styled.li`
   cursor: pointer;
   user-select: none;
   text-align: center;
+  color: #fff;
 
   &:hover {
-    background-color: #fff; /* Darken the background on hover */
+    background-color: #ffffff34; /* Darken the background on hover */
   }
 `;
 
