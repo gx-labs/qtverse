@@ -3,22 +3,23 @@ import fs from "fs/promises";
 import path from "path";
 import { __dirname } from "./cjs-helper.js";
 
-const widgetFolderPath = path.resolve(
-  __dirname,
-  "..",
-  "src",
-  "PRT_001",
-  "widget"
-);
+const mainFolderPath = path.resolve(__dirname, "..", "src", "PRT");
 const outputFilePath = path.resolve(__dirname, "..", "src", "data.json");
 
-async function generateData() {
+async function generateData(folderPath) {
   try {
-    const items = await fs.readdir(widgetFolderPath);
+    const items = await fs.readdir(folderPath);
     const data = await Promise.all(
       items.map(async (item, index) => {
-        const filePath = path.join(widgetFolderPath, item);
-        const code = await fs.readFile(filePath, "utf-8");
+        const itemPath = path.join(folderPath, item);
+        const stats = await fs.stat(itemPath);
+
+        if (stats.isDirectory()) {
+          // If the item is a directory, recursively generate data for it
+          return generateData(itemPath);
+        }
+
+        const code = await fs.readFile(itemPath, "utf-8");
         const fileType = path.extname(item).substring(1);
         return {
           id: index + 1,
@@ -37,12 +38,18 @@ async function generateData() {
       })
     );
 
-    const jsonData = JSON.stringify(data, null, 2);
-    await fs.writeFile(outputFilePath, jsonData);
-    console.log("Data generated successfully.");
+    return data;
   } catch (error) {
     console.error("Error generating data:", error.message);
+    return [];
   }
 }
 
-generateData();
+async function run() {
+  const data = await generateData(mainFolderPath);
+  const jsonData = JSON.stringify(data.flat(), null, 2);
+  await fs.writeFile(outputFilePath, jsonData);
+  console.log("Data generated successfully.");
+}
+
+run();
