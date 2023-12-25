@@ -1,7 +1,6 @@
 QComboBox {
 	background-color: #1a1a1c;
 	color: #fff;
-	border-radius: 0.2em; 
 	padding-bottom: 0.8em;
 	padding-left: 0.8em;
 	padding-top: 0.8em;
@@ -17,8 +16,10 @@ QComboBox QAbstractItemView
 {   background-color: #1a1a1c; 
     selection-background-color: #33363b;
 	outline: 0;
-  color : white;
-  padding-left: 1em;
+  	color : white;
+  	padding-left: 1em;
+	padding-right: 1em;
+
 }
 QComboBox QAbstractItemView::item
 {

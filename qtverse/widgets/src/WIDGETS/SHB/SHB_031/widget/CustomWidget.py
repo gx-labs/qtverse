@@ -26,6 +26,21 @@ class CustomWidget(QWidget):
         self.combo_box.addItem("Item 4")
         self.combo_box.addItem("Item 5")
 
+        indexs = [1,4,3,2]
+ 
+        # adding separator at maximum index
+        self.combo_box.insertSeparator(max(indexs))
+ 
+        # adding separator at middle index
+        index = 0
+        for i in indexs:
+            if i > min(indexs) and i < max(indexs):
+                index = i
+                self.combo_box.insertSeparator(index)
+ 
+        # adding separator at minimum index
+        self.combo_box.insertSeparator(min(indexs))
+
         self.combo_box.setStyleSheet(css_data)
         self.setLayout(layout)
         layout.addWidget(self.combo_box, alignment=Qt.AlignCenter)

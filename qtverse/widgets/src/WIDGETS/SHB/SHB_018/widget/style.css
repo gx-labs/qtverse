@@ -1,7 +1,7 @@
 QComboBox {
-	background-color: Black;
-	color: #fff;
-	border: 0.05em solid #2c3c4b;
+	background-color: #282828;
+	color: #f0e7e7;
+	border: 0.1em solid #db423d;
 	border-radius: 0.15em; 
 	padding-bottom: 0.2em;
 	padding-left: 0.4em;
@@ -9,9 +9,8 @@ QComboBox {
 
 }
 QComboBox QAbstractItemView
-{    background-color: #36434f; 
-    selection-background-color: #1e90ff;
+{   background-color: #282828; 
+    selection-background-color: #db423d;
 	outline: 0;
-	
-  color : white
+	color : #f0e7e7
 }

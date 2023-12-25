@@ -1,11 +1,11 @@
 QComboBox {
 	color: #000000;	
 	background: transparent;
-	border: 0.05em solid #000000;
+	border: 0.1em solid #f3794c;
 	border-radius: 0.15em; 
 	padding-bottom: 0.2em;
 	padding-left: 0.4em;
-  	font: 50 12pt "Sans Serif"
+  	font: 50 14pt "Sans Serif"
 
 }
 

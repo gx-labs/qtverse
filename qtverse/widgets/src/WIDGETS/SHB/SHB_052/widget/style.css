@@ -1,7 +1,7 @@
 QComboBox {
 	background-color: rgb(73, 77, 91);
 	color: #ffffff;
-	/* border : 5px solid rgb(73, 77, 91); */
+	border : 5px solid rgb(73, 77, 91);
 	border-radius: 0.4em; 
 	padding-bottom: 0.2em;
 	padding-left: 0.6em;
