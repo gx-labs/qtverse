@@ -2,11 +2,11 @@ QComboBox {
 	color: #ffffff;
 	background-color: #2e3440;
 	font :  "Times New Roman";
-	border-radius : 0.15em;
-	font-size : 30px;
+	border-radius : 0.13em;
+	font-size : 20px;
 	padding-left : 0.3em;
-	padding-top : 0.2em;
-	padding-bottom : 0.2em;
+	padding-top : 0.3em;
+	padding-bottom : 0.3em;
 
 }
 QComboBox:editable {

@@ -2,6 +2,7 @@ QComboBox {
 	background-color: #404040;
 	color: #fff;
 	border: 0.05em solid #1e1e1e;
+	font-size: 18px;
 	border-radius: 0.15em;
 	padding-bottom: 0.2em;
 	padding-left: 0.4em;

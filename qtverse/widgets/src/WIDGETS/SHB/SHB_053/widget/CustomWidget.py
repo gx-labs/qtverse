@@ -19,7 +19,7 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.combo_box = QComboBox()
-        self.combo_box.setFixedSize(200, 40)
+        self.combo_box.setFixedSize(200, 45)
 
         self.combo_box.setStyleSheet(css_data)
         list = ["Pizza", "Burger", "Ice-Cream"]
