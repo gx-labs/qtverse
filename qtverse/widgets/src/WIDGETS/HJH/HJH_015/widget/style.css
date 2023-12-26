@@ -1,0 +1,33 @@
+QRadioButton {
+        background-color: rgb(149, 82, 212);
+}
+
+QRadioButton:checked {
+        background-color: rgb(217, 176, 255);
+}
+
+QRadioButton::Indicator {
+        border: none;
+}
+
+QRadioButton#button1 {
+        border: 2px solid black;
+        border-right: 1px solid rgb(149, 82, 212);
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+}
+
+QRadioButton#button2 {
+        border: 2px solid black;
+        border-left: 1px solid rgb(149, 82, 212);
+        border-right: 1px solid rgb(149, 82, 212);
+}
+
+QRadioButton#button3 {
+        border: 2px solid black;
+        border-left: 1px solid rgb(149, 82, 212);
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+}
+
+
