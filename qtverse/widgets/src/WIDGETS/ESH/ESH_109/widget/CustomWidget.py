@@ -18,17 +18,18 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QPushButton("View")
-        self.button.setFixedSize(175, 55)
+        self.button = QPushButton("MORE")
+        self.button.setFixedSize(150, 55)
         self.button.setStyleSheet(css_data)
 
         self.shadow = QGraphicsDropShadowEffect()
-        self.shadow.setColor("#FFFFFF")
-        self.shadow.setOffset(6,6)
+        self.shadow.setBlurRadius(10)
+        self.shadow.setColor("#153652")
+        self.shadow.setOffset(0,5)
         self.button.setGraphicsEffect(self.shadow)
 
         self.setLayout(layout)
-        layout.addWidget(self.button, alignment=Qt.AlignCenter)
+        layout.addWidget(self.button)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -36,6 +37,5 @@ if __name__ == '__main__':
     widget.show()
     sys.exit(app.exec_())
 
-    app.exec_()
 
 
