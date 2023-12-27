@@ -55,8 +55,13 @@ const NavBar = () => {
         </Logo>
       </NavLink>
       <ButtonsContainer>
-        <Button>PRO</Button>
-        <Button>Login/Logout</Button>
+        <NavLink to="/prosubscription">
+          <Button>PRO</Button>
+        </NavLink>
+        <NavLink to="/login&register">
+          <Button>Login/Logout</Button>
+        </NavLink>
+        
       </ButtonsContainer>
     </NavbarContainer>
   );
