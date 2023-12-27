@@ -1,58 +1,64 @@
-
+import React from "react";
 import styled from "styled-components";
-
+import { NavLink } from "react-router-dom";
 
 const NavbarContainer = styled.div`
+  background-color: #21232c;
+  color: #fff;
+  padding: 0 4.8rem;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #21232c;
-  color: #fff;
-`;
-
-
-
-const Logo = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-
-`;
-
-
-const NavLinks = styled.div`
-  display: flex;
-  align-items: center;
 
   @media (max-width: 768px) {
-    display: none;
+    padding: 0 2rem;
   }
 `;
 
-const NavLink = styled.a`
-  margin: 0 1rem;
-  color: #e3e3e3;
-  text-decoration: none;
+const Logo = styled.div`
+  height: auto;
+  max-width: 30%;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Button = styled.button`
+  margin-left: 1rem;
+  padding: 8px 16px;
+  background-color: #04aa6d;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #048c5a;
+  }
 `;
 
 const NavBar = () => {
-  
-
   return (
-    <>
-      <NavbarContainer>
-        
+    <NavbarContainer>
+      <NavLink to="/">
         <Logo>
-          LOGO
+          <img src="/qt_logo_nobg_white.png" alt="Company Logo" />
         </Logo>
-        <NavLinks>
-          <NavLink href="#">Subscribe</NavLink>
-          <NavLink href="#">Register</NavLink>
-          <NavLink href="#">Login</NavLink>
-        </NavLinks>
-      </NavbarContainer>
-     
-    </>
+      </NavLink>
+      <ButtonsContainer>
+        <Button>PRO</Button>
+        <Button>Login/Logout</Button>
+      </ButtonsContainer>
+    </NavbarContainer>
   );
 };
 
