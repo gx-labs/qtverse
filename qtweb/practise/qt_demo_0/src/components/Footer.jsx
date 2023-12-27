@@ -43,7 +43,7 @@ const CopyrightText = styled.p`
 const Footer = () => {
   return (
     <FooterContainer>
-      <Logo src="./qt_logo_nobg.png" alt="Company Logo" />
+      <Logo src="./qt_logo_nobg_white.png" alt="Company Logo" />
       <SocialIconsContainer>
         <SocialIcon icon={faFacebook} />
         <SocialIcon icon={faTwitter} />
