@@ -21,7 +21,7 @@ const SideBarContainer = styled.div`
 const SideBarHeader = styled.h2`
   font-size: 25px;
   margin: 10px 0px;
-  background-color: #00a300;
+  background-color: #04aa6d;
   color: #fff;
   text-align: center;
 `;
