@@ -3,6 +3,8 @@ import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import Home from './pages/Home';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Pro from './components/Pro';
+import Login from './components/Login';
 
 
 
@@ -13,9 +15,8 @@ const App = () => {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/subscribe" element={<ProSubscription />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} /> */}
+          <Route path="/prosubscription" element={<Pro />} />
+          <Route path="/login&register" element={<Login />} />
         </Routes>
 
         <Footer />
