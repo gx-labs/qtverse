@@ -1,0 +1,49 @@
+QPushButton{
+    font-family: Arial;
+    font: normal;
+    font-size: 15pt;
+    color: rgb(119, 0, 255); 
+    background: rgb(255, 255, 255);
+    border: 2px Solid rgb(140, 54, 240);
+    border-radius: 4px;
+    padding: 2px;
+
+}
+
+QPushButton:hover{
+    font-family: Arial;
+    font: normal;
+    font-size: 15pt;
+    color: rgb(255, 255, 255); 
+    background: rgb(119, 0, 255);
+    border: 0px Solid rgb(140, 54, 240);
+    border-radius: 4px;
+    padding: 2px;
+    background: qradialgradient(
+                    cx: 0.3, cy: -0.4,
+                    fx: 0.3, fy: -0.4,
+                    radius: 1.35,
+                    stop: 0 rgb(140, 54, 240), stop: 1 rgb(119, 0, 255)
+                )
+
+}
+
+QPushButton:focus{
+    font-family: Arial;
+    font: normal;
+    font-size: 15pt;
+    color: rgb(119, 0, 255); 
+    border: 0px Solid rgb(255, 255, 255);
+    background: rgb(255, 255, 255,0)
+}
+
+QPushButton:disabled{
+    font-family: Arial;
+    font: normal;
+    font-size: 15pt;
+    color: rgb(0, 0, 0); 
+    background: rgb(255, 255, 255);
+    border: 0px Solid rgb(255, 255, 255);
+}
+
+

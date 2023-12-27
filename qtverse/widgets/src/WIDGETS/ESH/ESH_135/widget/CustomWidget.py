@@ -18,13 +18,13 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QPushButton("View")
-        self.button.setFixedSize(175, 55)
+        self.button = QPushButton("Previous Orders")
+        self.button.setFixedSize(170, 55)
         self.button.setStyleSheet(css_data)
 
         self.shadow = QGraphicsDropShadowEffect()
-        self.shadow.setColor("#FFFFFF")
-        self.shadow.setOffset(6,6)
+        self.shadow.setColor("#a7a8ab")
+        self.shadow.setOffset(0,4)
         self.button.setGraphicsEffect(self.shadow)
 
         self.setLayout(layout)
@@ -36,6 +36,5 @@ if __name__ == '__main__':
     widget.show()
     sys.exit(app.exec_())
 
-    app.exec_()
 
 
