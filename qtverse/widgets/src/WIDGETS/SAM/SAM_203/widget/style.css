@@ -1,0 +1,17 @@
+QGroupBox{
+  border: 1px solid #C9C1EA;
+  font-size: 20px;
+  width: 400px;
+  height: 300px;
+  color: grey;
+  margin-top: 5ex;
+  background-color: #f4f1ff;
+}
+QGroupBox:title{
+  subcontrol-position: right top;
+  border: 1px solid #C9C1EA;
+  background-color:qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0.3 #C9C1EA, stop:1 #ECDBE1);
+  top: -10px;
+  right: 30px;
+  padding: 5px;
+}

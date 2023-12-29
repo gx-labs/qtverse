@@ -6,9 +6,9 @@ QGroupBox{
   font-weight: bold;
   width: 400px;
   height: 300px;
-  color: rgb(0, 0, 0);
+  color: black;
   margin-top: 6ex;
-  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0.2 #f0f8ff, stop:0.5 #d4f1f9, stop:1 #6dd7fd);
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0.2 #f0f8ff, stop:0.7 #dfffff, stop:1 #a3e6ff);
 }
 QGroupBox:title{
   subcontol-origin: margin;
