@@ -1,0 +1,26 @@
+QPushButton{
+  font-family: Arial;
+  font: bold;
+  font-size: 11pt;
+  color: rgb(0, 0, 0); 
+  background: rgb(255, 255, 255,0);
+  border: 0px Solid rgb(255, 255, 255);
+  border-radius:25px;
+  padding: 10px;
+  
+}
+
+QPushButton:hover{
+  font-family: Arial;
+  font: bold;
+  font-size: 11pt;
+  color: rgb(255, 255, 255); 
+  background: rgb(0,0,0);
+  border: 0px Solid rgb(255, 255, 255);
+  border-radius:25px;
+  padding: 10px;
+  
+}
+
+
+
