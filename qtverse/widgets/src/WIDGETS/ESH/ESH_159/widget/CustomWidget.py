@@ -15,21 +15,15 @@ else:
 class CustomWidget(QWidget):
     def __init__(self):
         super().__init__()
-
+        
         layout = QVBoxLayout()
 
-        self.button = QPushButton("SUBMIT")
-        self.button.setFixedSize(180, 50)
+        self.button = QPushButton("Schedule a Demo")
+        self.button.setFixedSize(160, 50)
         self.button.setStyleSheet(css_data)
 
-        self.shadow = QGraphicsDropShadowEffect()
-        self.shadow.setColor("#4d2d2d")
-        self.shadow.setOffset(0,6)
-        self.button.setGraphicsEffect(self.shadow)
-
         self.setLayout(layout)
-        layout.addWidget(self.button)
-
+        layout.addWidget(self.button, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -37,7 +31,5 @@ if __name__ == '__main__':
     widget.show()
     sys.exit(app.exec_())
 
-
-
-
+    app.exec_()
 

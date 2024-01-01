@@ -25,7 +25,7 @@ class CustomWidget(QWidget):
         widget_layout = QVBoxLayout(self.widget)  
         widget_layout.setAlignment(Qt.AlignCenter)  
 
-        self.button = QPushButton("Read More", self.widget)  
+        self.button = QPushButton("Read More")  
         self.button.setFixedSize(150, 55)
         self.button.setStyleSheet(css_data)
 

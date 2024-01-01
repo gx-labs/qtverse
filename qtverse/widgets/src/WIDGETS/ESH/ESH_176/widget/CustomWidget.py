@@ -18,25 +18,23 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.button = QPushButton("SUBMIT")
-        self.button.setFixedSize(180, 50)
+        self.button = QPushButton("Cancel")  
+        self.button.setFixedSize(100, 45)
         self.button.setStyleSheet(css_data)
 
         self.shadow = QGraphicsDropShadowEffect()
-        self.shadow.setColor("#4d2d2d")
-        self.shadow.setOffset(0,6)
+        self.shadow.setColor("#6e6d6a")
+        self.shadow.setOffset(2,2)
         self.button.setGraphicsEffect(self.shadow)
 
+        layout.addWidget(self.button)  
         self.setLayout(layout)
-        layout.addWidget(self.button)
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     widget = CustomWidget()
     widget.show()
     sys.exit(app.exec_())
-
 
 
 
