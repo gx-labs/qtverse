@@ -18,15 +18,9 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.button = QPushButton("Cancel ✘")  
-        self.button.setFixedSize(170,60)
+        self.button = QPushButton("🕭")  
+        self.button.setFixedSize(50, 50)
         self.button.setStyleSheet(css_data)
-
-        self.shadow = QGraphicsDropShadowEffect()
-        self.shadow.setColor("#585a5c")
-        self.shadow.setBlurRadius(10)
-        self.shadow.setOffset(4,4)
-        self.button.setGraphicsEffect(self.shadow)
 
         layout.addWidget(self.button)  
         self.setLayout(layout)
