@@ -1,7 +1,11 @@
-QPushButton{    
+QPushButton{
+    font-family: Arial;
+    font:bold;
+    font-size: 25pt;
+    color: rgb(255,255,255);
     background: rgb(82, 80, 79);
-    border-radius: 30px;
-    padding: 20px;
+    border: 0px Solid rgb(3, 3, 3);
+    border-radius: 25px;
     background: qradialgradient(
                     cx: 0.3, cy: -0.4,
                     fx: 0.3, fy: -0.4,
@@ -10,10 +14,3 @@ QPushButton{
                 );
 }
 
-QLabel{
-    color: white; 
-    font-size: 15pt;
-    font: normal;
-    font-family: Arial;
-    color: rgb(255,255,255);
-}
