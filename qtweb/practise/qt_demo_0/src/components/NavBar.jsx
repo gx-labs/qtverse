@@ -18,6 +18,7 @@ const NavbarContainer = styled.div`
 
 const Logo = styled.div`
   height: auto;
+  padding-top: 20px;
   max-width: 30%;
 
   img {
