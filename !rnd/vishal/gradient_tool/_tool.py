@@ -1,6 +1,6 @@
 import sys
-from PySide2.QtWidgets import  QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout,QLineEdit,QSlider
-from PySide2.QtGui import QColor
+from PySide2.QtWidgets import  QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout,QLineEdit,QSlider,QSpacerItem,QSizePolicy
+from PySide2.QtGui import QColor,QIcon,QPixmap
 from PySide2.QtCore import Qt
 
 class GradientGenerator(QMainWindow):
@@ -25,22 +25,36 @@ class GradientGenerator(QMainWindow):
         
         self.color_layout_1 = QHBoxLayout()
         self.layout.addLayout(self.color_layout_1)
-        self.select_color_button1= QPushButton('Select color 1')
+        color1_label = QLabel("Color 1:")
+        self.color_layout_1.addWidget(color1_label)
+
+        self.select_color_button1= QPushButton()
         self.select_color_button1.clicked.connect(self.select_color1)
+        self.select_color_button1.setFixedWidth(100)
+        self.select_color_button1.setStyleSheet(f"background-color: #ff0000; color: #ff0000;")
         self.color_layout_1.addWidget(self.select_color_button1)
+
+
         self.line_edit1 = QLineEdit()
-        self.line_edit1.setFixedWidth(70)
+        self.line_edit1.setFixedWidth(110)
+        self.line_edit1.setText("#ff0000")
         self.line_edit1.textChanged.connect(self.change_color_from_hex_button1)
         self.color_layout_1.addWidget(self.line_edit1)
-
-
+        
         self.color_layout_2 = QHBoxLayout()
         self.layout.addLayout(self.color_layout_2)
-        self.select_color_button2= QPushButton('Select color 2')
+        color1_label = QLabel("Color 2:")
+        self.color_layout_2.addWidget(color1_label)
+
+        self.select_color_button2= QPushButton()
+        self.select_color_button2.setFixedWidth(100)
+        self.select_color_button2.setStyleSheet(f"background-color:#0000ff; color: #0000ff;")
         self.select_color_button2.clicked.connect(self.select_color2)
         self.color_layout_2.addWidget(self.select_color_button2)
+
         self.line_edit2 = QLineEdit()
-        self.line_edit2.setFixedWidth(70)
+        self.line_edit2.setFixedWidth(110)
+        self.line_edit2.setText("#0000ff")
         self.line_edit2.textChanged.connect(self.change_color_from_hex_button2)
         self.color_layout_2.addWidget(self.line_edit2)
 
@@ -58,10 +72,23 @@ class GradientGenerator(QMainWindow):
         angle_layout.setAlignment(Qt.AlignLeft)
 
         self.layout.addLayout(angle_layout)
+        rotate_left_button = QPushButton()
+        rotate_left_button.setIcon(QIcon("!rnd/vishal/img/left-arrow.png"))
+        rotate_left_button.clicked.connect(self.rotate_left)
+        angle_layout.addWidget(rotate_left_button)
+
+        rotate_right_button = QPushButton()
+        rotate_right_button.setIcon(QIcon("!rnd/vishal/img/right-arrow.png"))
+        rotate_right_button.clicked.connect(self.rotate_right)
+        angle_layout.addWidget(rotate_right_button)
 
         self.gradient_type='linear'
         self.colors= ['#FF0000', '#0000FF']
         self.stops = [0 , 1]
+        self.A= 0
+        self.B= 0
+        self.C= 1
+        self.D=0
         self.generate_gradient()
         self.update_gradient_label()
 
@@ -78,16 +105,18 @@ class GradientGenerator(QMainWindow):
         self.stop2_slider.valueChanged.connect(self.update_stop_1)
        
         self.layout.addWidget(self.stop2_slider)
+        
 
     def generate_gradient(self):
         if self.gradient_type == 'linear':
-             self.gradient = f"qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+             self.gradient = f"qlineargradient(spread:pad , x1:{self.A}, y1:{self.B}, x2:{self.C}, y2:{self.D}, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+             
         else:
             self.gradient = f"qradialgradient(cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
 
     def update_gradient_label(self):
         style_sheet = f"background: {self.gradient};"
-        print(style_sheet)
+        
         self.gradient_label.setStyleSheet(style_sheet)
 
     def change_gradient(self):
@@ -152,26 +181,53 @@ class GradientGenerator(QMainWindow):
     def rotate_gradient(self, index):
 
         angle = int(self.sender().itemText(index))
-
         if angle == 0:
-            self.gradient= f"qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+            self.A= 1
+            self.B= 1
+            self.C= 1
+            self.D=0
         if angle == 45:
-            self.gradient= f"qlineargradient(spread:pad,x1:0, y1:1, x2:1, y2:0, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+            self.A= 0
+            self.B= 1
+            self.C= 1
+            self.D=0
         if angle == 90:
-            self.gradient = f"qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+            self.A= 0
+            self.B= 0
+            self.C= 1
+            self.D= 0
         if angle == 135:
-            self.gradient = f"qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:1, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+            self.A= 0
+            self.B= 0
+            self.C= 1
+            self.D= 1
         if angle == 180:
-            self.gradient = f"qlineargradient(spread:pad,x1:0, y1:0, x2:0, y2:1, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+            self.A= 0
+            self.B= 0
+            self.C= 0
+            self.D= 1
         if angle == 225:
-            self.gradient = f"qlineargradient(spread:pad,x1:1, y1:0, x2:0, y2:1, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+            self.A= 1
+            self.B= 0
+            self.C= 0
+            self.D= 1 
         if angle == 270:
-            self.gradient = f"qlineargradient(spread:pad,x1:1, y1:0, x2:0, y2:0, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+            self.A= 1
+            self.B= 0
+            self.C= 0
+            self.D= 0
         if angle == 315:
-            self.gradient = f"qlineargradient(spread:pad,x1:1, y1:1, x2:0, y2:0, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+            self.A= 1
+            self.B= 1
+            self.C= 0
+            self.D= 0
         if angle ==360:
-            self.gradient = f"qlineargradient(spread:pad,x1:0, y1:1, x2:0, y2:0, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
-
+            self.A= 0
+            self.B= 1
+            self.C= 0
+            self.D=0
+            
+        self.generate_gradient()
         self.update_gradient_label()
 
         
@@ -181,11 +237,21 @@ class GradientGenerator(QMainWindow):
          self.update_gradient_label()
 
     def update_stop_1(self,value):
-         
          self.stops[1]= value/100
-         print(self.stops)
+         
          self.generate_gradient()
          self.update_gradient_label()
+
+    def rotate_left(self):
+        current_index = self.angle_combo_box.currentIndex()
+        if current_index > 0:
+            self.angle_combo_box.setCurrentIndex(current_index - 1)
+
+    def rotate_right(self):
+        current_index = self.angle_combo_box.currentIndex()
+        if current_index < self.angle_combo_box.count() - 1:
+            self.angle_combo_box.setCurrentIndex(current_index + 1)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
