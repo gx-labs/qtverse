@@ -18,7 +18,7 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.grpbx = QGroupBox("Contact Info 📞")
+        self.grpbx = QGroupBox("Raw Code Settings                               🗸   x")
         self.grpbx.setStyleSheet(css_data)
 
         self.setLayout(layout)

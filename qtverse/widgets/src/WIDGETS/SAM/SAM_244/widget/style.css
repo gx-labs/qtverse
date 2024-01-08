@@ -3,10 +3,10 @@ QGroupBox{
   border-radius: 3px;
   font-size: 23px;
   font-weight: bold;
-  width: 400px;
-  height: 450px;
-  color: #49ad4d;
-  background-color: white;
+  width: 450px;
+  height: 350px;
+  color: #7E889D;
+  background-color: #F8F9FB;
 }
 QGroupBox:title{
   subcontrol-position: left top;
