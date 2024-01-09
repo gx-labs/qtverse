@@ -24,10 +24,5 @@ QRadioButton::indicator:hover {
 }
 
 QRadioButton::indicator:checked {
-        background-color: rgb(150, 0, 0);
+        background-color: rgb(120, 53, 122);
 }
-
-
-
-
-

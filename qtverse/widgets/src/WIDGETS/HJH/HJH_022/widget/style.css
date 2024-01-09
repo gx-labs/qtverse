@@ -1,0 +1,83 @@
+QRadioButton::indicator {
+        width: 30px;
+        height: 30px;
+        border: 3px solid rgb(226, 43, 43);
+        border-radius: 18px;
+}
+
+QRadioButton::indicator:checked{
+        width: 30px;
+        height: 30px;
+        border: 3px solid rgb(226, 43, 43);
+        border-radius: 18px;
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.45,
+                spread: repeat,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 rgb(226, 43, 43),
+                stop: 0.699 rgb(226, 43, 43),
+                stop: 0.7 white,
+                stop: 1 white
+        )
+}
+
+QRadioButton::indicator:unchecked{
+        width: 30px;
+        height: 30px;
+        border: 3px solid gray;
+        border-radius: 18px;
+}
+
+QRadioButton::indicator:hover:unchecked{
+        width: 30px;
+        height: 30px;
+        border: 3px solid grey;
+        border-radius: 18px;
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.85,
+                spread: repeat,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 lightgrey,
+                stop: 1 white
+        )
+}
+
+QRadioButton::indicator:pressed:unchecked{
+        width: 30px;
+        height: 30px;
+        border: 3px solid grey;
+        border-radius: 18px;
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.85,
+                spread: repeat,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 grey,
+                stop: 1 white
+        )
+}
+
+QRadioButton::indicator:hover:checked{
+        width: 30px;
+        height: 30px;
+        border: 3px solid rgb(226, 43, 43);
+        border-radius: 18px;
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.85,
+                spread: repeat,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 rgb(226, 43, 43),
+                stop: 1 white
+        )
+}

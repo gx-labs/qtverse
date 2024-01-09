@@ -18,7 +18,7 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QRadioButton("Option 1")
+        self.button = QRadioButton("Label 1 ♀")
         self.button.setChecked(True)
         self.button.setFixedSize(100, 40)
         self.button.setStyleSheet(css_data)
