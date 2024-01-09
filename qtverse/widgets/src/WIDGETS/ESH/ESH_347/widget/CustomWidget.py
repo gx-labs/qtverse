@@ -18,7 +18,7 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.button = QPushButton("🡪")  
+        self.button = QPushButton("🡨")  
         self.button.setFixedSize(60, 60)
         self.button.setStyleSheet(css_data)
 
@@ -26,7 +26,7 @@ class CustomWidget(QWidget):
 
         self.shadow.setColor("#585a5c")
         self.shadow.setBlurRadius(10)
-        self.shadow.setOffset(-4,0)
+        self.shadow.setOffset(4, 0)
         self.button.setGraphicsEffect(self.shadow)
 
         layout.addWidget(self.button)  
