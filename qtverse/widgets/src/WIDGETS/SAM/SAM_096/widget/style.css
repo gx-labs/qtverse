@@ -1,6 +1,6 @@
 QGroupBox{
   border: 1px solid rgb(154, 154, 154);
-  font-size: 13px;
+  font-size: 16px;
   font-weight: bold;
   width: 400px;
   height: 300px;
@@ -15,6 +15,6 @@ QGroupBox:title{
   padding: 20px;
   border: 1px solid rgb(154, 154, 154);
   border-bottom: 1px solid transparent;
-  top: -23px;
+  top: -26px;
   padding: 3px;
 }

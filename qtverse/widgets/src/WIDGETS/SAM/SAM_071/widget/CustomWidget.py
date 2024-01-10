@@ -18,7 +18,7 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.grpbx = QGroupBox("GroupBox Examples")
+        self.grpbx = QGroupBox("Coding Guide")
         self.grpbx.setStyleSheet(css_data)
 
         self.setLayout(layout)

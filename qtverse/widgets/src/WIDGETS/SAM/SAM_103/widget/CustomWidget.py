@@ -18,7 +18,7 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.grpbx = QGroupBox("Your Personal Information")
+        self.grpbx = QGroupBox("International Format Settings")
         self.grpbx.setStyleSheet(css_data)
 
         self.setLayout(layout)
