@@ -20,11 +20,10 @@ class CustomWidget(QWidget):
 
         self.combo_box = QComboBox()
         self.combo_box.setFixedSize(200, 50)
-        self.combo_box.addItem("Option 1")
-        self.combo_box.addItem("Option 2")
-        self.combo_box.addItem("Option 3")
-        self.combo_box.addItem("Option 4")
-        self.combo_box.addItem("Option 5")
+        self.combo_box.addItem("Pagani")
+        self.combo_box.addItem("Tesla")
+        self.combo_box.addItem("Ford")
+        self.combo_box.addItem("Ferrari")
 
         self.combo_box.setStyleSheet(css_data)
 

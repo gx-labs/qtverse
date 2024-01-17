@@ -1,12 +1,16 @@
-QProgressBar {
-  border: 3px solid #0eea15;
-  border-radius: 10px;
-  text-align: center;
-  font-style: bold;
+QComboBox {
+	background-color: #2dabc1;
+	color: #fff;
+	border: 0.05em solid #bbeaf3;
+	font-size: 20px;
+	border-radius: 0.15em;
+	padding-bottom: 0.2em;
+	padding-left: 0.4em;
 }
-
-QProgressBar::chunk {
-  background-color: #0eea15;
-  width: 20px;
-
+QComboBox QAbstractItemView
+{   background-color: white; 
+    selection-background-color: #bbeaf3;
+	selection-color : rgb(73, 71, 71);
+	outline: 0;
+  	color : rgb(73, 71, 71);
 }

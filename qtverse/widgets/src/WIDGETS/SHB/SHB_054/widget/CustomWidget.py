@@ -24,11 +24,7 @@ class CustomWidget(QWidget):
         self.combo_box.addItem("2002")
         self.combo_box.addItem("2003")
         self.combo_box.addItem("2004")
-        self.combo_box.addItem("2005")
-        self.combo_box.addItem("2005")
 
-
-        # self.combo_box.setEditable(True)
         self.combo_box.setStyleSheet(css_data)
         self.setLayout(layout)
         layout.addWidget(self.combo_box, alignment=Qt.AlignCenter)

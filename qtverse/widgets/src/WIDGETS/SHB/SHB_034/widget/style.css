@@ -17,7 +17,6 @@ QComboBox:editable {
 QComboBox:!editable:on, QComboBox::drop-down:editable:on {
 		color: #05c4b4;	
 		background: Black;
-		outline: 0;
 
 	}
 QComboBox QAbstractItemView {

@@ -20,10 +20,10 @@ class CustomWidget(QWidget):
 
         self.combo_box = QComboBox()
         self.combo_box.setFixedSize(200, 60)
-        self.combo_box.addItem("Jumla")
+        self.combo_box.addItem("HTML")
         self.combo_box.addItem("Wordpress")
-        self.combo_box.addItem("Drupal")
-        self.combo_box.addItem("Concrete")
+        self.combo_box.addItem("CSS")
+        self.combo_box.addItem("JavaScript")
 
         self.combo_box.setStyleSheet(css_data)
         self.setLayout(layout)

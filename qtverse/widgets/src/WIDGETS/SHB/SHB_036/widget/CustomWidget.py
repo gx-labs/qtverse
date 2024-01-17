@@ -20,11 +20,26 @@ class CustomWidget(QWidget):
 
         self.combo_box = QComboBox()
         self.combo_box.setFixedSize(200, 40)
-        self.combo_box.addItem("Create New")
-        self.combo_box.addItem("All Drafts")
-        self.combo_box.addItem("Move To")
-        self.combo_box.addItem("Profile Settings")
-        self.combo_box.addItem("Notifications")
+        self.combo_box.addItem("SAVE OPTIONS")
+        self.combo_box.addItem("EDIT")
+        self.combo_box.addItem("DELETE")
+        self.combo_box.addItem("SETTINGS")
+        self.combo_box.addItem("PREFERENCES")
+        indexs = [1,4,3,2]
+ 
+        # adding separator at maximum index
+        self.combo_box.insertSeparator(max(indexs))
+ 
+        # adding separator at middle index
+        index = 0
+        for i in indexs:
+            if i > min(indexs) and i < max(indexs):
+                index = i
+                self.combo_box.insertSeparator(index)
+ 
+        # adding separator at minimum index
+        self.combo_box.insertSeparator(min(indexs))
+        self.combo_box.setStyleSheet(css_data)
 
         self.combo_box.setStyleSheet(css_data)
         self.setLayout(layout)

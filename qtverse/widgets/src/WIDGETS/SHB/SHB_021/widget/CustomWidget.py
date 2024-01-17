@@ -20,11 +20,11 @@ class CustomWidget(QWidget):
 
         self.combo_box = QComboBox()
         self.combo_box.setFixedSize(180, 50)
-        self.combo_box.addItem("Item 1")
-        self.combo_box.addItem("Item 2")
-        self.combo_box.addItem("Item 3")
-        self.combo_box.addItem("Item 4")
-        self.combo_box.addItem("Item 5")
+        self.combo_box.addItem("Anime")
+        self.combo_box.addItem("Movie")
+        self.combo_box.addItem("Series")
+        self.combo_box.addItem("Animated")
+        self.combo_box.addItem("Classics")
         indexs = [1,4,3,2]
  
         # adding separator at maximum index
