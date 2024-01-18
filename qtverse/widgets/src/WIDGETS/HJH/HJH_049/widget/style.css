@@ -1,0 +1,31 @@
+QRadioButton {
+        color: #202572;
+        border-radius: 15px;
+        padding-left: 7px;
+        padding-right: 7px;
+}
+
+QRadioButton:focus {
+        background-color: #D3D2E2;
+}
+
+QRadioButton::indicator {
+        width: 16px;
+        height: 16px;
+        border: 2px solid #202572;
+        border-radius: 9px;
+}
+
+QRadioButton::indicator:checked {
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.5,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 #DADAD9,
+                stop: 0.4 #DADAD9,
+                stop: 0.5 #202572,
+                stop: 1 #202572
+        )
+}
