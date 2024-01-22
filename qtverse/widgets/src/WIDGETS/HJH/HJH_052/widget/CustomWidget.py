@@ -19,14 +19,14 @@ class CustomWidget(QWidget):
         layout = QHBoxLayout()
         layout.setSpacing(0)
 
-        self.button1 = QRadioButton('Option 1')
-        self.button1.setChecked(True)
-        self.button1.setFixedSize(95, 35)
-        self.button2 = QRadioButton('Option 2')
-        self.button2.setFixedSize(95, 35)
+        self.radiobutton1 = QRadioButton('Option 1')
+        self.radiobutton1.setChecked(True)
+        self.radiobutton1.setFixedSize(95, 35)
+        self.radiobutton2 = QRadioButton('Option 2')
+        self.radiobutton2.setFixedSize(95, 35)
 
-        layout.addWidget(self.button1)
-        layout.addWidget(self.button2)
+        layout.addWidget(self.radiobutton1)
+        layout.addWidget(self.radiobutton2)
         
         self.setLayout(layout)
         self.setStyleSheet(css_data)

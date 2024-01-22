@@ -20,17 +20,17 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout(frame)
 
-        self.button1 = QRadioButton('Silver')
-        self.button1.setChecked(True)
-        self.button1.setFixedSize(300, 45)
-        self.button2 = QRadioButton('Royal Blue')
-        self.button2.setFixedSize(300, 45)
-        self.button3 = QRadioButton('Dark Grey')
-        self.button3.setFixedSize(300, 45)
+        self.radiobutton1 = QRadioButton('Silver')
+        self.radiobutton1.setChecked(True)
+        self.radiobutton1.setFixedSize(300, 45)
+        self.radiobutton2 = QRadioButton('Royal Blue')
+        self.radiobutton2.setFixedSize(300, 45)
+        self.radiobutton3 = QRadioButton('Dark Grey')
+        self.radiobutton3.setFixedSize(300, 45)
 
-        layout.addWidget(self.button1)
-        layout.addWidget(self.button2)
-        layout.addWidget(self.button3)
+        layout.addWidget(self.radiobutton1)
+        layout.addWidget(self.radiobutton2)
+        layout.addWidget(self.radiobutton3)
 
         frame.setLayout(layout)
 

@@ -20,20 +20,20 @@ class CustomWidget(QWidget):
 
         layout = QHBoxLayout(frame)
 
-        self.button1 = QRadioButton('All')
-        self.button1.setChecked(True)
-        self.button1.setFixedSize(35, 25)
-        self.button2 = QRadioButton('Upcoming')
-        self.button2.setFixedSize(65, 25)
-        self.button3 = QRadioButton('Ongoing')
-        self.button3.setFixedSize(65, 25)
-        self.button4 = QRadioButton('Complete')
-        self.button4.setFixedSize(65, 25)
+        self.radiobutton1 = QRadioButton('All')
+        self.radiobutton1.setChecked(True)
+        self.radiobutton1.setFixedSize(35, 25)
+        self.radiobutton2 = QRadioButton('Upcoming')
+        self.radiobutton2.setFixedSize(65, 25)
+        self.radiobutton3 = QRadioButton('Ongoing')
+        self.radiobutton3.setFixedSize(65, 25)
+        self.radiobutton4 = QRadioButton('Complete')
+        self.radiobutton4.setFixedSize(65, 25)
 
-        layout.addWidget(self.button1)
-        layout.addWidget(self.button2)
-        layout.addWidget(self.button3)
-        layout.addWidget(self.button4)
+        layout.addWidget(self.radiobutton1)
+        layout.addWidget(self.radiobutton2)
+        layout.addWidget(self.radiobutton3)
+        layout.addWidget(self.radiobutton4)
 
         frame.setLayout(layout)
 

@@ -18,9 +18,9 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.button1 = QRadioButton('Option 1')
+        self.radiobutton1 = QRadioButton('Option 1')
 
-        layout.addWidget(self.button1)
+        layout.addWidget(self.radiobutton1)
         
         self.setLayout(layout)
         
