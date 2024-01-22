@@ -23,13 +23,18 @@ class CustomWidget(QWidget):
         
         layout = QVBoxLayout()
 
-        self.button = QRadioButton("INSTAGRAM")
-        self.button.setFixedSize(250, 40)
-        self.button.setStyleSheet(css_data)
+        self.radiobutton1 = QRadioButton("INSTAGRAM")
+        self.radiobutton1.setFixedSize(250, 40)
+        self.radiobutton1.clicked.connect(self.radiobutton1_pressed)
 
         self.setLayout(layout)
-        layout.addWidget(self.button, alignment=Qt.AlignCenter)
+        layout.addWidget(self.radiobutton1, alignment=Qt.AlignCenter)
 
+        self.setStyleSheet(css_data)
+        
+    def radiobutton1_pressed(self):
+        print ('Pressed radiobutton1!')
+        
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     widget = CustomWidget()

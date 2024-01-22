@@ -19,12 +19,16 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.radiobutton1 = QRadioButton('Option 1')
+        self.radiobutton1.clicked.connect(self.radiobutton1_pressed)
 
         layout.addWidget(self.radiobutton1)
         
         self.setLayout(layout)
         
         self.setStyleSheet(css_data)
+        
+    def radiobutton1_pressed(self):
+        print ('Pressed radiobutton1!')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

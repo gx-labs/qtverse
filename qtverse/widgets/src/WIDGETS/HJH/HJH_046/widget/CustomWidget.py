@@ -23,15 +23,23 @@ class CustomWidget(QWidget):
         self.radiobutton1.setFixedSize(200, 30)
         self.radiobutton1.setLayoutDirection(Qt.RightToLeft)
         self.radiobutton1.setChecked(True)
+        self.radiobutton1.clicked.connect(self.radiobutton1_pressed)
         self.radiobutton2 = QRadioButton("No")
         self.radiobutton2.setFixedSize(200, 30)
         self.radiobutton2.setLayoutDirection(Qt.RightToLeft)
-        self.radiobutton1.setStyleSheet(css_data)
-        self.radiobutton2.setStyleSheet(css_data)
+        self.radiobutton2.clicked.connect(self.radiobutton2_pressed)
 
         self.setLayout(layout)
         layout.addWidget(self.radiobutton1)
         layout.addWidget(self.radiobutton2)
+        
+        self.setStyleSheet(css_data)
+        
+    def radiobutton1_pressed(self):
+        print ('Pressed radiobutton1!')
+        
+    def radiobutton2_pressed(self):
+        print ('Pressed radiobutton2!')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
