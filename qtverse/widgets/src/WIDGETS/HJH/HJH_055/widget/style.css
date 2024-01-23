@@ -1,0 +1,29 @@
+QRadioButton::indicator {
+        height: 0px;
+        width: 0px;
+}
+
+QRadioButton {
+        color: #CED4DA;
+        border: 2px solid #CED4DA;
+        border-radius: 18px;
+        padding-left: 1px;
+        font-size: 20px;
+        font-weight: 900;
+}
+
+QRadioButton#rdbtn1 {
+        background-color: #3BF087;
+}
+
+QRadioButton#rdbtn2 {
+        background-color: #40B5FF;
+}
+
+QRadioButton#rdbtn3 {
+        background-color: #FFE01A;
+}
+
+QRadioButton#rdbtn4 {
+        background-color: #FF5C4A;
+}
