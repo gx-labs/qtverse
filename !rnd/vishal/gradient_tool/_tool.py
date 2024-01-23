@@ -1,5 +1,5 @@
 import sys
-from PySide2.QtWidgets import  QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout,QLineEdit,QSlider,QSpacerItem,QSizePolicy,QPlainTextEdit
+from PySide2.QtWidgets import  QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout,QLineEdit,QSlider,QPlainTextEdit
 from PySide2.QtGui import QColor,QIcon
 from PySide2.QtCore import Qt
 
@@ -97,16 +97,18 @@ class GradientGenerator(QMainWindow):
         self.stop1_slider.setRange(0, 99)
         self.stop1_slider.setValue(0)
         self.stop1_slider.valueChanged.connect(self.update_stop_0)
-        self.layout.addWidget(stop1_label)
-        self.layout.addWidget(self.stop1_slider)
+        self.color_layout_1.addWidget(stop1_label)
+        self.color_layout_1.addWidget(self.stop1_slider)
+        
 
         stop2_label = QLabel("Stop 2")
         self.stop2_slider = QSlider(Qt.Horizontal)
         self.stop2_slider.setRange(0, 100)
         self.stop2_slider.setValue(100)
         self.stop2_slider.valueChanged.connect(self.update_stop_1)
-        self.layout.addWidget(stop2_label)
-        self.layout.addWidget(self.stop2_slider)
+        self.color_layout_2.addWidget(stop2_label)
+        self.color_layout_2.addWidget(self.stop2_slider)
+       
 
         self.code_text_edit = QPlainTextEdit()
         self.code_text_edit.setFixedHeight(80)
