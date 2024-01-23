@@ -1,6 +1,6 @@
 import sys
-from PySide2.QtWidgets import  QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout,QLineEdit,QSlider,QSpacerItem,QSizePolicy
-from PySide2.QtGui import QColor,QIcon,QPixmap
+from PySide2.QtWidgets import  QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout,QLineEdit,QSlider,QSpacerItem,QSizePolicy,QPlainTextEdit
+from PySide2.QtGui import QColor,QIcon
 from PySide2.QtCore import Qt
 
 class GradientGenerator(QMainWindow):
@@ -8,7 +8,6 @@ class GradientGenerator(QMainWindow):
         super().__init__()
         
         self.setWindowTitle('Gradient Generator')
-        self.setGeometry(100, 100, 500, 300)
 
         self.centralWidget= QWidget()
         self.setCentralWidget(self.centralWidget)
@@ -17,6 +16,7 @@ class GradientGenerator(QMainWindow):
         self.centralWidget.setLayout(self.layout)
 
         self.gradient_label= QLabel()
+        self.gradient_label.setFixedHeight(80)
         self.layout.addWidget(self.gradient_label)
 
         self.change_gradient_button= QPushButton('Linear/ Radial')
@@ -92,20 +92,31 @@ class GradientGenerator(QMainWindow):
         self.generate_gradient()
         self.update_gradient_label()
 
+        stop1_label = QLabel("Stop 1")
         self.stop1_slider = QSlider(Qt.Horizontal)
-        self.stop1_slider.setRange(0, 100)
+        self.stop1_slider.setRange(0, 99)
         self.stop1_slider.setValue(0)
         self.stop1_slider.valueChanged.connect(self.update_stop_0)
-        
+        self.layout.addWidget(stop1_label)
         self.layout.addWidget(self.stop1_slider)
 
+        stop2_label = QLabel("Stop 2")
         self.stop2_slider = QSlider(Qt.Horizontal)
         self.stop2_slider.setRange(0, 100)
         self.stop2_slider.setValue(100)
         self.stop2_slider.valueChanged.connect(self.update_stop_1)
-       
+        self.layout.addWidget(stop2_label)
         self.layout.addWidget(self.stop2_slider)
+
+        self.code_text_edit = QPlainTextEdit()
+        self.code_text_edit.setFixedHeight(80)
+        self.layout.addWidget(self.code_text_edit)
         
+        
+
+        generate_code_button = QPushButton('Generate Gradient Code')
+        generate_code_button.clicked.connect(self.print_gradient)
+        self.layout.addWidget(generate_code_button)
 
     def generate_gradient(self):
         if self.gradient_type == 'linear':
@@ -113,6 +124,9 @@ class GradientGenerator(QMainWindow):
              
         else:
             self.gradient = f"qradialgradient(cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+        
+    def print_gradient(self):
+        self.code_text_edit.setPlainText(self.gradient)
 
     def update_gradient_label(self):
         style_sheet = f"background: {self.gradient};"
@@ -251,10 +265,10 @@ class GradientGenerator(QMainWindow):
         current_index = self.angle_combo_box.currentIndex()
         if current_index < self.angle_combo_box.count() - 1:
             self.angle_combo_box.setCurrentIndex(current_index + 1)
-
+    
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = GradientGenerator()
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_())                                                                      
