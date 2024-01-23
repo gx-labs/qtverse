@@ -8,4 +8,7 @@ QLineEdit{
     background-color: transparent;
     border: 3px solid transparent;
     border-bottom: 3px solid qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.3 #EAA250, stop:1 #E76C66);
+    border-left: 1px solid qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.3 #EAA250, stop:1 #E76C66);
+    border-top: 1px solid qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.3 #EAA250, stop:1 #E76C66);
+    border-right: 1px solid qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.3 #EAA250, stop:1 #E76C66);
 }

@@ -6,9 +6,9 @@ QLineEdit{
     min-width: 18em;
     height: 30px;
     color: grey;
-    background-color: #EAF1FB;
-    selection-background-color: pink;
-    selection-color: #609EC9;
+    background-color: rgb(255, 213, 220);
+    selection-background-color: #EAF1FB;
+    selection-color: grey;
 }
 QLineEdit:hover{
     border: 1px solid black;

@@ -19,7 +19,7 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.lineedit = QLineEdit()
-        self.lineedit.setPlaceholderText("TITLE")
+        self.lineedit.setPlaceholderText("Username")
         self.lineedit.setStyleSheet(css_data)
 
         self.setLayout(layout)
