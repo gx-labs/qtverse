@@ -9,6 +9,7 @@ QRadioButton {
 QRadioButton::indicator {
         height: 0px;
         width: 0px;
+        border: none;
 }
 
 QRadioButton#speed {
