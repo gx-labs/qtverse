@@ -110,14 +110,24 @@ class GradientGenerator(QMainWindow):
         self.color_layout_2.addWidget(stop2_label)
         self.color_layout_2.addWidget(self.stop2_slider)
        
+        self.radius_label = QLabel("Radius")
+        self.radius_slider = QSlider(Qt.Horizontal)
+        self.radius_slider.setRange(1, 100)
+        self.radius_slider.setValue(50)  
+        self.radius_slider.valueChanged.connect(self.update_radius)
+        self.radius_label.setVisible(False)
+        self.radius_slider.setVisible(False)  
+        self.layout.addWidget(self.radius_label)
+        self.layout.addWidget(self.radius_slider)
 
         self.code_text_edit = QPlainTextEdit()
-        self.code_text_edit.setFixedHeight(80)
+        self.code_text_edit.setFixedHeight(60)
         self.code_text_edit.setReadOnly(True)
         self.layout.addWidget(self.code_text_edit)
 
         copy_code_button = QPushButton('Copy Code')
         copy_code_button.clicked.connect(self.copy_code_to_clipboard)
+        copy_code_button.setMinimumHeight(30)
         self.layout.addWidget(copy_code_button)
         
         self.soft_prompt_label = QLabel()
@@ -130,7 +140,7 @@ class GradientGenerator(QMainWindow):
              self.gradient = f"qlineargradient(spread:pad , x1:{self.A}, y1:{self.B}, x2:{self.C}, y2:{self.D}, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
              
         else:
-            self.gradient = f"qradialgradient(cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
+            self.gradient = f"qradialgradient(cx:0.5, cy:0.5, radius:{self.radius_slider.value()/100}, fx:0.5, fy:0.5, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
         
     def print_gradient(self):
         self.code_text_edit.setPlainText(self.gradient)
@@ -144,6 +154,14 @@ class GradientGenerator(QMainWindow):
         self.gradient_type = 'radial' if self.gradient_type == 'linear' else 'linear'
         self.generate_gradient()
         self.update_gradient_label() 
+
+        self.radius_label.setVisible(self.gradient_type == 'radial')
+        self.radius_slider.setVisible(self.gradient_type == 'radial')
+
+        
+    def update_radius(self):
+        self.generate_gradient()
+        self.update_gradient_label()
 
     def select_color1(self):
         color_dialog1 = QColorDialog(self)
@@ -272,18 +290,15 @@ class GradientGenerator(QMainWindow):
             self.angle_combo_box.setCurrentIndex(current_index + 1)
     
     def copy_code_to_clipboard(self):
-        # Copy the code to the clipboard
         clipboard = QGuiApplication.clipboard()
         clipboard.setText(self.gradient)
 
-        # Show a soft prompt indicating that the code has been copied
         self.show_soft_prompt("Code copied to clipboard")
 
     def show_soft_prompt(self, message, duration=2000):
         self.soft_prompt_label.setText(message)
         self.soft_prompt_label.show()
 
-        # Use a QTimer to hide the soft prompt after the specified duration
         timer = QTimer(self)
         timer.singleShot(duration, self.soft_prompt_label.hide)
 
@@ -297,6 +312,7 @@ class GradientGenerator(QMainWindow):
         self.angle_combo_box.currentIndexChanged.connect(self.update_gradient)
         self.rotate_left_button.clicked.connect(self.update_gradient)
         self.rotate_right_button.clicked.connect(self.update_gradient)
+        self.radius_slider.valueChanged.connect(self.update_gradient)
 
     def update_gradient(self):
         self.generate_gradient()
