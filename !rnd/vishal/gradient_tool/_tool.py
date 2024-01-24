@@ -72,15 +72,16 @@ class GradientGenerator(QMainWindow):
         angle_layout.setAlignment(Qt.AlignLeft)
 
         self.layout.addLayout(angle_layout)
-        rotate_left_button = QPushButton()
-        rotate_left_button.setIcon(QIcon("!rnd/vishal/img/left-arrow.png"))
-        rotate_left_button.clicked.connect(self.rotate_left)
-        angle_layout.addWidget(rotate_left_button)
 
-        rotate_right_button = QPushButton()
-        rotate_right_button.setIcon(QIcon("!rnd/vishal/img/right-arrow.png"))
-        rotate_right_button.clicked.connect(self.rotate_right)
-        angle_layout.addWidget(rotate_right_button)
+        self.rotate_left_button = QPushButton()
+        self.rotate_left_button.setIcon(QIcon("!rnd/vishal/img/left-arrow.png"))
+        self.rotate_left_button.clicked.connect(self.rotate_left)
+        angle_layout.addWidget(self.rotate_left_button)
+
+        self.rotate_right_button = QPushButton()
+        self.rotate_right_button.setIcon(QIcon("!rnd/vishal/img/right-arrow.png"))
+        self.rotate_right_button.clicked.connect(self.rotate_right)
+        angle_layout.addWidget(self.rotate_right_button)
 
         self.gradient_type='linear'
         self.colors= ['#FF0000', '#0000FF']
@@ -117,13 +118,15 @@ class GradientGenerator(QMainWindow):
         
         
 
-        generate_code_button = QPushButton('Generate Gradient Code')
-        generate_code_button.clicked.connect(self.print_gradient)
-        self.layout.addWidget(generate_code_button)
+        #generate_code_button = QPushButton('Generate Gradient Code')
+        #generate_code_button.clicked.connect(self.print_gradient)
+        #self.layout.addWidget(generate_code_button)
 
         copy_code_button = QPushButton('Copy Code')
         copy_code_button.clicked.connect(self.copy_code_to_clipboard)
         self.layout.addWidget(copy_code_button)
+
+        self.print_gradient()
 
     def generate_gradient(self):
         if self.gradient_type == 'linear':
@@ -258,7 +261,6 @@ class GradientGenerator(QMainWindow):
 
     def update_stop_1(self,value):
          self.stops[1]= value/100
-         
          self.generate_gradient()
          self.update_gradient_label()
 
@@ -273,13 +275,27 @@ class GradientGenerator(QMainWindow):
             self.angle_combo_box.setCurrentIndex(current_index + 1)
     
     def copy_code_to_clipboard(self):
-        # Copy the code to the clipboard
         clipboard = QGuiApplication.clipboard()
         clipboard.setText(self.gradient)
-    
+
+    def connect_signals(self):
+        self.change_gradient_button.clicked.connect(self.update_gradient)
+        self.select_color_button1.clicked.connect(self.update_gradient)
+        self.select_color_button2.clicked.connect(self.update_gradient)
+        self.stop1_slider.valueChanged.connect(self.update_gradient)
+        self.stop2_slider.valueChanged.connect(self.update_gradient)
+        self.angle_combo_box.currentIndexChanged.connect(self.update_gradient)
+        self.rotate_left_button.clicked.connect(self.update_gradient)
+        self.rotate_right_button.clicked.connect(self.update_gradient)
+
+    def update_gradient(self):
+        self.generate_gradient()
+        self.update_gradient_label()
+        self.print_gradient()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = GradientGenerator()
+    window.connect_signals()
     window.show()
     sys.exit(app.exec_())                                                                      
