@@ -18,13 +18,15 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.prgsbar = QProgressBar()
-        self.prgsbar.setValue(80)
-        self.prgsbar.setFixedSize(400, 30)
-        self.prgsbar.setStyleSheet(css_data)
+        self.combo_box = QComboBox()
+        self.combo_box.setFixedSize(250, 50)
+        self.combo_box.addItem("Amelie")
+        self.combo_box.addItem("Life Is Beautiful")
+        self.combo_box.addItem("Mulholland Drive")
 
+        self.combo_box.setStyleSheet(css_data)
         self.setLayout(layout)
-        layout.addWidget(self.prgsbar, alignment=Qt.AlignCenter)
+        layout.addWidget(self.combo_box, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

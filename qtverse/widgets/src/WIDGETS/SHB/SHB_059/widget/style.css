@@ -4,7 +4,7 @@ QComboBox {
 	border-radius: 0.15em; 
 	padding-bottom: 0.2em;
 	padding-left: 0.4em;
-  	font: 50 12pt "Sans Serif"
+  	font: 50 12pt "Open Sans"
 
 }
 QComboBox QAbstractItemView

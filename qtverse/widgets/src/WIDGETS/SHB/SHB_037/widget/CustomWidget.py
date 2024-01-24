@@ -22,9 +22,9 @@ class CustomWidget(QWidget):
         self.combo_box.setFixedSize(200, 40)
         self.combo_box.addItem("File")
         self.combo_box.addItem("Drafts")
-        self.combo_box.addItem("Save Options")
-        self.combo_box.addItem("Settings")
-        self.combo_box.addItem("Notifications")
+        self.combo_box.addItem("Selection")
+        self.combo_box.addItem("Terminal")
+        self.combo_box.addItem("Help")
 
         self.combo_box.setStyleSheet(css_data)
         self.setLayout(layout)

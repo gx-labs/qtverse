@@ -22,8 +22,8 @@ class CustomWidget(QWidget):
         self.combo_box_1.setFixedSize(280, 45)
 
         self.combo_box_1.setStyleSheet(css_data)
-        list = ["Red", "Orange", "Yellow", 
-                                               "Blue"]       
+        list = ["Streaming Service", "YouTube", "HULU/Disney ", 
+                                               "FaceBook"]       
 
         self.combo_box_1.addItems(list)
         self.setLayout(layout)
