@@ -1,6 +1,6 @@
 import sys
 from PySide2.QtWidgets import  QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout,QLineEdit,QSlider,QPlainTextEdit
-from PySide2.QtGui import QColor,QIcon
+from PySide2.QtGui import QColor,QIcon,QGuiApplication
 from PySide2.QtCore import Qt
 
 class GradientGenerator(QMainWindow):
@@ -121,6 +121,10 @@ class GradientGenerator(QMainWindow):
         generate_code_button.clicked.connect(self.print_gradient)
         self.layout.addWidget(generate_code_button)
 
+        copy_code_button = QPushButton('Copy Code')
+        copy_code_button.clicked.connect(self.copy_code_to_clipboard)
+        self.layout.addWidget(copy_code_button)
+
     def generate_gradient(self):
         if self.gradient_type == 'linear':
              self.gradient = f"qlineargradient(spread:pad , x1:{self.A}, y1:{self.B}, x2:{self.C}, y2:{self.D}, stop:{self.stops[0]} {self.colors[0]}, stop:{self.stops[1]} {self.colors[1]});"
@@ -162,7 +166,6 @@ class GradientGenerator(QMainWindow):
         if color_dialog.exec_():
             selected_color = color_dialog.selectedColor().name()
             self.colors[1] = selected_color
-            print(self.colors[1])
             self.generate_gradient()
            
             self.update_gradient_label()
@@ -268,6 +271,11 @@ class GradientGenerator(QMainWindow):
         current_index = self.angle_combo_box.currentIndex()
         if current_index < self.angle_combo_box.count() - 1:
             self.angle_combo_box.setCurrentIndex(current_index + 1)
+    
+    def copy_code_to_clipboard(self):
+        # Copy the code to the clipboard
+        clipboard = QGuiApplication.clipboard()
+        clipboard.setText(self.gradient)
     
 
 if __name__ == "__main__":
