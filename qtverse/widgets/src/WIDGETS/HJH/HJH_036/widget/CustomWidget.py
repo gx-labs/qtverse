@@ -22,20 +22,31 @@ class CustomWidget(QWidget):
         self.radiobutton1 = QRadioButton("Option 1")
         self.radiobutton1.setFixedSize(100, 40)
         self.radiobutton1.setObjectName("button1")
+        self.radiobutton1.clicked.connect(self.radiobutton1_pressed)
         self.radiobutton2 = QRadioButton("Option 2")
         self.radiobutton2.setFixedSize(100, 40)
         self.radiobutton2.setObjectName("button2")
+        self.radiobutton2.clicked.connect(self.radiobutton2_pressed)
         self.radiobutton3 = QRadioButton("Option 3")
         self.radiobutton3.setFixedSize(100, 40)
         self.radiobutton3.setObjectName("button3")
-        self.radiobutton1.setStyleSheet(css_data)
-        self.radiobutton2.setStyleSheet(css_data)
-        self.radiobutton3.setStyleSheet(css_data)
+        self.radiobutton3.clicked.connect(self.radiobutton3_pressed)
 
         self.setLayout(layout)
         layout.addWidget(self.radiobutton1)
         layout.addWidget(self.radiobutton2)
         layout.addWidget(self.radiobutton3)
+        
+        self.setStyleSheet(css_data)
+        
+    def radiobutton1_pressed(self):
+        print ('Pressed radiobutton1!')
+        
+    def radiobutton2_pressed(self):
+        print ('Pressed radiobutton2!')
+        
+    def radiobutton3_pressed(self):
+        print ('Pressed radiobutton3!')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -1,0 +1,67 @@
+QFrame {
+        border-radius: 5px;
+}
+
+QFrame#lightframe {
+        background-color: #D9D9D9;
+}
+
+QFrame#darkframe {
+        background-color: #3A3A3A;
+}
+
+QRadioButton#light {
+        color: #414141;
+}
+
+QRadioButton#dark {
+        color: #D3D4D1;
+}
+
+QRadioButton#dark:checked {
+        color: #FF7D7D;
+}
+
+QRadioButton::indicator {
+        height: 14px;
+        width: 14px;
+        border: 2px solid;
+        border-radius: 8px;
+}
+
+QRadioButton#light::indicator {
+        border-color:#414141;
+}
+
+QRadioButton#dark::indicator {
+        border-color: #D3D4D1;
+}
+
+QRadioButton#light::indicator:checked {
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.5,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 #3A3A3A,
+                stop: 0.6 #3A3A3A,
+                stop: 0.7 #D9D9D9,
+                stop: 1 #D9D9D9
+        )
+}
+
+QRadioButton#dark::indicator:checked {
+        border-color: #FF7D7D;
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.5,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 #FF7D7D,
+                stop: 0.6 #FF7D7D,
+                stop: 0.7 #3A3A3A,
+                stop: 1 #3A3A3A
+        )
+}

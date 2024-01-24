@@ -16,16 +16,25 @@ class CustomWidget(QWidget):
     def __init__(self):
         super().__init__()
         
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(10)
+        self.shadow.setColor(QColor(100, 149, 237))
+        self.setGraphicsEffect(self.shadow)
+        
         layout = QVBoxLayout()
 
-        self.button = QRadioButton("Option 1")
-        self.button.setChecked(True)
-        self.button.setFixedSize(100, 40)
-        self.button.setStyleSheet(css_data)
+        self.radiobutton1 = QRadioButton("INSTAGRAM")
+        self.radiobutton1.setFixedSize(250, 40)
+        self.radiobutton1.clicked.connect(self.radiobutton1_pressed)
 
         self.setLayout(layout)
-        layout.addWidget(self.button, alignment=Qt.AlignCenter)
+        layout.addWidget(self.radiobutton1, alignment=Qt.AlignCenter)
 
+        self.setStyleSheet(css_data)
+        
+    def radiobutton1_pressed(self):
+        print ('Pressed radiobutton1!')
+        
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     widget = CustomWidget()
