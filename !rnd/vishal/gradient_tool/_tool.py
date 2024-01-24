@@ -1,7 +1,7 @@
 import sys
-from PySide2.QtWidgets import  QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout,QLineEdit,QSlider,QPlainTextEdit
+from PySide2.QtWidgets import  QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QColorDialog, QComboBox,QHBoxLayout,QLineEdit,QSlider,QPlainTextEdit,QMessageBox
 from PySide2.QtGui import QColor,QIcon,QGuiApplication
-from PySide2.QtCore import Qt
+from PySide2.QtCore import Qt,QTimer
 
 class GradientGenerator(QMainWindow):
     def __init__(self):
@@ -115,16 +115,13 @@ class GradientGenerator(QMainWindow):
         self.code_text_edit.setFixedHeight(80)
         self.code_text_edit.setReadOnly(True)
         self.layout.addWidget(self.code_text_edit)
-        
-        
-
-        #generate_code_button = QPushButton('Generate Gradient Code')
-        #generate_code_button.clicked.connect(self.print_gradient)
-        #self.layout.addWidget(generate_code_button)
 
         copy_code_button = QPushButton('Copy Code')
         copy_code_button.clicked.connect(self.copy_code_to_clipboard)
         self.layout.addWidget(copy_code_button)
+        
+        self.soft_prompt_label = QLabel()
+        self.layout.addWidget(self.soft_prompt_label)
 
         self.print_gradient()
 
@@ -275,8 +272,21 @@ class GradientGenerator(QMainWindow):
             self.angle_combo_box.setCurrentIndex(current_index + 1)
     
     def copy_code_to_clipboard(self):
+        # Copy the code to the clipboard
         clipboard = QGuiApplication.clipboard()
         clipboard.setText(self.gradient)
+
+        # Show a soft prompt indicating that the code has been copied
+        self.show_soft_prompt("Code copied to clipboard")
+
+    def show_soft_prompt(self, message, duration=2000):
+        self.soft_prompt_label.setText(message)
+        self.soft_prompt_label.show()
+
+        # Use a QTimer to hide the soft prompt after the specified duration
+        timer = QTimer(self)
+        timer.singleShot(duration, self.soft_prompt_label.hide)
+
 
     def connect_signals(self):
         self.change_gradient_button.clicked.connect(self.update_gradient)
