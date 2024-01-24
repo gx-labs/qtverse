@@ -112,6 +112,7 @@ class GradientGenerator(QMainWindow):
 
         self.code_text_edit = QPlainTextEdit()
         self.code_text_edit.setFixedHeight(80)
+        self.code_text_edit.setReadOnly(True)
         self.layout.addWidget(self.code_text_edit)
         
         
