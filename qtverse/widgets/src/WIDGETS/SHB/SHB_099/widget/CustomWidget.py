@@ -19,11 +19,11 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.combo_box = QComboBox()
-        self.combo_box.setFixedSize(280, 50)
-        self.combo_box.addItem("Red Dead Redemption 2")
-        self.combo_box.addItem("GTA 5 Online ")
-        self.combo_box.addItem("CyberPunk 2077")
-        self.combo_box.addItem("Justice League")
+        self.combo_box.setFixedSize(240, 50)
+        self.combo_box.addItem("Color Options")
+        self.combo_box.addItem("Development")
+        self.combo_box.addItem("Features")
+        self.combo_box.addItem("Scale")
         indexs = [1,4,3,2]
  
         # adding separator at maximum index

@@ -19,11 +19,11 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.combo_box = QComboBox()
-        self.combo_box.setFixedSize(280, 50)
-        self.combo_box.addItem("Red Dead Redemption 2")
-        self.combo_box.addItem("GTA 5 Online ")
-        self.combo_box.addItem("CyberPunk 2077")
-        self.combo_box.addItem("Justice League")
+        self.combo_box.setFixedSize(250, 45)
+        self.combo_box.addItem("Dropdown item 1")
+        self.combo_box.addItem("Dropdown item 2")
+        self.combo_box.addItem("Dropdown item 3")
+        self.combo_box.addItem("Dropdown item 4")
         indexs = [1,4,3,2]
  
         # adding separator at maximum index
@@ -39,7 +39,6 @@ class CustomWidget(QWidget):
         # adding separator at minimum index
         self.combo_box.insertSeparator(min(indexs))
 
-        # self.combo_box.setEditable(True)
         self.combo_box.setStyleSheet(css_data)
         self.setLayout(layout)
         layout.addWidget(self.combo_box, alignment=Qt.AlignCenter)

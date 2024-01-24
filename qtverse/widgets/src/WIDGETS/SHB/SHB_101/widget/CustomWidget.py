@@ -18,13 +18,31 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.prgsbar = QProgressBar()
-        self.prgsbar.setValue(80)
-        self.prgsbar.setFixedSize(400, 30)
-        self.prgsbar.setStyleSheet(css_data)
+        self.combo_box = QComboBox()
+        self.combo_box.setFixedSize(240, 60)
+        self.combo_box.addItem("Backgrounds")
+        self.combo_box.addItem("HTML & CSS")
+        self.combo_box.addItem("Buttons")
+        self.combo_box.addItem("Graphics")
+        indexs = [1,4,3,2]
+ 
+        # adding separator at maximum index
+        self.combo_box.insertSeparator(max(indexs))
+ 
+        # adding separator at middle index
+        index = 0
+        for i in indexs:
+            if i > min(indexs) and i < max(indexs):
+                index = i
+                self.combo_box.insertSeparator(index)
+ 
+        # adding separator at minimum index
+        self.combo_box.insertSeparator(min(indexs))
 
+        # self.combo_box.setEditable(True)
+        self.combo_box.setStyleSheet(css_data)
         self.setLayout(layout)
-        layout.addWidget(self.prgsbar, alignment=Qt.AlignCenter)
+        layout.addWidget(self.combo_box, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

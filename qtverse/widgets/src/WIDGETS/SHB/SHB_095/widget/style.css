@@ -1,0 +1,16 @@
+QComboBox {
+	background-color: #131313;
+	color: #D3D3D3;
+	padding-bottom: 0.2em;
+	padding-top: 0.2em;
+	padding-left: 0.3em;
+  	font: bold "Open Sans ";
+	font-size: 18px;
+
+}
+QComboBox QAbstractItemView
+{   background-color: #D3D3D3; 
+    selection-background-color: #c9c8b9;
+	outline: 0;
+	color : #5B586A;
+}
