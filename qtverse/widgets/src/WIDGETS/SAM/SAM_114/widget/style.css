@@ -1,7 +1,6 @@
 QGroupBox{
-  border: 1px solid rgb(205, 205, 205);
   border-radius: 8px;
-  border: 2px solid rgb(106, 142, 197);
+  border: 1px solid rgb(106, 142, 197);
   font-size: 19px;
   width: 400px;
   height: 300px;

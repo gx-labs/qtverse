@@ -2,8 +2,8 @@ QGroupBox{
   border: 1px solid rgb(111, 110, 110);
   background-color: rgb(221, 221, 221);
   font-size: 20px;
-  width: 300px;
-  height: 120px;
+  width: 400px;
+  height: 300px;
   color: rgb(0, 0, 0);
   margin-top: 25px;
 }
@@ -11,5 +11,5 @@ QGroupBox:title{
   subcontol-origin: margin;
   subcontol-position: left top;
   top: -24px;
-  left: 15px;
+  left: 12px;
 }

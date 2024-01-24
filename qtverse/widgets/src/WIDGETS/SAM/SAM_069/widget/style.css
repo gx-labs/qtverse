@@ -5,13 +5,10 @@ QGroupBox{
   border-top-right-radius: 5px;
   font-size: 17px;
   font-weight: 10px;
-  width: 300px;
+  width: 400px;
   height: 300px;
   color: rgb(0, 0, 0);
   margin-top: 2ex;
-}
-QGroupBox:hover{
-  border: 2px solid rgb(129, 126, 126);
 }
 QGroupBox:title{
   subcontol-origin: margin;

@@ -18,7 +18,7 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.grpbx = QGroupBox("Mandatory")
+        self.grpbx = QGroupBox("Report Template")
         self.grpbx.setStyleSheet(css_data)
 
         self.setLayout(layout)
