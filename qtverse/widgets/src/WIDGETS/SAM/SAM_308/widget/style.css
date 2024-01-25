@@ -1,0 +1,14 @@
+QLineEdit{
+    border: 1px solid transparent;
+    border-bottom: 1px solid rgb(200, 200, 200);
+    border-left: 1px solid rgb(200, 200, 200);
+    border-radius: 3px;
+    font-size: 18px;
+    padding: 3px;
+    min-width: 18em;
+    height: 30px;
+    color: rgb(81, 81, 81);
+    background-color: white;
+    selection-background-color: pink;
+    selection-color: white;
+}
