@@ -19,8 +19,8 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.progress_bar = QProgressBar()
-        self.progress_bar.setValue(0)
-        self.progress_bar.setFixedSize(320, 35)
+        self.progress_bar.setValue(20)
+        self.progress_bar.setFixedSize(450,  80)
         self.progress_bar.setStyleSheet(css_data)
 
         self.timer = QTimer(self)
@@ -34,12 +34,10 @@ class CustomWidget(QWidget):
         current_value = self.progress_bar.value()
         new_value = current_value + 1
 
-        # If the progress bar reaches maximum value, reset to minimum
         if new_value > self.progress_bar.maximum():
             new_value = 0
 
         self.progress_bar.setValue(new_value)
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

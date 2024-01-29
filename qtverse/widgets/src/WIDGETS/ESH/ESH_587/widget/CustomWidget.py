@@ -18,7 +18,7 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.button = QPushButton("🖒")  
+        self.button = QPushButton("→")  
         self.button.setFixedSize(60, 60)
         self.button.setStyleSheet(css_data)
 
