@@ -29,7 +29,7 @@ class CustomWidget(QWidget):
         self.radiobutton2.setChecked(True)
         self.radiobutton2.toggled.connect(self.radiobutton2_pressed)
         
-        self.symbol = QLabel('X')
+        self.symbol = QLabel('✘')
         self.symbol.setFixedSize (40, 40)
         
         layout.addWidget(self.radiobutton1, 0, 0)
@@ -43,14 +43,14 @@ class CustomWidget(QWidget):
         print ('Toggled radiobutton1!')
         
         if self.radiobutton1.isChecked():
-            self.symbol.setText('√')
+            self.symbol.setText('✔')
             self.symbol.setStyleSheet('background-color: #0BDEB9;')
     
     def radiobutton2_pressed(self):
         print ('Toggled radiobutton2!')
         
         if self.radiobutton2.isChecked():
-            self.symbol.setText('X')
+            self.symbol.setText('✘')
             self.symbol.setStyleSheet('background-color: #FF6044;')
 
 if __name__ == '__main__':
