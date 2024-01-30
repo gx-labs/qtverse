@@ -23,13 +23,6 @@ class CustomWidget(QWidget):
         self.progress_bar.setFixedSize(400,  30)
         self.progress_bar.setStyleSheet(css_data)
 
-        self.shadow = QGraphicsDropShadowEffect()
-
-        self.shadow.setColor("#585a5c")
-        self.shadow.setBlurRadius(10)
-        self.shadow.setOffset(0,4)
-        self.progress_bar.setGraphicsEffect(self.shadow)
-
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_progress)
         self.timer.start(100)

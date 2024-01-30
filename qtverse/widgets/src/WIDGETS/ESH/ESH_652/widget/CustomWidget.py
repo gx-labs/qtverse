@@ -19,17 +19,17 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.progress_bar = QProgressBar()
-        self.progress_bar.setValue(60)
-        self.progress_bar.setFixedSize(400,  30)
+        self.progress_bar.setValue(20)
+        self.progress_bar.setFixedSize(290, 20)
         self.progress_bar.setStyleSheet(css_data)
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_progress)
         self.timer.start(100)
 
-        layout.addWidget(self.progress_bar, alignment=Qt.AlignCenter)
+        layout.addWidget(self.progress_bar)
         self.setLayout(layout)
-
+    
     def update_progress(self):
         current_value = self.progress_bar.value()
         new_value = current_value + 1
