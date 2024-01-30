@@ -70,19 +70,11 @@ class ThumbnailViewerWidget(QWidget):
         for i in range(1, 20):
             self.thumbnail_widget = ThumbnailWidget(width = 200, height = 100)
             self.scroll_area_layout.addWidget(self.thumbnail_widget)
-
-# Custom List Widget Class Start
-    # Removed
-# Custom List Widget Class End
 class DeveloperViewerWidget(QWidget):
     def __init__(self):
         super().__init__()
 
         self.vertical_layout = QVBoxLayout()
-
-        # Dev and Status Button Filters Start
-            # Removed
-        # Dev and Status Button Filters End
 
         self.thumbnail_layout = QHBoxLayout()
         self.thumbnail_widget = ThumbnailViewerWidget()
