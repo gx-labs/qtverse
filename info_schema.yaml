@@ -1,0 +1,8 @@
+widget_type: "query from type of widget"
+sequence: "ESH"
+developer: "we need to create a mapping between Sequence name and developer name, eg: ESH, ABC sequence is worked on by esha"
+widget_category: "Default / Combination / Custom / Theme / Gradients"
+widget_name: "for user - which will be displayed in web app"
+tags:
+status: "in-progress, available, approved, hold, rejected, pending"
+archived : "Ture / False(default) "
