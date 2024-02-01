@@ -232,37 +232,37 @@ class DeveloperViewerWidget(QWidget):
                     folder_status = info_data.get('status')
                     status_color = STATUS_COLOR_MAP.get(folder_status, "black")  # Get the color based on status, default to black if not found
 
-                    custom_widget = CustomListWidgetItem(folder_name, folder_path, status_color)
-                    list_item = QListWidgetItem()
-                    list_item.setSizeHint(custom_widget.sizeHint())
-                    self.list_widget.addItem(list_item)
-                    self.list_widget.setItemWidget(list_item, custom_widget)
+                    # custom_widget = CustomListWidgetItem(folder_name, folder_path, status_color)
+                    # list_item = QListWidgetItem()
+                    # list_item.setSizeHint(custom_widget.sizeHint())
+                    # self.list_widget.addItem(list_item)
+                    # self.list_widget.setItemWidget(list_item, custom_widget)
 
-    def filter_by_status(self, status):
-        # Store the currently selected status
-        self.current_status = status
+    # def filter_by_status(self, status):
+        # # Store the currently selected status
+        # self.current_status = status
 
-        # Clear the list widget
-        self.list_widget.clear()
+        # # Clear the list widget
+        # self.list_widget.clear()
 
-        # Repopulate the list widget with widgets that match the selected status
-        dev_folders = self._get_developer_folders()
-        for dev_folder in dev_folders:
-            widget_folders = self._get_widget_folders_for_dev(dev_folder)
-            for folder_name, folder_path in widget_folders.items():
-                # Read status from info.yaml
-                info_yaml_file_path = os.path.join(folder_path, "info.yaml")
-                info_data = read_yaml(info_yaml_file_path)
+        # # Repopulate the list widget with widgets that match the selected status
+        # dev_folders = self._get_developer_folders()
+        # for dev_folder in dev_folders:
+        #     widget_folders = self._get_widget_folders_for_dev(dev_folder)
+        #     for folder_name, folder_path in widget_folders.items():
+        #         # Read status from info.yaml
+        #         info_yaml_file_path = os.path.join(folder_path, "info.yaml")
+        #         info_data = read_yaml(info_yaml_file_path)
 
-                folder_status = info_data.get('status')
+        #         folder_status = info_data.get('status')
 
-                if self.current_status == "ALL" or self.current_status == folder_status:
-                    status_color = STATUS_COLOR_MAP.get(folder_status, "black")  # Get the color based on status, default to black if not found
-                    custom_widget = CustomListWidgetItem(folder_name, folder_path, status_color)
-                    list_item = QListWidgetItem()
-                    list_item.setSizeHint(custom_widget.sizeHint())
-                    self.list_widget.addItem(list_item)
-                    self.list_widget.setItemWidget(list_item, custom_widget)
+        #         if self.current_status == "ALL" or self.current_status == folder_status:
+        #             status_color = STATUS_COLOR_MAP.get(folder_status, "black")  # Get the color based on status, default to black if not found
+        #             custom_widget = CustomListWidgetItem(folder_name, folder_path, status_color)
+        #             list_item = QListWidgetItem()
+        #             list_item.setSizeHint(custom_widget.sizeHint())
+        #             self.list_widget.addItem(list_item)
+        #             self.list_widget.setItemWidget(list_item, custom_widget)
 
     def on_item_clicked(self, item):
         
