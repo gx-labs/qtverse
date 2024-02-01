@@ -1,0 +1,10 @@
+QLineEdit{
+    font-size: 19px;
+    padding: 5px;
+    min-width: 18em;
+    height: 30px;
+    color: rgb(76, 76, 76);
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-bottom: 2px solid qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.2 #FA9A0D, stop:0.5 #FF7509, stop:1 #FB4E0A);
+}
