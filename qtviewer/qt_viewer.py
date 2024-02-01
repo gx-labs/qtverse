@@ -12,8 +12,6 @@ from ui.designer import DesignerAppWidget
 
 CUR_FILE_DIR = os.path.dirname(__file__)
 
-os.environ["QT_ICON_PATH"] = os.path.join(CUR_FILE_DIR, "icons")
-
 class QtWorldMainWindow(QWidget):
     def __init__(self):
         super().__init__()

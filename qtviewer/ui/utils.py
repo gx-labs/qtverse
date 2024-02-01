@@ -9,6 +9,3 @@ def read_yaml(filepath):
             info_data = yaml.safe_load(file)
         return info_data
     return None
-
-def qt_icon(filename):
-    os.getenv("QT_ICON_PATH")
