@@ -12,6 +12,6 @@ QProgressBar::chunk {
                                 stop:0  rgba(0, 0, 0, 0),
                                 stop:0.5 rgba(0, 0, 0, 255)
                                 stop:1 rgba(0, 0, 0, 0));
-    width: 6px;  
+    width: 8px;  
     border-radius: 2px;
 }

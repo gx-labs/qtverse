@@ -16,23 +16,30 @@ class CustomWidget(QWidget):
     def __init__(self):
         super().__init__()
 
-        layout = QHBoxLayout()
+        main_layout = QVBoxLayout()
+
+        horizontal_layout = QHBoxLayout()
+        spacerItem1 = QSpacerItem(5, 20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        horizontal_layout.addItem(spacerItem1)
 
         self.progress_bar = QProgressBar()
-        self.progress_bar.setValue(60)
-        self.progress_bar.setFixedSize(210,  40)
+        self.progress_bar.setValue(0)
+        self.progress_bar.setFixedSize(210, 40)
         self.progress_bar.setStyleSheet(css_data)
+        horizontal_layout.addWidget(self.progress_bar)
 
         self.label = QLabel()
         self.label.setStyleSheet(css_data)
+        horizontal_layout.addWidget(self.label)
+        spacerItem2 = QSpacerItem(5, 20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        horizontal_layout.addItem(spacerItem2)
+
+        main_layout.addLayout(horizontal_layout)
+        self.setLayout(main_layout)
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_progress)
         self.timer.start(100)
-
-        layout.addWidget(self.progress_bar)
-        layout.addWidget(self.label)
-        self.setLayout(layout)
 
     def update_progress(self):
         current_value = self.progress_bar.value()
