@@ -1,0 +1,24 @@
+developers:
+  - name: Esha
+    sequence_codes:
+      - ESH
+
+  - name: Hriday
+    sequence_codes:
+      - HJH
+
+  - name: Preetish
+    sequence_codes:
+      - PRT
+
+  - name: Sambhav
+    sequence_codes:
+      - SAM
+
+  - name: Shubham
+    sequence_codes:
+      - SHB
+
+  - name: Vishal
+    sequence_codes:
+      - VIS
