@@ -1,0 +1,25 @@
+QRadioButton {
+        padding-left: 1px;
+        font-size: 16px;
+        color: #FF0D07;
+        border-radius: 6px;
+        background: qlineargradient(
+                spread: pad,
+                x1: 0,
+                y1: 0,
+                x2: 1,
+                y2: 1,
+                stop: 0 #272727,
+                stop: 1 #343434
+        )
+}
+
+QRadioButton::checked {
+        background-color: #363636;
+}
+
+QRadioButton::indicator {
+        width: 0px;
+        height: 0px;
+        border: none;
+}

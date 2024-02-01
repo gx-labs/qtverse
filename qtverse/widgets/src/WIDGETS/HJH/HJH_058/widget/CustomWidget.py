@@ -56,7 +56,7 @@ class CustomWidget(QWidget):
         print ('Toggled radiobutton1!')
         
         if self.radiobutton1.isChecked():
-            self.radiobutton1.setText('√')
+            self.radiobutton1.setText('✔')
             self.radiobutton2.setText('')
             self.radiobutton3.setText('')
     
@@ -64,7 +64,7 @@ class CustomWidget(QWidget):
         print ('Toggled radiobutton2!')
         
         if self.radiobutton2.isChecked():
-            self.radiobutton2.setText('√')
+            self.radiobutton2.setText('✔')
             self.radiobutton1.setText('')
             self.radiobutton3.setText('')
 
@@ -72,7 +72,7 @@ class CustomWidget(QWidget):
         print ('Toggled radiobutton3!')
         
         if self.radiobutton3.isChecked():
-            self.radiobutton3.setText('√')
+            self.radiobutton3.setText('✔')
             self.radiobutton1.setText('')
             self.radiobutton2.setText('')
 
