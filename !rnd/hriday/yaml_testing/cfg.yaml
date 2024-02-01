@@ -1,0 +1,48 @@
+developers:
+  - name: Esha
+    sequence_codes:
+      - ESH
+      - ESA
+      - ESB
+      - ESC
+      - ESD
+
+  - name: Hriday
+    sequence_codes:
+      - HJH
+      - HJA
+      - HJB
+      - HJC
+      - HJD
+
+  - name: Preetish
+    sequence_codes:
+      - PRT
+      - PRA
+      - PRB
+      - PRC
+      - PRD
+
+  - name: Sambhav
+    sequence_codes:
+      - SAM
+      - SAA
+      - SAB
+      - SAC
+      - SAD
+
+  - name: Shubham
+    sequence_codes:
+      - SHB
+      - SHA
+      - SHC
+      - SHD
+      - SHE
+
+  - name: Vishal
+    sequence_codes:
+      - VIS
+      - VIA
+      - VIB
+      - VIC
+      - VID
