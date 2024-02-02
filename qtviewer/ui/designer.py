@@ -6,6 +6,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 from ui.utils import read_yaml
+from ui.utils import qt_icon
 
 designer_config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "designer.yaml")
 
@@ -37,7 +38,7 @@ class DesignerAppWidget(QWidget):
         self.load_create_groupbox_layout = QHBoxLayout()
         self.load_create_groupbox.setLayout(self.load_create_groupbox_layout)
                 
-        self.load_widget_label = QLabel('Load Widget: ')
+        self.load_widget_label = QLabel('Load Widget ')
         self.load_create_groupbox_layout.addWidget(self.load_widget_label)
                 
         self.load_sequence_combo = QComboBox()
@@ -50,17 +51,14 @@ class DesignerAppWidget(QWidget):
         self.load_number_combo.setEnabled(False)
         self.load_create_groupbox_layout.addWidget(self.load_number_combo)
                 
-        self.load_button = QPushButton('Load')
+        self.load_button = QPushButton("Load")
+        self.load_button.setIcon(QIcon(qt_icon("load.png")))
         self.load_create_groupbox_layout.addWidget(self.load_button)
             
         self.load_create_groupbox_layout.addStretch(1)
                 
-        self.create_widget_label = QLabel('Create New Widget from Template: ')
+        self.create_widget_label = QLabel('Create Widget ')
         self.load_create_groupbox_layout.addWidget(self.create_widget_label)
-            
-        self.create_widget_type_combo = QComboBox()
-        self.create_widget_type_combo.addItems(widget_types)
-        self.load_create_groupbox_layout.addWidget(self.create_widget_type_combo)
                 
         self.create_widget_dev_combo = QComboBox()
         self.create_widget_dev_combo.addItem("Select developer")
@@ -71,8 +69,13 @@ class DesignerAppWidget(QWidget):
         self.create_widget_sequence_combo = QComboBox()
         self.create_widget_sequence_combo.setEnabled(False)
         self.load_create_groupbox_layout.addWidget(self.create_widget_sequence_combo)
+            
+        self.create_widget_type_combo = QComboBox()
+        self.create_widget_type_combo.addItems(widget_types)
+        self.load_create_groupbox_layout.addWidget(self.create_widget_type_combo)
                 
-        self.create_widget_button = QPushButton('Create')        
+        self.create_widget_button = QPushButton("Create")        
+        self.create_widget_button.setIcon(QIcon(qt_icon("create.png")))            
         self.load_create_groupbox_layout.addWidget(self.create_widget_button)
                 
         self.main_layout.addWidget(self.load_create_groupbox)
@@ -107,10 +110,12 @@ class DesignerAppWidget(QWidget):
         self.python_label = QLabel('Python')
         self.python_run_layout.addWidget(self.python_label)
             
-        self.python_run_button = QPushButton('Run')
+        self.python_run_button = QPushButton("Run")
+        self.python_run_button.setIcon(QIcon(qt_icon("run.png")))
         self.python_run_layout.addWidget(self.python_run_button)
                 
-        self.python_save_button = QPushButton('Save')
+        self.python_save_button = QPushButton("Save")
+        self.python_save_button.setIcon(QIcon(qt_icon("save.png")))
         self.python_run_layout.addWidget(self.python_save_button)
         
         self.python_filepath = QLabel("Filepath: ")
