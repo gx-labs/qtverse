@@ -19,10 +19,13 @@ developers:
 
 widgets:
   default_widgets:
-    - QPushButton
-    - QRadioButton
+    - QCheckBox
     - QComboBox
+    - QGroupBox
     - QLineEdit
     - QProgressBar
+    - QPushButton
+    - QRadioButton
+    - QSlider
+    - QTextEdit
     - QToolTip
-    - QGroupBox
