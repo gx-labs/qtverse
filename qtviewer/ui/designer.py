@@ -7,6 +7,8 @@ from PySide2.QtWidgets import *
 
 from ui.utils import read_yaml
 from ui.utils import qt_icon
+from ui.utils import read_python
+from ui.utils import read_css
 
 designer_config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "designer.yaml")
 
@@ -53,6 +55,7 @@ class DesignerAppWidget(QWidget):
                 
         self.load_button = QPushButton("Load")
         self.load_button.setIcon(QIcon(qt_icon("load.png")))
+        self.load_button.pressed.connect(self.load_selected_widget)
         self.load_create_groupbox_layout.addWidget(self.load_button)
             
         self.load_create_groupbox_layout.addStretch(1)
@@ -75,7 +78,8 @@ class DesignerAppWidget(QWidget):
         self.load_create_groupbox_layout.addWidget(self.create_widget_type_combo)
                 
         self.create_widget_button = QPushButton("Create")        
-        self.create_widget_button.setIcon(QIcon(qt_icon("create.png")))            
+        self.create_widget_button.setIcon(QIcon(qt_icon("create.png")))  
+        self.create_widget_button.pressed.connect(self.create_new_widget_from_template)          
         self.load_create_groupbox_layout.addWidget(self.create_widget_button)
                 
         self.main_layout.addWidget(self.load_create_groupbox)
@@ -99,6 +103,7 @@ class DesignerAppWidget(QWidget):
                 
         self.css_edit = QTextEdit()
         self.css_edit.setMaximumWidth(700)
+        self.css_edit.setFontPointSize(11)
         self.css_layout.addWidget(self.css_edit)
                 
         self.python_layout = QVBoxLayout()
@@ -112,10 +117,12 @@ class DesignerAppWidget(QWidget):
             
         self.python_run_button = QPushButton("Run")
         self.python_run_button.setIcon(QIcon(qt_icon("run.png")))
+        self.python_run_button.pressed.connect(self.run_widget_from_editor)
         self.python_run_layout.addWidget(self.python_run_button)
                 
         self.python_save_button = QPushButton("Save")
         self.python_save_button.setIcon(QIcon(qt_icon("save.png")))
+        self.python_save_button.pressed.connect(self.save_widget)
         self.python_run_layout.addWidget(self.python_save_button)
         
         self.python_filepath = QLabel("Filepath: ")
@@ -123,6 +130,7 @@ class DesignerAppWidget(QWidget):
                 
         self.python_edit = QTextEdit()
         self.python_edit.setMaximumWidth(700)
+        self.python_edit.setFontPointSize(11)
         self.python_layout.addWidget(self.python_edit)
                 
         self.preview_layout = QVBoxLayout()
@@ -164,4 +172,27 @@ class DesignerAppWidget(QWidget):
         else:
             self.load_number_combo.clear()
             self.load_number_combo.setEnabled(False)
+            
+    def load_selected_widget(self):
+        print("Loading selected widget...")
+        if self.load_sequence_combo.currentIndex() != 0:
+            selected_widget_dir = os.path.join(self.widgets_src_dir, self.load_sequence_combo.currentText())
+            selected_widget_seq_dir = os.path.join(selected_widget_dir, f"{self.load_number_combo.currentText()}\widget")
+            
+            python_data = read_python(selected_widget_seq_dir)
+            self.python_edit.setText(python_data)
+            self.python_filepath.setText(f"{selected_widget_seq_dir}\CustomWidget.py")
+            
+            css_data = read_css(selected_widget_seq_dir)
+            self.css_edit.setText(css_data)
+            self.css_filepath.setText(f"{selected_widget_seq_dir}\style.css")
+        
+    def create_new_widget_from_template(self):
+        print(f"Creating new {self.create_widget_type_combo.currentText()} widget...")
+        
+    def run_widget_from_editor(self):
+        print("Refreshing widget...")
+        
+    def save_widget(self):
+        print("Saving widget...")
                         
