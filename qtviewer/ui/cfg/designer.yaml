@@ -1,24 +1,28 @@
 developers:
-  - name: Esha
-    sequence_codes:
-      - ESH
+  Esha:
+    - ESH
 
-  - name: Hriday
-    sequence_codes:
-      - HJH
+  Hriday:
+    - HJH
 
-  - name: Preetish
-    sequence_codes:
-      - PRT
+  Preetish:
+    - PRT
 
-  - name: Sambhav
-    sequence_codes:
-      - SAM
+  Sambhav:
+    - SAM
 
-  - name: Shubham
-    sequence_codes:
-      - SHB
+  Shubham:
+    - SHB
 
-  - name: Vishal
-    sequence_codes:
-      - VIS
+  Vishal:
+    - VIS
+
+widgets:
+  default_widgets:
+    - QPushButton
+    - QRadioButton
+    - QComboBox
+    - QLineEdit
+    - QProgressBar
+    - QToolTip
+    - QGroupBox
