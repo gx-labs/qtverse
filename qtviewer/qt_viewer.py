@@ -12,6 +12,8 @@ from ui.designer import DesignerAppWidget
 
 CUR_FILE_DIR = os.path.dirname(__file__)
 
+os.environ["QT_ICON_PATH"] = os.path.join(CUR_FILE_DIR, "ui\icons")
+
 class QtWorldMainWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -123,6 +125,7 @@ class QtWorldMainWindow(QWidget):
         tab_widget.addTab(tab_2, "qtverse Desktop")
         tab_widget.addTab(tab_3, "Themes")
         tab_widget.addTab(tab_4, "Designer")
+        tab_widget.setCurrentIndex(3)
 
         central_layout.addWidget(tab_widget)
 
