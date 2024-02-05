@@ -1,5 +1,6 @@
 import os
 import sys
+import importlib.util
 
 from PySide2.QtCore import *
 from PySide2.QtGui import *
@@ -9,6 +10,8 @@ from ui.utils import read_yaml
 from ui.utils import qt_icon
 from ui.utils import read_python
 from ui.utils import read_css
+
+from ui.widgets.thumbnail import ThumbnailWidget
 
 designer_config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "designer.yaml")
 
@@ -58,6 +61,11 @@ class DesignerAppWidget(QWidget):
         self.load_button.pressed.connect(self.load_selected_widget)
         self.load_create_groupbox_layout.addWidget(self.load_button)
             
+        self.reset_button = QPushButton("Reset")
+        self.reset_button.setIcon(QIcon(qt_icon("reset.png")))
+        self.reset_button.pressed.connect(self.reset_widget)
+        self.load_create_groupbox_layout.addWidget(self.reset_button)
+        
         self.load_create_groupbox_layout.addStretch(1)
                 
         self.create_widget_label = QLabel('Create Widget ')
@@ -91,7 +99,7 @@ class DesignerAppWidget(QWidget):
         self.designer_groupbox.setLayout(self.designer_layout)
                 
         self.css_layout = QVBoxLayout()
-        self.designer_layout.addLayout(self.css_layout)
+        # self.designer_layout.addLayout(self.css_layout)
             
         self.css_label = QLabel('CSS')
         self.css_layout.addWidget(self.css_label)
@@ -102,18 +110,19 @@ class DesignerAppWidget(QWidget):
         self.css_layout.addWidget(self.css_filepath)
                 
         self.css_edit = QTextEdit()
-        self.css_edit.setMaximumWidth(700)
         self.css_edit.setFontPointSize(11)
         self.css_layout.addWidget(self.css_edit)
                 
         self.python_layout = QVBoxLayout()
-        self.designer_layout.addLayout(self.python_layout)
+        # self.designer_layout.addLayout(self.python_layout)
                 
         self.python_run_layout = QHBoxLayout()
         self.python_layout.addLayout(self.python_run_layout)
             
         self.python_label = QLabel('Python')
         self.python_run_layout.addWidget(self.python_label)
+        
+        self.python_run_layout.addStretch(1)
             
         self.python_run_button = QPushButton("Run")
         self.python_run_button.setIcon(QIcon(qt_icon("run.png")))
@@ -129,16 +138,40 @@ class DesignerAppWidget(QWidget):
         self.python_layout.addWidget(self.python_filepath)
                 
         self.python_edit = QTextEdit()
-        self.python_edit.setMaximumWidth(700)
         self.python_edit.setFontPointSize(11)
         self.python_layout.addWidget(self.python_edit)
+        
+        self.css_python_layout = QHBoxLayout()
+        self.css_python_layout.addLayout(self.css_layout)
+        self.css_python_layout.addLayout(self.python_layout)
                 
         self.preview_layout = QVBoxLayout()
-        self.preview_layout.setAlignment(Qt.AlignTop)
-        self.designer_layout.addLayout(self.preview_layout)
+        # self.preview_layout.setAlignment(Qt.AlignTop)
                 
         self.preview_label = QLabel('Preview')
-        self.preview_layout.addWidget(self.preview_label)
+        self.preview_layout.addWidget(self.preview_label, alignment=Qt.AlignTop)
+        
+        self.preview_widget = QWidget()
+        self.preview_layout.addWidget(self.preview_widget)
+        
+        self.css_python_splitter = QSplitter()
+        
+        self.css_python_splitter.addWidget(QWidget())
+        self.css_python_splitter.addWidget(QWidget())
+        
+        self.css_python_splitter.setCollapsible(0, False)
+        self.css_python_splitter.setCollapsible(1, False)
+        
+        self.css_python_splitter.widget(0).setLayout(self.css_python_layout)
+        self.css_python_splitter.widget(1).setLayout(self.preview_layout)
+        
+        self.css_python_splitter.setSizes([QSizePolicy.Expanding, QSizePolicy.Fixed])
+        
+        self.css_python_splitter.widget(1).setMinimumWidth(250)
+        self.css_python_splitter.widget(1).setMaximumWidth(450)
+        
+        self.designer_layout.addWidget(self.css_python_splitter)
+        
         
     def update_sequence_label(self, index):
         # Skip the placeholder item
@@ -186,6 +219,30 @@ class DesignerAppWidget(QWidget):
             css_data = read_css(selected_widget_seq_dir)
             self.css_edit.setText(css_data)
             self.css_filepath.setText(f"{selected_widget_seq_dir}\style.css")
+            
+            self.display_widget_preview()
+            
+        else:
+            self.python_edit.setText("")
+            self.python_filepath.setText("Filepath: ")
+            
+            self.css_edit.setText("")
+            self.css_filepath.setText("Filepath: ")
+            
+    def reset_widget(self):
+        print("Reset selection")
+        self.load_sequence_combo.setCurrentIndex(0)
+        
+        self.css_filepath.setText("Filepath: ")
+        self.css_edit.setText("")
+        
+        self.python_filepath.setText("Filepath: ")
+        self.python_edit.setText("")
+        
+        item = self.preview_layout.takeAt(1)
+        widget = item.widget()
+        if widget:
+            widget.deleteLater()
         
     def create_new_widget_from_template(self):
         print(f"Creating new {self.create_widget_type_combo.currentText()} widget...")
@@ -195,4 +252,42 @@ class DesignerAppWidget(QWidget):
         
     def save_widget(self):
         print("Saving widget...")
+        
+    def _import_ui_as_module(self, widget_filename, widget_py_path):
+        spec = importlib.util.spec_from_file_location(widget_filename, widget_py_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        ui_class = getattr(module, widget_filename)
+        ui_instance = ui_class()
+
+        return ui_instance
+        
+    def display_widget_preview(self):
+        
+        widget_py_path = self.python_filepath.text()
+        
+        css_filepath = self.css_filepath.text()
+        with open(css_filepath) as file:
+            css_data = file.read()
+            
+        imported_widget = self._import_ui_as_module("CustomWidget", widget_py_path)
+        
+        self.custom_thumbnail_widget = ThumbnailWidget(
+                    widget_name=self.load_sequence_combo.currentText(),
+                    widget_path=self.python_label,
+                    css_data=css_data,
+                    custom_widget=imported_widget, 
+                    info_dict={},
+                    width=200, 
+                    height=100
+                    )
+        
+        while self.preview_layout.count() > 1:
+            item = self.preview_layout.takeAt(1)
+            widget = item.widget()
+            if widget:
+                widget.deleteLater()
+                
+        self.preview_layout.addWidget(self.custom_thumbnail_widget, alignment=Qt.AlignCenter)
                         
