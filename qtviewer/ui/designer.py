@@ -25,29 +25,31 @@ class DesignerAppWidget(QWidget):
         self.widgets_src_dir = os.path.join(self.project_dir, "qtverse", "widgets", "src", "WIDGETS")
         self.templates_dir = os.path.join(self.current_dir, "templates")
                 
-        designer_config = read_yaml(designer_config_file_path)
-        self.designer_config = designer_config
+        self.designer_config = read_yaml(designer_config_file_path)
                                 
-        self.all_developers = designer_config["developers"].keys()
+        self.all_developers = self.designer_config["developers"].keys()
+        
         # Get all sequence codes by iterating through sequence codes(list) for each developer in yaml
         self.all_sequence_codes = []
-        for codes in designer_config["developers"].values():
+        for codes in self.designer_config["developers"].values():
             for code in codes:
                 self.all_sequence_codes.append(code)
                 
-        widget_types = designer_config["widgets"]["default_widgets"]
-                
+        widget_types = self.designer_config["widgets"]["default_widgets"]
+        
+        # --------------------------------------------------
         self.main_layout = QVBoxLayout()
         self.setLayout(self.main_layout)
                 
         self.load_create_groupbox = QGroupBox()
         self.load_create_groupbox.setMaximumHeight(50)
+
         self.load_create_groupbox_layout = QHBoxLayout()
-        self.load_create_groupbox.setLayout(self.load_create_groupbox_layout)
                 
         self.load_widget_label = QLabel('Load Widget ')
         self.load_create_groupbox_layout.addWidget(self.load_widget_label)
-                
+        
+        # select sequence cb
         self.load_sequence_combo = QComboBox()
         self.load_sequence_combo.addItem("Select a sequence")
         self.load_sequence_combo.addItems(list(self.all_sequence_codes))
@@ -57,22 +59,26 @@ class DesignerAppWidget(QWidget):
         self.load_number_combo = QComboBox()
         self.load_number_combo.setEnabled(False)
         self.load_create_groupbox_layout.addWidget(self.load_number_combo)
-                
+        
+        # load button
         self.load_button = QPushButton("Load")
         self.load_button.setIcon(QIcon(qt_icon("load.png")))
-        self.load_button.pressed.connect(self.load_selected_widget)
+        self.load_button.clicked.connect(self.load_selected_widget)
         self.load_create_groupbox_layout.addWidget(self.load_button)
-            
-        self.reset_button = QPushButton("Reset")
+        
+        # reset button
+        self.reset_button = QPushButton()
         self.reset_button.setIcon(QIcon(qt_icon("reset.png")))
-        self.reset_button.pressed.connect(self.reset_widget)
+        self.reset_button.clicked.connect(self.reset_widget)
         self.load_create_groupbox_layout.addWidget(self.reset_button)
         
         self.load_create_groupbox_layout.addStretch(1)
-                
+
+        # create label        
         self.create_widget_label = QLabel('Create Widget ')
         self.load_create_groupbox_layout.addWidget(self.create_widget_label)
-                
+
+        # 
         self.create_widget_dev_combo = QComboBox()
         self.create_widget_dev_combo.addItem("Select developer")
         self.create_widget_dev_combo.addItems(self.all_developers)
@@ -89,13 +95,15 @@ class DesignerAppWidget(QWidget):
                 
         self.create_widget_button = QPushButton("Create")        
         self.create_widget_button.setIcon(QIcon(qt_icon("create.png")))  
-        self.create_widget_button.pressed.connect(self.create_new_widget_from_template)          
+        self.create_widget_button.clicked.connect(self.create_new_widget_from_template)          
         self.load_create_groupbox_layout.addWidget(self.create_widget_button)
                 
-        self.main_layout.addWidget(self.load_create_groupbox)
-            
+        self.load_create_groupbox.setLayout(self.load_create_groupbox_layout)
+
+        # --------------------------------------------------   
+                
         self.designer_groupbox = QGroupBox()
-        self.main_layout.addWidget(self.designer_groupbox)
+        
                 
         self.designer_layout = QHBoxLayout()
         self.designer_groupbox.setLayout(self.designer_layout)
@@ -128,12 +136,12 @@ class DesignerAppWidget(QWidget):
             
         self.python_run_button = QPushButton("Run")
         self.python_run_button.setIcon(QIcon(qt_icon("run.png")))
-        self.python_run_button.pressed.connect(self.run_widget_from_editor)
+        self.python_run_button.clicked.connect(self.run_widget_from_editor)
         self.python_run_layout.addWidget(self.python_run_button)
                 
-        self.python_save_button = QPushButton("Save")
+        self.python_save_button = QPushButton()
         self.python_save_button.setIcon(QIcon(qt_icon("save.png")))
-        self.python_save_button.pressed.connect(self.save_widget)
+        self.python_save_button.clicked.connect(self.save_widget)
         self.python_run_layout.addWidget(self.python_save_button)
         
         self.python_filepath = QLabel("Filepath: ")
@@ -174,6 +182,9 @@ class DesignerAppWidget(QWidget):
         
         self.designer_layout.addWidget(self.css_python_splitter)
         
+        # main layout
+        self.main_layout.addWidget(self.load_create_groupbox)
+        self.main_layout.addWidget(self.designer_groupbox)
         
     def update_sequence_label(self, index):
         # Skip the placeholder item
@@ -235,6 +246,7 @@ class DesignerAppWidget(QWidget):
             
     def reset_widget(self):
         print("Reset selection")
+
         self.load_sequence_combo.setCurrentIndex(0)
         
         self.css_filepath.setText("Filepath: ")
@@ -242,8 +254,11 @@ class DesignerAppWidget(QWidget):
         
         self.python_filepath.setText("Filepath: ")
         self.python_edit.setText("")
-        
+
+        # TODO : this line fails when there is no widget previewed.
+        # need to fix this logic 
         item = self.preview_layout.takeAt(1)
+
         widget = item.widget()
         if widget:
             widget.deleteLater()
@@ -287,6 +302,7 @@ class DesignerAppWidget(QWidget):
         self.display_widget_preview()
         
     def _import_ui_as_module(self, widget_filename, widget_py_path):
+
         spec = importlib.util.spec_from_file_location(widget_filename, widget_py_path)
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
@@ -301,27 +317,31 @@ class DesignerAppWidget(QWidget):
         widget_py_path = self.python_filepath.text()
         
         css_filepath = self.css_filepath.text()
+
         with open(css_filepath) as file:
             css_data = file.read()
             
-        imported_widget = self._import_ui_as_module("CustomWidget", widget_py_path)
+        imported_widget = self._import_ui_as_module(widget_filename="CustomWidget", 
+                                                    widget_py_path=widget_py_path)
+        self.preview_layout.addWidget(imported_widget)
         
-        self.custom_thumbnail_widget = ThumbnailWidget(
-                    widget_name=self.load_sequence_combo.currentText(),
-                    widget_path=self.python_label,
-                    css_data=css_data,
-                    custom_widget=imported_widget, 
-                    info_dict={},
-                    width=200, 
-                    height=100
-                    )
+        # self.custom_thumbnail_widget = ThumbnailWidget(
+        #             widget_name=self.load_sequence_combo.currentText(),
+        #             widget_path=self.python_label,
+        #             css_data=css_data,
+        #             custom_widget=imported_widget, 
+        #             info_dict={},
+        #             width=200, 
+        #             height=100
+        #             )
         
-        while self.preview_layout.count() > 1:
-            item = self.preview_layout.takeAt(1)
-            widget = item.widget()
-            if widget:
-                widget.deleteLater()
+        # while self.preview_layout.count() > 1:
+        #     item = self.preview_layout.takeAt(1)
+
+        #     widget = item.widget()
+        #     if widget:
+        #         widget.deleteLater()
                 
-        self.preview_layout.addWidget(self.custom_thumbnail_widget, alignment=Qt.AlignCenter)
+        # self.preview_layout.addWidget(self.custom_thumbnail_widget, alignment=Qt.AlignCenter)
         
                         
