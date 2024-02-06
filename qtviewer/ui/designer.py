@@ -192,6 +192,7 @@ class DesignerAppWidget(QWidget):
                         
     def update_load_sequence_number(self, index):
         # Skip placeholder
+        print(f"update sequence: {index}")
         if index > 0:
             sequence = self.all_sequence_codes[index - 1]
             sequence_dir = os.path.join(self.widgets_src_dir, sequence)
@@ -211,6 +212,7 @@ class DesignerAppWidget(QWidget):
     def load_selected_widget(self):
         print("Loading selected widget...")
         if self.load_sequence_combo.currentIndex() != 0:
+            print(f"load seq combo: {self.load_sequence_combo.currentIndex()}")
             selected_widget_dir = os.path.join(self.widgets_src_dir, self.load_sequence_combo.currentText())
             selected_widget_seq_dir = os.path.join(selected_widget_dir, f"{self.load_number_combo.currentText()}\widget")
             
@@ -247,6 +249,9 @@ class DesignerAppWidget(QWidget):
             widget.deleteLater()
         
     def create_new_widget_from_template(self):
+        
+        self.reset_widget()
+        
         print(f"Creating new {self.create_widget_type_combo.currentText()} widget...")
         selected_sequence = os.path.join(self.widgets_src_dir, self.create_widget_sequence_combo.currentText())
 
@@ -258,10 +263,13 @@ class DesignerAppWidget(QWidget):
         
         shutil.copytree(selected_template_directory, new_widget_directory)
         
-        # py_file = open(os.path.join(selected_template_directory, "widget", "CustomWidget.py"), "r")
-        # py_data = py_file.read()
-        # self.python_edit.setText(py_data)
-        # py_file.close()
+        sequence_index = self.load_sequence_combo.findText(self.create_widget_sequence_combo.currentText())
+        self.load_sequence_combo.setCurrentIndex(sequence_index)
+        
+        number_index = self.load_number_combo.findText(f"{self.create_widget_sequence_combo.currentText()}_{new_sequence_number}")
+        self.load_number_combo.setCurrentIndex(number_index)
+        
+        self.load_selected_widget()
         
     def save_widget(self):
         print("Saving widget...")
