@@ -1,5 +1,6 @@
 import os
 import sys
+import shutil
 import importlib.util
 
 from PySide2.QtCore import *
@@ -22,6 +23,7 @@ class DesignerAppWidget(QWidget):
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
         self.project_dir = os.path.abspath(os.path.join(self.current_dir, '..', '..'))
         self.widgets_src_dir = os.path.join(self.project_dir, "qtverse", "widgets", "src", "WIDGETS")
+        self.templates_dir = os.path.join(self.current_dir, "templates")
                 
         designer_config = read_yaml(designer_config_file_path)
         self.designer_config = designer_config
@@ -246,12 +248,35 @@ class DesignerAppWidget(QWidget):
         
     def create_new_widget_from_template(self):
         print(f"Creating new {self.create_widget_type_combo.currentText()} widget...")
+        selected_sequence = os.path.join(self.widgets_src_dir, self.create_widget_sequence_combo.currentText())
+
+        new_sequence_number = str(len(os.listdir(selected_sequence)) + 1).zfill(3)
+        new_widget_directory = os.path.join(selected_sequence, f"{self.create_widget_sequence_combo.currentText()}_{new_sequence_number}")
         
-    def run_widget_from_editor(self):
-        print("Refreshing widget...")
+        selected_template = self.create_widget_type_combo.currentText()
+        selected_template_directory = os.path.join(self.templates_dir, "WIDGETS", selected_template)
+        
+        shutil.copytree(selected_template_directory, new_widget_directory)
+        
+        # py_file = open(os.path.join(selected_template_directory, "widget", "CustomWidget.py"), "r")
+        # py_data = py_file.read()
+        # self.python_edit.setText(py_data)
+        # py_file.close()
         
     def save_widget(self):
         print("Saving widget...")
+        python_file = open(self.python_filepath.text(), "w")
+        python_file.write(self.python_edit.toPlainText())
+        python_file.close()
+        
+        css_file = open(self.css_filepath.text(), "w")
+        css_file.write(self.css_edit.toPlainText())
+        css_file.close()
+        
+    def run_widget_from_editor(self):
+        print("Refreshing widget...")
+        self.save_widget()
+        self.display_widget_preview()
         
     def _import_ui_as_module(self, widget_filename, widget_py_path):
         spec = importlib.util.spec_from_file_location(widget_filename, widget_py_path)
@@ -290,4 +315,5 @@ class DesignerAppWidget(QWidget):
                 widget.deleteLater()
                 
         self.preview_layout.addWidget(self.custom_thumbnail_widget, alignment=Qt.AlignCenter)
+        
                         
