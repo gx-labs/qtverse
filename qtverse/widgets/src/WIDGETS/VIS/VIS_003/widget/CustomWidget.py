@@ -20,8 +20,9 @@ class CustomWidget(QWidget):
 
         self.button = QPushButton("Hover me!")
         self.button.setFixedSize(110, 49)
-        self.button.setToolTip('This is a tooltip.')
         self.button.setStyleSheet(css_data)
+        self.button.setToolTip('This is a tooltip.')
+        
 
         self.setLayout(layout)
         layout.addWidget(self.button, alignment=Qt.AlignCenter)
