@@ -57,7 +57,7 @@ class VisualizeWidget(QWidget):
         self.dirmodel = QFileSystemModel()        
         self.dirmodel.setFilter(QDir.NoDotAndDotDot | QDir.AllDirs)    # Don't show files, just folders
  
-        self.folder_view = QTreeView(parent=self);
+        self.folder_view = QTreeView(parent=self)
         self.folder_view.setModel(self.dirmodel)
         self.folder_view.clicked[QModelIndex].connect(self.clicked)
  
