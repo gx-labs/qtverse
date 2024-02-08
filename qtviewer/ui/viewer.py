@@ -169,7 +169,6 @@ class DeveloperViewerWidget(QWidget):
             all_dev_widget = self._get_widget_folders_for_dev(each_dev_folder)
             all_widgets[each_dev_folder] = all_dev_widget
         
-        print(all_widgets)
         # print("------------------------")
 
         all_widgets_dict = {}
