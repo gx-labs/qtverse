@@ -19,14 +19,17 @@ designer_config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "desi
 class DesignerAppWidget(QWidget):
     def __init__(self):
         super(DesignerAppWidget, self).__init__()
-                
+        
+        # Set variables for various paths        
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
         self.project_dir = os.path.abspath(os.path.join(self.current_dir, '..', '..'))
         self.widgets_src_dir = os.path.join(self.project_dir, "qtverse", "widgets", "src", "WIDGETS")
         self.templates_dir = os.path.join(self.current_dir, "templates")
                 
+        # Store config in variable
         self.designer_config = read_yaml(designer_config_file_path)
                                 
+        # Store all developer names                                
         self.all_developers = self.designer_config["developers"].keys()
         
         # Get all sequence codes by iterating through sequence codes(list) for each developer in yaml
@@ -35,160 +38,199 @@ class DesignerAppWidget(QWidget):
             for code in codes:
                 self.all_sequence_codes.append(code)
                 
-        widget_types = self.designer_config["widgets"]["default_widgets"]
+        # Read default widget types from config
+        default_widget_types = self.designer_config["widgets"]["default_widgets"]
         
         # --------------------------------------------------
-        self.main_layout = QVBoxLayout()
-        self.setLayout(self.main_layout)
-                
-        self.load_create_groupbox = QGroupBox()
-        self.load_create_groupbox.setMaximumHeight(50)
+        self.master_layout = QVBoxLayout()
 
-        self.load_create_groupbox_layout = QHBoxLayout()
+        # Create frame for load and create section
+        self.load_create_section_frame = QFrame()
+        self.load_create_section_frame.setFrameShape(QFrame.StyledPanel)
+        self.load_create_section_frame.setMaximumHeight(40)
+        self.load_create_section_frame.setStyleSheet("QFrame{border: 1px solid lightgrey; border-radius: 2px} QLabel{border: none}")
+
+        self.load_create_section_layout = QHBoxLayout(self.load_create_section_frame)
                 
+        # Load section label
         self.load_widget_label = QLabel('Load Widget ')
-        self.load_create_groupbox_layout.addWidget(self.load_widget_label)
         
-        # select sequence cb
-        self.load_sequence_combo = QComboBox()
-        self.load_sequence_combo.addItem("Select a sequence")
-        self.load_sequence_combo.addItems(list(self.all_sequence_codes))
-        self.load_sequence_combo.currentIndexChanged.connect(self.update_load_sequence_number)
-        self.load_create_groupbox_layout.addWidget(self.load_sequence_combo)
+        # Select widget sequence cb
+        self.load_widget_sequence_combo = QComboBox()
+        self.load_widget_sequence_combo.addItem("Select a sequence")
+        self.load_widget_sequence_combo.addItems(list(self.all_sequence_codes))
+        self.load_widget_sequence_combo.currentIndexChanged.connect(self.index_changed_update_load_widget_numbers)
                 
-        self.load_number_combo = QComboBox()
-        self.load_number_combo.setEnabled(False)
-        self.load_create_groupbox_layout.addWidget(self.load_number_combo)
+        # Selec widget number cb
+        self.load_widget_number_combo = QComboBox()
+        self.load_widget_number_combo.setEnabled(False)
         
-        # load button
+        # Load button
         self.load_button = QPushButton("Load")
         self.load_button.setIcon(QIcon(qt_icon("load.png")))
-        self.load_button.clicked.connect(self.load_selected_widget)
-        self.load_create_groupbox_layout.addWidget(self.load_button)
+        self.load_button.clicked.connect(self.clicked_load_selected_widget)
         
-        # reset button
+        # Reset button
         self.reset_button = QPushButton()
         self.reset_button.setIcon(QIcon(qt_icon("reset.png")))
-        self.reset_button.clicked.connect(self.reset_widget)
-        self.load_create_groupbox_layout.addWidget(self.reset_button)
+        self.reset_button.clicked.connect(self.clicked_reset_widget_selection)
         
-        self.load_create_groupbox_layout.addStretch(1)
 
-        # create label        
+        # Create section label        
         self.create_widget_label = QLabel('Create Widget ')
-        self.load_create_groupbox_layout.addWidget(self.create_widget_label)
 
-        # 
+        # Developer name cb
         self.create_widget_dev_combo = QComboBox()
         self.create_widget_dev_combo.addItem("Select developer")
         self.create_widget_dev_combo.addItems(self.all_developers)
-        self.create_widget_dev_combo.currentIndexChanged.connect(self.update_sequence_label)
-        self.load_create_groupbox_layout.addWidget(self.create_widget_dev_combo)
+        self.create_widget_dev_combo.currentIndexChanged.connect(self.index_changed_update_dev_sequence_combo)
                 
+        # Widget sequence cb
         self.create_widget_sequence_combo = QComboBox()
         self.create_widget_sequence_combo.setEnabled(False)
-        self.load_create_groupbox_layout.addWidget(self.create_widget_sequence_combo)
             
+        # Widget type cb
         self.create_widget_type_combo = QComboBox()
-        self.create_widget_type_combo.addItems(widget_types)
-        self.load_create_groupbox_layout.addWidget(self.create_widget_type_combo)
+        self.create_widget_type_combo.addItems(default_widget_types)
                 
+        # Create button
         self.create_widget_button = QPushButton("Create")        
         self.create_widget_button.setIcon(QIcon(qt_icon("create.png")))  
         self.create_widget_button.clicked.connect(self.create_new_widget_from_template)          
-        self.load_create_groupbox_layout.addWidget(self.create_widget_button)
-                
-        self.load_create_groupbox.setLayout(self.load_create_groupbox_layout)
+        
+        # Add widgets to load create section layout
+        self.load_create_section_layout.addWidget(self.load_widget_label)
+        self.load_create_section_layout.addWidget(self.load_widget_sequence_combo)
+        self.load_create_section_layout.addWidget(self.load_widget_number_combo)
+        self.load_create_section_layout.addWidget(self.load_button)
+        self.load_create_section_layout.addWidget(self.reset_button)
+        self.load_create_section_layout.addStretch(1)
+        self.load_create_section_layout.addWidget(self.create_widget_label)
+        self.load_create_section_layout.addWidget(self.create_widget_dev_combo)
+        self.load_create_section_layout.addWidget(self.create_widget_sequence_combo)
+        self.load_create_section_layout.addWidget(self.create_widget_type_combo)
+        self.load_create_section_layout.addWidget(self.create_widget_button)
 
         # --------------------------------------------------   
                 
-        self.designer_groupbox = QGroupBox()
+        # Create frame for edit and preview section
+        self.css_py_preview_section_frame = QFrame()
+        self.css_py_preview_section_frame.setFrameShape(QFrame.StyledPanel)
+        self.css_py_preview_section_frame.setStyleSheet("QFrame{border: 1px solid lightgrey; border-radius: 2px} QLabel{border: none} QSplitter{border: none} QTextEdit{border: 1px solid lightgrey; border-radius: 1px}")
         
+        # Horizontal layout for edit and preview section (designer section)   
+        self.designer_section_layout = QHBoxLayout(self.css_py_preview_section_frame)
                 
-        self.designer_layout = QHBoxLayout()
-        self.designer_groupbox.setLayout(self.designer_layout)
-                
-        self.css_layout = QVBoxLayout()
-        # self.designer_layout.addLayout(self.css_layout)
+        # Vertical layout for css section
+        self.css_section_layout = QVBoxLayout()
             
-        self.css_label = QLabel('CSS')
-        self.css_layout.addWidget(self.css_label)
+        # CSS section label
+        self.css_section_label = QLabel('CSS')
         
-        self.css_layout.addSpacing(10)
+        # CSS filepath label
+        self.css_filepath_display_label = QLabel()
+                
+        # CSS editor 
+        self.css_text_editor = QTextEdit()
+        self.css_text_editor.setFontPointSize(11)
+                
+        # Add widgets to css section layout
+        self.css_section_layout.addWidget(self.css_section_label)
+        self.css_section_layout.addWidget(self.css_filepath_display_label)
+        self.css_section_layout.addWidget(self.css_text_editor)
         
-        self.css_filepath = QLabel("Filepath: ")
-        self.css_layout.addWidget(self.css_filepath)
-                
-        self.css_edit = QTextEdit()
-        self.css_edit.setFontPointSize(11)
-        self.css_layout.addWidget(self.css_edit)
-                
-        self.python_layout = QVBoxLayout()
-        # self.designer_layout.addLayout(self.python_layout)
-                
-        self.python_run_layout = QHBoxLayout()
-        self.python_layout.addLayout(self.python_run_layout)
+        # Vertical layout for python section
+        self.python_section_layout = QVBoxLayout()
+        
+        # Horizontal layout for python section label and run, save buttons
+        self.python_label_button_layout = QHBoxLayout()
             
-        self.python_label = QLabel('Python')
-        self.python_run_layout.addWidget(self.python_label)
-        
-        self.python_run_layout.addStretch(1)
+        # Python section label
+        self.python_section_label = QLabel('Python')
             
-        self.python_run_button = QPushButton("Run")
+        # Run button
+        self.python_run_button = QPushButton()
         self.python_run_button.setIcon(QIcon(qt_icon("run.png")))
-        self.python_run_button.clicked.connect(self.run_widget_from_editor)
-        self.python_run_layout.addWidget(self.python_run_button)
+        self.python_run_button.clicked.connect(self.clicked_run_widget_from_editor)
                 
+        # Save button
         self.python_save_button = QPushButton()
         self.python_save_button.setIcon(QIcon(qt_icon("save.png")))
-        self.python_save_button.clicked.connect(self.save_widget)
-        self.python_run_layout.addWidget(self.python_save_button)
+        self.python_save_button.clicked.connect(self.clicked_save_widget)
         
-        self.python_filepath = QLabel("Filepath: ")
-        self.python_layout.addWidget(self.python_filepath)
+        # Python filepath label
+        self.python_filepath_display_label = QLabel()
                 
-        self.python_edit = QTextEdit()
-        self.python_edit.setFontPointSize(11)
-        self.python_layout.addWidget(self.python_edit)
+        # Python editor
+        self.python_text_editor = QTextEdit()
+        self.python_text_editor.setFontPointSize(11)
         
-        self.css_python_layout = QHBoxLayout()
-        self.css_python_layout.addLayout(self.css_layout)
-        self.css_python_layout.addLayout(self.python_layout)
+        # Add layout and widgets to python section layout
+        self.python_label_button_layout.addWidget(self.python_section_label)
+        self.python_label_button_layout.addStretch(1)
+        self.python_label_button_layout.addWidget(self.python_run_button)
+        self.python_label_button_layout.addWidget(self.python_save_button)
+        
+        self.python_section_layout.addLayout(self.python_label_button_layout)
+        self.python_section_layout.addWidget(self.python_filepath_display_label)
+        self.python_section_layout.addWidget(self.python_text_editor)
+        
+        # Horizontal layout for css and python sections
+        self.css_python_edit_layout = QHBoxLayout()
+        self.css_python_edit_layout.addLayout(self.css_section_layout)
+        self.css_python_edit_layout.addLayout(self.python_section_layout)
                 
-        self.preview_layout = QVBoxLayout()
-        # self.preview_layout.setAlignment(Qt.AlignTop)
+        # Vertical layout for widget preview section
+        self.widget_preview_layout = QVBoxLayout()
+        self.widget_preview_layout.setAlignment(Qt.AlignTop)
                 
-        self.preview_label = QLabel('Preview')
-        self.preview_layout.addWidget(self.preview_label, alignment=Qt.AlignTop)
+        # Preview section label
+        self.preview_section_label = QLabel('Preview')
+        self.widget_preview_layout.addWidget(self.preview_section_label, alignment=Qt.AlignTop)
         
-        self.preview_widget = QWidget()
-        self.preview_layout.addWidget(self.preview_widget)
+        # Add splitter to designer section
+        self.designer_section_splitter = QSplitter()
         
-        self.css_python_splitter = QSplitter()
+        # Add empty widgets to splitter
+        self.designer_section_splitter.addWidget(QWidget())
+        self.designer_section_splitter.addWidget(QWidget())
         
-        self.css_python_splitter.addWidget(QWidget())
-        self.css_python_splitter.addWidget(QWidget())
+        self.designer_section_splitter.setCollapsible(0, False)
+        self.designer_section_splitter.setCollapsible(1, False)
         
-        self.css_python_splitter.setCollapsible(0, False)
-        self.css_python_splitter.setCollapsible(1, False)
+        # Sets editor and preview layouts to widgets in splitter
+        self.designer_section_splitter.widget(0).setLayout(self.css_python_edit_layout)
+        self.designer_section_splitter.widget(1).setLayout(self.widget_preview_layout)
         
-        self.css_python_splitter.widget(0).setLayout(self.css_python_layout)
-        self.css_python_splitter.widget(1).setLayout(self.preview_layout)
+        self.designer_section_splitter.setSizes([QSizePolicy.Expanding, QSizePolicy.Fixed])
         
-        self.css_python_splitter.setSizes([QSizePolicy.Expanding, QSizePolicy.Fixed])
+        # Size restrictions for splitter
+        self.designer_section_splitter.widget(1).setMinimumWidth(250)
+        self.designer_section_splitter.widget(1).setMaximumWidth(450)
         
-        self.css_python_splitter.widget(1).setMinimumWidth(250)
-        self.css_python_splitter.widget(1).setMaximumWidth(450)
+        # Add splitter to designer section layout
+        self.designer_section_layout.addWidget(self.designer_section_splitter)
         
-        self.designer_layout.addWidget(self.css_python_splitter)
+        # Set master layout
+        self.setLayout(self.master_layout)
+        self.master_layout.addWidget(self.load_create_section_frame)
+        self.master_layout.addWidget(self.css_py_preview_section_frame)
         
-        # main layout
-        self.main_layout.addWidget(self.load_create_groupbox)
-        self.main_layout.addWidget(self.designer_groupbox)
-        
-    def update_sequence_label(self, index):
-        # Skip the placeholder item
-        if index > 0:  
+    def index_changed_update_dev_sequence_combo(self, index):
+        '''
+        Enables and updates items in developer sequence cb in create widget section based on selected developer
+        For example:
+        selected developer      |       Developer sequences
+        ------------------------|--------------------------
+        Esha                    |       ESH
+        Hriday                  |       HJH
+        Preetish                |       PRT
+        Sambhav                 |       SAM
+        Shubham                 |       SHB
+        Vishal                  |       VIS
+        '''
+        # Skip the placeholder item (Select a developer)
+        if index != 0:  
             sequence_codes = self.designer_config["developers"][self.create_widget_dev_combo.currentText()]
             if sequence_codes:
                 self.create_widget_sequence_combo.setEnabled(True)
@@ -201,104 +243,162 @@ class DesignerAppWidget(QWidget):
             self.create_widget_sequence_combo.clear()
             self.create_widget_sequence_combo.setEnabled(False)
                         
-    def update_load_sequence_number(self, index):
-        # Skip placeholder
-        print(f"update sequence: {index}")
-        if index > 0:
+    def index_changed_update_load_widget_numbers(self, index):
+        '''
+        Enables and updates the widget numbers cb in the load widget section depending on the selection made
+        in the sequence selection cb
+        For example:
+        Selected Sequence       |       Widgets
+        ------------------------|-----------------------
+        ESH                     |       ESH_001, ESH_002, ESH_003, ESH_004
+        HJH                     |       HJH_001, HJH_002, HJH_003, HJH_004
+        '''
+        # Skip the placeholder item (Select a sequence)
+        if index != 0:
             sequence = self.all_sequence_codes[index - 1]
             sequence_dir = os.path.join(self.widgets_src_dir, sequence)
             widgets_list = os.listdir(sequence_dir)
             
             if widgets_list:
-                self.load_number_combo.setEnabled(True)
-                self.load_number_combo.clear()
-                self.load_number_combo.addItems(widgets_list)
+                self.load_widget_number_combo.setEnabled(True)
+                self.load_widget_number_combo.clear()
+                self.load_widget_number_combo.addItems(widgets_list)
             else:
-                self.load_number_combo.clear()
-                self.load_number_combo.setEnabled(False)
+                self.load_widget_number_combo.clear()
+                self.load_widget_number_combo.setEnabled(False)
         else:
-            self.load_number_combo.clear()
-            self.load_number_combo.setEnabled(False)
+            self.load_widget_number_combo.clear()
+            self.load_widget_number_combo.setEnabled(False)
             
-    def load_selected_widget(self):
+    def clicked_load_selected_widget(self):
+        '''
+        Called when load button is clicked or when a new widget is created from temaplate.
+        Sets path variables based on selection in cb and loads css and py files to display in the editor
+        and displays the filepaths in the respective labels
+        '''
         print("Loading selected widget...")
-        if self.load_sequence_combo.currentIndex() != 0:
-            print(f"load seq combo: {self.load_sequence_combo.currentIndex()}")
-            selected_widget_dir = os.path.join(self.widgets_src_dir, self.load_sequence_combo.currentText())
-            selected_widget_seq_dir = os.path.join(selected_widget_dir, f"{self.load_number_combo.currentText()}\widget")
+        
+        # Clears previously displayed preview widget if any
+        self.clear_preview_widget()
+        
+        # Checks if the selected cb item is the first(placehodler) item
+        if self.load_widget_sequence_combo.currentIndex() != 0:
+            print(f"load seq combo: {self.load_widget_sequence_combo.currentIndex()}")
             
+            # Sets path variables based on cb selection
+            selected_widget_dir = os.path.join(self.widgets_src_dir, self.load_widget_sequence_combo.currentText())
+            selected_widget_seq_dir = os.path.join(selected_widget_dir, f"{self.load_widget_number_combo.currentText()}\widget")
+            
+            # Sets py data in a var. Display py in textedit and filepath in label
             python_data = read_python(selected_widget_seq_dir)
-            self.python_edit.setText(python_data)
-            self.python_filepath.setText(f"{selected_widget_seq_dir}\CustomWidget.py")
+            self.python_text_editor.setText(python_data)
+            self.python_filepath_display_label.setText(f"{selected_widget_seq_dir}\CustomWidget.py")
             
+            # Sets css data in a var. Display css in textedit and filepath in label
             css_data = read_css(selected_widget_seq_dir)
-            self.css_edit.setText(css_data)
-            self.css_filepath.setText(f"{selected_widget_seq_dir}\style.css")
+            self.css_text_editor.setText(css_data)
+            self.css_filepath_display_label.setText(f"{selected_widget_seq_dir}\style.css")
             
             self.display_widget_preview()
-            
+        
+        # If item selected is the placeholder, clear the fields    
         else:
-            self.python_edit.setText("")
-            self.python_filepath.setText("Filepath: ")
+            self.python_text_editor.setText("")
+            self.python_filepath_display_label.setText("")
             
-            self.css_edit.setText("")
-            self.css_filepath.setText("Filepath: ")
+            self.css_text_editor.setText("")
+            self.css_filepath_display_label.setText("")
             
-    def reset_widget(self):
+    def clear_preview_widget(self):
+        '''
+        Deletes the preview widget when new widget is loaded or reset button is clicked. Handles error
+        if no preview widget is present.
+        '''
+        try:
+            self.preview_widget.deleteLater()
+        except AttributeError:
+            pass
+            
+    def clicked_reset_widget_selection(self):
+        '''
+        Called when reset button is pressed. Resets load cb, py and css editors and filepath labels
+        clears the widget from the preview section.
+        '''
         print("Reset selection")
 
-        self.load_sequence_combo.setCurrentIndex(0)
+        self.load_widget_sequence_combo.setCurrentIndex(0)
         
-        self.css_filepath.setText("Filepath: ")
-        self.css_edit.setText("")
+        self.css_filepath_display_label.setText("")
+        self.css_text_editor.setText("")
         
-        self.python_filepath.setText("Filepath: ")
-        self.python_edit.setText("")
+        self.python_filepath_display_label.setText("")
+        self.python_text_editor.setText("")
 
         # TODO : this line fails when there is no widget previewed.
-        # need to fix this logic 
-        item = self.preview_layout.takeAt(1)
-
-        widget = item.widget()
-        if widget:
-            widget.deleteLater()
+        # need to fix this logic
+        self.clear_preview_widget()
         
     def create_new_widget_from_template(self):
+        '''
+        Called when create button is clicked. Checks disk for existing widgets in a sequence. Gets the next number in
+        the sequence and makes a copy of the selected template widget into the correct sequence folder with the correct
+        sequence number.
+        '''
         
-        self.reset_widget()
+        # Call function to reset and clear any previous widget/selection
+        self.clicked_reset_widget_selection()
         
         print(f"Creating new {self.create_widget_type_combo.currentText()} widget...")
-        selected_sequence = os.path.join(self.widgets_src_dir, self.create_widget_sequence_combo.currentText())
+        
+        # Build file path based on selected sequence
+        selected_sequence_path = os.path.join(self.widgets_src_dir, self.create_widget_sequence_combo.currentText())
 
-        new_sequence_number = str(len(os.listdir(selected_sequence)) + 1).zfill(3)
-        new_widget_directory = os.path.join(selected_sequence, f"{self.create_widget_sequence_combo.currentText()}_{new_sequence_number}")
+        # Calculate the next widget number in a sequence & assign new directory path to var
+        new_widget_number = str(len(os.listdir(selected_sequence_path)) + 1).zfill(3)
+        new_widget_directory = os.path.join(selected_sequence_path, f"{self.create_widget_sequence_combo.currentText()}_{new_widget_number}")
         
-        selected_template = self.create_widget_type_combo.currentText()
-        selected_template_directory = os.path.join(self.templates_dir, "WIDGETS", selected_template)
+        # Get selected default widget and assign correct template path to var
+        selected_default_widget_template = self.create_widget_type_combo.currentText()
+        selected_default_widget_template_directory = os.path.join(self.templates_dir, "WIDGETS", selected_default_widget_template)
         
-        shutil.copytree(selected_template_directory, new_widget_directory)
+        # Make a copy of template widget in new directory
+        shutil.copytree(selected_default_widget_template_directory, new_widget_directory)
         
-        sequence_index = self.load_sequence_combo.findText(self.create_widget_sequence_combo.currentText())
-        self.load_sequence_combo.setCurrentIndex(sequence_index)
+        # Set correct sequence in load section sequence cb
+        sequence_combo_index = self.load_widget_sequence_combo.findText(self.create_widget_sequence_combo.currentText())
+        self.load_widget_sequence_combo.setCurrentIndex(sequence_combo_index)
         
-        number_index = self.load_number_combo.findText(f"{self.create_widget_sequence_combo.currentText()}_{new_sequence_number}")
-        self.load_number_combo.setCurrentIndex(number_index)
+        # Set correct widget number in load section widget number cb
+        widget_number_combo_index = self.load_widget_number_combo.findText(f"{self.create_widget_sequence_combo.currentText()}_{new_widget_number}")
+        self.load_widget_number_combo.setCurrentIndex(widget_number_combo_index)
         
-        self.load_selected_widget()
+        # Call function to load new widget
+        self.clicked_load_selected_widget()
         
-    def save_widget(self):
+    def clicked_save_widget(self):
+        '''
+        Called when save button is clicked. Writes contents of text edit boxes to the correct file.
+        '''
         print("Saving widget...")
-        python_file = open(self.python_filepath.text(), "w")
-        python_file.write(self.python_edit.toPlainText())
+        
+        # Write content of py textedit box to correct py file
+        python_file = open(self.python_filepath_display_label.text(), "w")
+        python_file.write(self.python_text_editor.toPlainText())
         python_file.close()
         
-        css_file = open(self.css_filepath.text(), "w")
-        css_file.write(self.css_edit.toPlainText())
+        # Write content of css textedit box to correct css file       
+        css_file = open(self.css_filepath_display_label.text(), "w")
+        css_file.write(self.css_text_editor.toPlainText())
         css_file.close()
         
-    def run_widget_from_editor(self):
+    def clicked_run_widget_from_editor(self):
+        '''
+        Called when run button is clicked. First saves the css and py to the correct file and reloads the widget in
+        preview window.
+        '''
         print("Refreshing widget...")
-        self.save_widget()
+        self.clear_preview_widget()
+        self.clicked_save_widget()
         self.display_widget_preview()
         
     def _import_ui_as_module(self, widget_filename, widget_py_path):
@@ -309,39 +409,17 @@ class DesignerAppWidget(QWidget):
 
         ui_class = getattr(module, widget_filename)
         ui_instance = ui_class()
+        self.custom_widget_class = widget_filename
 
         return ui_instance
         
     def display_widget_preview(self):
         
-        widget_py_path = self.python_filepath.text()
-        
-        css_filepath = self.css_filepath.text()
+        widget_py_path = self.python_filepath_display_label.text()
 
-        with open(css_filepath) as file:
-            css_data = file.read()
-            
-        imported_widget = self._import_ui_as_module(widget_filename="CustomWidget", 
-                                                    widget_py_path=widget_py_path)
-        self.preview_layout.addWidget(imported_widget)
-        
-        # self.custom_thumbnail_widget = ThumbnailWidget(
-        #             widget_name=self.load_sequence_combo.currentText(),
-        #             widget_path=self.python_label,
-        #             css_data=css_data,
-        #             custom_widget=imported_widget, 
-        #             info_dict={},
-        #             width=200, 
-        #             height=100
-        #             )
-        
-        # while self.preview_layout.count() > 1:
-        #     item = self.preview_layout.takeAt(1)
+        self.preview_widget = self._import_ui_as_module(widget_filename="CustomWidget", 
+                                                        widget_py_path=widget_py_path)
 
-        #     widget = item.widget()
-        #     if widget:
-        #         widget.deleteLater()
-                
-        # self.preview_layout.addWidget(self.custom_thumbnail_widget, alignment=Qt.AlignCenter)
+        self.widget_preview_layout.addWidget(self.preview_widget)
         
                         
