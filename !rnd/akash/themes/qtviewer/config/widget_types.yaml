@@ -1,0 +1,72 @@
+WIDGETS:
+  Widgets:
+    - Buttons (QPushButton)
+    - Radio Buttons (QRadioButton)
+    - Check Box (QCheckBox)
+    - Combo Box [Dropdown Button/List] (QComboBox)
+    - Group Box (QGroupBox)
+    - Spin Box (QSpinBox)
+    - Tool Box (QToolBox)
+    - Sliders (QSlider)
+    - Line Edit (QLineEdit)
+    - Calendar (QCalendarWidget)
+    - List Widget (QListWidget)
+    - List View (QListView)
+    - Table View (QTableView)
+    - Tree View (QTreeView)
+    - Tabs (QTabWidget)
+    - Labels (QLabel)
+  Dialogs:
+    - Input Dialog (QInputDialog)
+    - Color Dialog (QColorDialog)
+    - File Dialog (QFileDialog)
+    - Font Dialog (QFontDialog)
+  Bars:
+    - Progress Bars (QProgressBar)
+    - Scroll Bars (QScrollBar)
+    - Menu Bar (QMenuBar)
+    - Tool Bar (QToolBar)
+    - Status Bar
+    - Tab Bar (QTabBar)
+CUSTOM_WIDGETS:
+  No Category:
+    - Notification Widgets
+    - Control widgets
+    - Login widget
+    - Registration widget
+    - tags input widget
+    - password widget
+  Information widgets:
+    - cards
+    - forms
+    - login window
+    - banners
+  Input Controls:
+    - Checkboxes
+    - Radio buttons
+    - Dropdown lists
+    - List boxes
+    - Buttons
+    - Dropdown Button
+    - Toggles
+    - Text fields
+    - Date and time pickers
+  Navigational:
+    - Search Field
+    - Breadcrumb
+    - Pagination
+    - Tags
+    - Sliders
+    - Icons
+    - Image Carousel
+  Information Components:
+    - Notifications
+    - Progress Bars
+    - Tool Tips
+    - Message Boxes
+    - Modal Window (pop-up)
+  Containers:
+    - Accordion
+
+
+
