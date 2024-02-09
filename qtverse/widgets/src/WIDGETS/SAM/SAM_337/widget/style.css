@@ -1,0 +1,24 @@
+QInputDialog{
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 6px;
+    background-color: white;
+}
+QInputDialog QLabel{
+    font-size: 15px;
+    color: black;
+}
+QInputDialog QLineEdit{
+    min-width: 300px;
+    border: 2px solid #A4B7E8;
+    border-radius: 3px;
+}
+QInputDialog QPushButton{
+    background-color: #F0F0F0;
+    border: 1px solid grey;
+    border-radius: 2px;
+    min-width: 70px;
+    height: 20px;
+    padding: 2px;
+    color: red;
+    font-weight: bold;
+}

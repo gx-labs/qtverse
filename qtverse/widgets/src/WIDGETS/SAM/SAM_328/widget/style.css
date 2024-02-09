@@ -1,0 +1,14 @@
+QInputDialog{
+    border: 3px solid yellow;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: white;
+    padding: 8px;
+    margin: 2px;
+}
+QInputDialog QLabel{
+    color: purple;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}

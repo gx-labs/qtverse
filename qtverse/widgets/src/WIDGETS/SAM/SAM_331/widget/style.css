@@ -1,0 +1,29 @@
+QInputDialog{
+    border: 3px solid #A3C7F6;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: rgb(255, 213, 220);
+    padding: 8px;
+    margin: 2px;
+}
+QInputDialog QLabel{
+    color: purple;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+QInputDialog QLineEdit{
+    background-color: #ffffff;
+    border: 2px solid #4CAF50;
+    color: pink;
+    selection-background-color:#A3C7F6;
+    selection-color: white;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px;
+}
+QInputDialog QPushButton {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 12px;
+}
