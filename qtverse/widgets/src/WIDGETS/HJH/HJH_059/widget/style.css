@@ -1,0 +1,41 @@
+QRadioButton::indicator {
+        height: 0px;
+        width: 0px;
+        border: none;
+}
+
+QRadioButton {
+        border: 1px solid #585757;
+        border-bottom-width: 3px;
+        border-right-width: 3px;
+        border-radius: 6px;
+        padding-left: 8px;
+        padding-right: 11px;
+        background-color: #D8D8D8;
+        font-size: 18px;
+        font-weight: 800;
+}
+
+QRadioButton#yes:checked {
+        background-color: #3BF087;
+        color: #D8D8D8;
+        border-color: #1a683a;
+        border-bottom-width: 2px;
+        border-right-width: 2px;
+}
+
+QRadioButton#no:checked {
+        background-color: #FF2920;
+        color: #D8D8D8;
+        border-color: #66100d;
+        border-bottom-width: 2px;
+        border-right-width: 2px;
+}
+
+QRadioButton#maybe:checked {
+        background-color: #519CFD;
+        color: #D8D8D8;
+        border-color: #1e3b61;
+        border-bottom-width: 2px;
+        border-right-width: 2px;
+}

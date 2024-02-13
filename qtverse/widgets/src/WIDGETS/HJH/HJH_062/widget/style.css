@@ -1,0 +1,31 @@
+QFrame {
+        margin: 1px;
+        padding: 1px;
+        border-radius: 10px;
+        background-color: #40B5FF;
+}
+
+QRadioButton {
+        border: 2px solid #CED7E0;
+        border-radius: 13px;
+        color: #CED7E0;
+        font-size: 16px;
+}
+
+QRadioButton::indicator {
+        height: 0px;
+        width: 0px;
+        border: none;
+}
+
+QRadioButton#green {
+        background-color: #3BF087;
+}
+
+QRadioButton#blue {
+        background-color: #40B5FF;
+}
+
+QRadioButton#yellow {
+        background-color: #FFE01A;
+}

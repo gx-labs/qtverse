@@ -1,0 +1,54 @@
+QRadioButton::indicator:unchecked {
+        width: 30px;
+        height: 30px;
+        border: 2px solid grey;
+        border-radius: 16px;
+}
+
+QRadioButton::indicator:unchecked:hover {
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.5,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 white,
+                stop: 0.25 white,
+                stop: 0.5 grey,
+                stop: 1 grey
+        )
+}
+
+QRadioButton::indicator:checked {
+        width: 30px;
+        height: 30px;
+        border: 2px solid;
+        border-radius: 16px;
+        border-color: rgb(0, 110, 255);
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.5,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 rgb(0, 110, 255),
+                stop: 0.25 rgb(0, 110, 255),
+                stop: 0.5 white,
+                stop: 1 white
+        )
+}
+
+QRadioButton::indicator:checked:hover {
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.5,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 white,
+                stop: 0.25 white,
+                stop: 0.5 rgb(0, 110, 255),
+                stop: 1 rgb(0, 110, 255)
+        )
+}
+
