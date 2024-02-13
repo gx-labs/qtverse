@@ -8,11 +8,11 @@ from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 
-from ui.utils import read_yaml
-from ui.widgets.clickable_label import ClickableLabel
+from ui.general_utils import read_yaml
 
-from ui.widgets.flow_layout import FlowLayout
-from ui.widgets.thumbnail import ThumbnailWidget
+from ui.widgets.custom.clickable_label import ClickableLabel
+from ui.widgets.custom.flow_layout import FlowLayout
+from ui.widgets.custom.thumbnail import ThumbnailWidget
 
 
 
@@ -70,7 +70,8 @@ class ThumbnailViewerWidget(QWidget):
         for i in range(1, 20):
             self.thumbnail_widget = ThumbnailWidget(width = 200, height = 100)
             self.scroll_area_layout.addWidget(self.thumbnail_widget)
-class DeveloperViewerWidget(QWidget):
+
+class PreviewAppWidget(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -112,7 +113,7 @@ class DeveloperViewerWidget(QWidget):
         # Populate the QListWidget with folders based on the initial state (ALL)
         # self.filter_by_developer("ALL")
 
-        self.populate_widgets()
+        # self.populate_widgets()
 
     def _get_developer_folders(self):
         """
@@ -294,6 +295,6 @@ class DeveloperViewerWidget(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    main_window = DeveloperViewerWidget()
+    main_window = PreviewAppWidget()
     main_window.show()
     app.exec_()

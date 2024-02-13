@@ -6,7 +6,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class DesktopAppWidget(QWidget):
+class Temp(QWidget):
     def __init__(self):
         super().__init__()
         
@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     
-    window = DesktopAppWidget()
+    window = PreviewAppWidget()
     window.show()
 
     sys.exit(app.exec_())

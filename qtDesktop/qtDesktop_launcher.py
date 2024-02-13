@@ -5,8 +5,8 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-from ui.desktop import DesktopAppWidget
-from ui.viewer import DeveloperViewerWidget
+# from ui.temp import Temp
+from ui.preview import PreviewAppWidget
 from ui.themes import ThemesAppWidget
 from ui.designer import DesignerAppWidget
 
@@ -98,10 +98,10 @@ class QtWorldMainWindow(QWidget):
         tab_widget = QTabWidget()
 
         tab1_layout = QHBoxLayout()
-        tab1_layout.addWidget(DeveloperViewerWidget())
+        tab1_layout.addWidget(PreviewAppWidget())
 
-        tab2_layout = QHBoxLayout()
-        tab2_layout.addWidget(DesktopAppWidget())
+        # tab2_layout = QHBoxLayout()
+        # tab2_layout.addWidget(Temp())
 
         tab3_layout = QHBoxLayout()
         tab3_layout.addWidget(ThemesAppWidget())
@@ -112,8 +112,8 @@ class QtWorldMainWindow(QWidget):
         tab_1 = QWidget()
         tab_1.setLayout(tab1_layout)
 
-        tab_2 = QWidget()
-        tab_2.setLayout(tab2_layout)
+        # tab_2 = QWidget()
+        # tab_2.setLayout(tab2_layout)
 
         tab_3 = QWidget()
         tab_3.setLayout(tab3_layout)
@@ -121,11 +121,11 @@ class QtWorldMainWindow(QWidget):
         tab_4 = QWidget()
         tab_4.setLayout(tab4_layout)
 
-        tab_widget.addTab(tab_1, "Developer Viewer")
-        tab_widget.addTab(tab_2, "qtverse Desktop")
+        tab_widget.addTab(tab_1, "Preview Widget")
+        # tab_widget.addTab(tab_2, "qtverse Desktop")
         tab_widget.addTab(tab_3, "Themes")
-        tab_widget.addTab(tab_4, "Designer")
-        tab_widget.setCurrentIndex(3)
+        tab_widget.addTab(tab_4, "Design Widget")
+        # tab_widget.setCurrentIndex(3)
 
         central_layout.addWidget(tab_widget)
 

@@ -7,10 +7,10 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-from ui.utils import read_yaml
-from ui.utils import qt_icon
-from ui.utils import read_python
-from ui.utils import read_css
+from ui.general_utils import read_yaml
+from ui.general_utils import qt_icon
+from ui.general_utils import read_python
+from ui.general_utils import read_css
 
 designer_config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "designer.yaml")
 
