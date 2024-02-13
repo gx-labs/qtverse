@@ -12,8 +12,6 @@ from ui.utils import qt_icon
 from ui.utils import read_python
 from ui.utils import read_css
 
-from ui.widgets.thumbnail import ThumbnailWidget
-
 designer_config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "designer.yaml")
 
 class DesignerAppWidget(QWidget):
@@ -33,13 +31,11 @@ class DesignerAppWidget(QWidget):
         self.all_developers = self.designer_config["developers"].keys()
         
         # Get all sequence codes by iterating through sequence codes(list) for each developer in yaml
-        self.all_sequence_codes = []
-        for codes in self.designer_config["developers"].values():
-            for code in codes:
-                self.all_sequence_codes.append(code)
+        self.all_sequence_codes = os.listdir(self.widgets_src_dir)
+        self.all_sequence_codes.remove(".gitkeep")
                 
         # Read default widget types from config
-        default_widget_types = self.designer_config["widgets"]["default_widgets"]
+        self.default_widget_types_list = os.listdir(os.path.join(self.templates_dir, "WIDGETS"))
         
         # --------------------------------------------------
         self.master_layout = QVBoxLayout()
@@ -91,12 +87,12 @@ class DesignerAppWidget(QWidget):
             
         # Widget type cb
         self.create_widget_type_combo = QComboBox()
-        self.create_widget_type_combo.addItems(default_widget_types)
+        self.create_widget_type_combo.addItems(self.default_widget_types_list)
                 
         # Create button
         self.create_widget_button = QPushButton("Create")        
         self.create_widget_button.setIcon(QIcon(qt_icon("create.png")))  
-        self.create_widget_button.clicked.connect(self.create_new_widget_from_template)          
+        self.create_widget_button.clicked.connect(self.clicked_create_new_widget_from_template)          
         
         # Add widgets to load create section layout
         self.load_create_section_layout.addWidget(self.load_widget_label)
@@ -254,7 +250,7 @@ class DesignerAppWidget(QWidget):
         HJH                     |       HJH_001, HJH_002, HJH_003, HJH_004
         '''
         # Skip the placeholder item (Select a sequence)
-        if index != 0:
+        if index > 0:
             sequence = self.all_sequence_codes[index - 1]
             sequence_dir = os.path.join(self.widgets_src_dir, sequence)
             widgets_list = os.listdir(sequence_dir)
@@ -338,42 +334,55 @@ class DesignerAppWidget(QWidget):
         # need to fix this logic
         self.clear_preview_widget()
         
-    def create_new_widget_from_template(self):
+    def clicked_create_new_widget_from_template(self):
         '''
         Called when create button is clicked. Checks disk for existing widgets in a sequence. Gets the next number in
         the sequence and makes a copy of the selected template widget into the correct sequence folder with the correct
         sequence number.
         '''
         
-        # Call function to reset and clear any previous widget/selection
-        self.clicked_reset_widget_selection()
-        
-        print(f"Creating new {self.create_widget_type_combo.currentText()} widget...")
-        
-        # Build file path based on selected sequence
-        selected_sequence_path = os.path.join(self.widgets_src_dir, self.create_widget_sequence_combo.currentText())
+        if self.create_widget_dev_combo.currentIndex() != 0:
+            # Call function to reset and clear any previous widget/selection
+            self.clicked_reset_widget_selection()
+            
+            print(f"Creating new {self.create_widget_type_combo.currentText()} widget...")
+            
+            # Build file path based on selected sequence
+            selected_sequence_path = os.path.join(self.widgets_src_dir, self.create_widget_sequence_combo.currentText())
+            
+            # Check if the selected sequence exists on disk
+            if not os.path.exists(selected_sequence_path):
+                # Create a dialog box if selected sequence doesnt exist on disk
+                sequence_err_dialog = CustomDialog(self)
+                if sequence_err_dialog.exec_():
+                    # If "OK" is selected in dialog box, new directory is created and cb is updated
+                    os.mkdir(os.path.join(self.widgets_src_dir, self.create_widget_sequence_combo.currentText()))
+                    self.update_load_widget_seq_cb()
+                    self.index_changed_update_load_widget_numbers(self.load_widget_number_combo.currentIndex())   
+                else:
+                    print("Cancel!")
 
-        # Calculate the next widget number in a sequence & assign new directory path to var
-        new_widget_number = str(len(os.listdir(selected_sequence_path)) + 1).zfill(3)
-        new_widget_directory = os.path.join(selected_sequence_path, f"{self.create_widget_sequence_combo.currentText()}_{new_widget_number}")
-        
-        # Get selected default widget and assign correct template path to var
-        selected_default_widget_template = self.create_widget_type_combo.currentText()
-        selected_default_widget_template_directory = os.path.join(self.templates_dir, "WIDGETS", selected_default_widget_template)
-        
-        # Make a copy of template widget in new directory
-        shutil.copytree(selected_default_widget_template_directory, new_widget_directory)
-        
-        # Set correct sequence in load section sequence cb
-        sequence_combo_index = self.load_widget_sequence_combo.findText(self.create_widget_sequence_combo.currentText())
-        self.load_widget_sequence_combo.setCurrentIndex(sequence_combo_index)
-        
-        # Set correct widget number in load section widget number cb
-        widget_number_combo_index = self.load_widget_number_combo.findText(f"{self.create_widget_sequence_combo.currentText()}_{new_widget_number}")
-        self.load_widget_number_combo.setCurrentIndex(widget_number_combo_index)
-        
-        # Call function to load new widget
-        self.clicked_load_selected_widget()
+            # Calculate the next widget number in a sequence & assign new directory path to var
+            new_widget_number = str(len(os.listdir(selected_sequence_path)) + 1).zfill(3)
+            new_widget_directory = os.path.join(selected_sequence_path, f"{self.create_widget_sequence_combo.currentText()}_{new_widget_number}")
+            
+            # Get selected default widget and assign correct template path to var
+            selected_default_widget_template = self.create_widget_type_combo.currentText()
+            selected_default_widget_template_directory = os.path.join(self.templates_dir, "WIDGETS", selected_default_widget_template)
+            
+            # Make a copy of template widget in new directory
+            shutil.copytree(selected_default_widget_template_directory, new_widget_directory)
+            
+            # Set correct sequence in load section sequence cb
+            sequence_combo_index = self.load_widget_sequence_combo.findText(self.create_widget_sequence_combo.currentText())
+            self.load_widget_sequence_combo.setCurrentIndex(sequence_combo_index)
+            
+            # Set correct widget number in load section widget number cb
+            widget_number_combo_index = self.load_widget_number_combo.findText(f"{self.create_widget_sequence_combo.currentText()}_{new_widget_number}")
+            self.load_widget_number_combo.setCurrentIndex(widget_number_combo_index)
+            
+            # Call function to load new widget
+            self.clicked_load_selected_widget()
         
     def clicked_save_widget(self):
         '''
@@ -401,8 +410,10 @@ class DesignerAppWidget(QWidget):
         self.clicked_save_widget()
         self.display_widget_preview()
         
-    def _import_ui_as_module(self, widget_filename, widget_py_path):
-
+    def _import_widget_as_module(self, widget_filename, widget_py_path):
+        '''
+        Creates an instance of the selected widget to be able to display in the preview window
+        '''
         spec = importlib.util.spec_from_file_location(widget_filename, widget_py_path)
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
@@ -414,12 +425,46 @@ class DesignerAppWidget(QWidget):
         return ui_instance
         
     def display_widget_preview(self):
-        
+        '''
+        Displays the widget instance in the preview window
+        '''
         widget_py_path = self.python_filepath_display_label.text()
 
-        self.preview_widget = self._import_ui_as_module(widget_filename="CustomWidget", 
+        self.preview_widget = self._import_widget_as_module(widget_filename="CustomWidget", 
                                                         widget_py_path=widget_py_path)
 
         self.widget_preview_layout.addWidget(self.preview_widget)
+        
+    def update_load_widget_seq_cb(self):
+        '''
+        Updates the load widget sequence combo box
+        '''
+        self.all_sequence_codes = os.listdir(self.widgets_src_dir)
+        self.all_sequence_codes.remove(".gitkeep")
+        self.load_widget_sequence_combo.clear()
+        self.load_widget_sequence_combo.addItem("Select a sequence")
+        self.load_widget_sequence_combo.addItems(self.all_sequence_codes)
+        
+
+
+class CustomDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setWindowTitle("Sequence Not Found!")
+
+        dialog_buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+
+        self.buttonBox = QDialogButtonBox(dialog_buttons)
+        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.rejected.connect(self.reject)
+
+        self.layout = QVBoxLayout()
+        
+        dialog_message = QLabel(f"Could not find sequence \"{parent.create_widget_sequence_combo.currentText()}\" for {parent.create_widget_dev_combo.currentText()}.\nWould you like to create one?")
+        
+        self.layout.addWidget(dialog_message)
+        self.layout.addWidget(self.buttonBox)
+        self.setLayout(self.layout)
         
                         
