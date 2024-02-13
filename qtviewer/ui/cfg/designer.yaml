@@ -1,0 +1,31 @@
+developers:
+  Esha:
+    - ESH
+
+  Hriday:
+    - HJH
+
+  Preetish:
+    - PRT
+
+  Sambhav:
+    - SAM
+
+  Shubham:
+    - SHB
+
+  Vishal:
+    - VIS
+
+widgets:
+  default_widgets:
+    - QCheckBox
+    - QComboBox
+    - QGroupBox
+    - QLineEdit
+    - QProgressBar
+    - QPushButton
+    - QRadioButton
+    - QSlider
+    - QTextEdit
+    - QToolTip

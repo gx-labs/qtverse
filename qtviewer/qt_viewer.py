@@ -8,8 +8,11 @@ from PySide2.QtWidgets import *
 from ui.desktop import DesktopAppWidget
 from ui.viewer import DeveloperViewerWidget
 from ui.themes import ThemesAppWidget
+from ui.designer import DesignerAppWidget
 
 CUR_FILE_DIR = os.path.dirname(__file__)
+
+os.environ["QT_ICON_PATH"] = os.path.join(CUR_FILE_DIR, "ui\icons")
 
 class QtWorldMainWindow(QWidget):
     def __init__(self):
@@ -103,6 +106,9 @@ class QtWorldMainWindow(QWidget):
         tab3_layout = QHBoxLayout()
         tab3_layout.addWidget(ThemesAppWidget())
 
+        tab4_layout = QHBoxLayout()
+        tab4_layout.addWidget(DesignerAppWidget())
+        
         tab_1 = QWidget()
         tab_1.setLayout(tab1_layout)
 
@@ -112,9 +118,14 @@ class QtWorldMainWindow(QWidget):
         tab_3 = QWidget()
         tab_3.setLayout(tab3_layout)
 
+        tab_4 = QWidget()
+        tab_4.setLayout(tab4_layout)
+
         tab_widget.addTab(tab_1, "Developer Viewer")
         tab_widget.addTab(tab_2, "qtverse Desktop")
         tab_widget.addTab(tab_3, "Themes")
+        tab_widget.addTab(tab_4, "Designer")
+        tab_widget.setCurrentIndex(3)
 
         central_layout.addWidget(tab_widget)
 
