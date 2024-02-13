@@ -1,0 +1,15 @@
+QLineEdit{
+    border: 2px solid red;
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 5px;
+    min-width: 18em;
+    height: 30px;
+    color: red;
+    background-color: rgb(255, 255, 95);
+    selection-background-color: #AED8E5;
+    selection-color: white;
+}
+QLineEdit:hover{
+    border: 2px solid grey;
+}

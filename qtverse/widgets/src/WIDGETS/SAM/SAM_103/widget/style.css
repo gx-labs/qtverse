@@ -1,0 +1,19 @@
+QGroupBox{
+  border: 1px solid #80BBC6;
+  font-size: 20px;
+  font-weight: bold;
+  width: 400px;
+  height: 300px;
+  color: #FFF8EB;
+  margin-top: 5ex;
+  background-color: #FFF8EB;
+}
+QGroupBox:title{
+  subcontol-origin: margin;
+  subcontol-position: left top;
+  border: 1px solid #80BBC6;
+  background-color:qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0.4 #80BBC6, stop:1 #326E82);
+  top: -10px;
+  left: 12px;
+  padding: 5px;
+}
