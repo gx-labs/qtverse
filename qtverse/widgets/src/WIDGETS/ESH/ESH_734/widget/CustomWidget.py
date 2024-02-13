@@ -20,7 +20,7 @@ class CustomWidget(QWidget):
 
         self.progress_bar = QProgressBar()
         self.progress_bar.setValue(0)
-        self.progress_bar.setFixedSize(220, 35)
+        self.progress_bar.setFixedSize(300, 45)
         self.progress_bar.setStyleSheet(css_data)
 
         self.timer = QTimer(self)

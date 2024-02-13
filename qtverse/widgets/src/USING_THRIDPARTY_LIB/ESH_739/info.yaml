@@ -2,7 +2,7 @@ cateory: button
 entity: WIDGETS
 
 # for user
-name: grey dashed border progress bar
+name: Purple line circular progress bar
 tags:
 
 # for development team
