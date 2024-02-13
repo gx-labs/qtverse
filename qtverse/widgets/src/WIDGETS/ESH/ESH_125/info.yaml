@@ -1,0 +1,11 @@
+cateory: button
+entity: WIDGETS
+
+# for user
+name: Purple button with all states
+tags:
+
+# for development team
+creator: esha
+creator_tag: ESH
+approval_status: 

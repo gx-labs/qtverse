@@ -1,0 +1,12 @@
+QPushButton{
+    font-family: Arial;
+    font: normal;
+    font-size: 25pt;
+    color: rgb(48, 121, 247); 
+    background: rgb(255, 255, 255);
+    border: 0px Solid rgb(255, 255, 255);
+    border-radius:25px;
+    padding: 0px;
+    
+}
+
