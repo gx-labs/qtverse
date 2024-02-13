@@ -108,6 +108,8 @@ class DesignerAppWidget(QWidget):
         self.load_create_section_layout.addWidget(self.create_widget_button)
 
         # --------------------------------------------------   
+        # --------------------------------------------------   
+        # --------------------------------------------------   
                 
         # Create frame for edit and preview section
         self.css_py_preview_section_frame = QFrame()
@@ -117,7 +119,9 @@ class DesignerAppWidget(QWidget):
         # Horizontal layout for edit and preview section (designer section)   
         self.designer_section_layout = QHBoxLayout(self.css_py_preview_section_frame)
                 
-        # Vertical layout for css section
+        # --------------------------------------------------   
+        # --------------------------------------------------   
+        
         self.css_section_layout = QVBoxLayout()
             
         # CSS section label
@@ -134,6 +138,9 @@ class DesignerAppWidget(QWidget):
         self.css_section_layout.addWidget(self.css_section_label)
         self.css_section_layout.addWidget(self.css_filepath_display_label)
         self.css_section_layout.addWidget(self.css_text_editor)
+        
+        # -------------------------------------------------- 
+        # -------------------------------------------------- 
         
         # Vertical layout for python section
         self.python_section_layout = QVBoxLayout()
@@ -161,6 +168,7 @@ class DesignerAppWidget(QWidget):
         self.python_text_editor = QTextEdit()
         self.python_text_editor.setFontPointSize(11)
         
+        
         # Add layout and widgets to python section layout
         self.python_label_button_layout.addWidget(self.python_section_label)
         self.python_label_button_layout.addStretch(1)
@@ -176,15 +184,25 @@ class DesignerAppWidget(QWidget):
         self.css_python_edit_layout.addLayout(self.css_section_layout)
         self.css_python_edit_layout.addLayout(self.python_section_layout)
                 
-        # Vertical layout for widget preview section
+        # --------------------------------------------------   
+        # --------------------------------------------------   
+        
+        # preview section
         self.widget_preview_layout = QVBoxLayout()
         self.widget_preview_layout.setAlignment(Qt.AlignTop)
                 
-        # Preview section label
+        # section label
         self.preview_section_label = QLabel('Preview')
-        self.widget_preview_layout.addWidget(self.preview_section_label, alignment=Qt.AlignTop)
+        # self.preview_section_label1 = QLabel('Preview')
         
-        # Add splitter to designer section
+        # adding widget to preview layout
+        self.widget_preview_layout.addWidget(self.preview_section_label, alignment=Qt.AlignTop)
+        # self.widget_preview_layout.addStretch()
+        # self.widget_preview_layout.addWidget(self.preview_section_label1, alignment=Qt.AlignTop)
+        
+        # --------------------------------------------------   
+        # --------------------------------------------------   
+        
         self.designer_section_splitter = QSplitter()
         
         # Add empty widgets to splitter
@@ -207,6 +225,8 @@ class DesignerAppWidget(QWidget):
         # Add splitter to designer section layout
         self.designer_section_layout.addWidget(self.designer_section_splitter)
         
+        # --------------------------------------------------   
+
         # Set master layout
         self.setLayout(self.master_layout)
         self.master_layout.addWidget(self.load_create_section_frame)
