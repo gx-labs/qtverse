@@ -387,11 +387,14 @@ class DesignerAppWidget(QWidget):
                     self.index_changed_update_load_widget_numbers(self.load_widget_number_combo.currentIndex())   
                 else:
                     print("Cancel!")
+                    
 
             # Calculate the next widget number in a sequence & assign new directory path to var
-            new_widget_number = str(len(os.listdir(selected_sequence_path)) + 1).zfill(3)
+            last_widget_in_sequence = os.listdir(selected_sequence_path)[-1]
+            last_widget_number = int(last_widget_in_sequence[-3:])
+            new_widget_number = str(last_widget_number + 1).zfill(3)
             new_widget_directory = os.path.join(selected_sequence_path, f"{self.create_widget_sequence_combo.currentText()}_{new_widget_number}")
-            
+
             # Get selected default widget and assign correct template path to var
             selected_default_widget_template = self.create_widget_type_combo.currentText()
             selected_default_widget_template_directory = os.path.join(self.templates_dir, "WIDGETS", selected_default_widget_template)
