@@ -334,8 +334,6 @@ class DesignerAppWidget(QWidget):
             self.preview_widget.deleteLater()
         except AttributeError:
             pass
-        except RuntimeError:
-            pass
             
     def clicked_reset_widget_selection(self):
         '''
