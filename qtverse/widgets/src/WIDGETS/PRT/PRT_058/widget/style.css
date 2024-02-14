@@ -1,0 +1,19 @@
+QSlider:horizontal {
+    background-color: rgb(45, 45, 111);
+    height: 16px;
+}
+
+QSlider::groove:horizontal {
+    height: 16px;
+    background-color: transparent;
+}
+
+QSlider::handle:horizontal {
+    background-color: rgb(80, 80, 200);
+    width: 9px;
+    height: 16px;
+}
+
+QSlider::handle:horizontal:hover {
+    background-color: rgb(150, 150, 250);
+}

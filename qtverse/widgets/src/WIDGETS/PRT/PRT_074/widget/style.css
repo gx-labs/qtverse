@@ -1,0 +1,6 @@
+QProgressBar{
+    color: transparent;
+}
+QProgressBar::chunk {
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 transparent, stop: 0.5 rebeccapurple, stop: 0.6 royalblue, stop:1 transparent);
+}
