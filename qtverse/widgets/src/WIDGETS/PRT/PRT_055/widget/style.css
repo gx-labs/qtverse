@@ -1,0 +1,17 @@
+QSlider::groove:horizontal,QSlider::add-page:horizontal
+{
+background: rgb(255, 255, 255);
+height: 27px;
+}
+QSlider::sub-page:horizontal {
+height: 10px;
+background: rgb(0,115,170);
+}
+QSlider::handle:horizontal {
+margin-right: -10px;
+margin-left: -10px;
+background: rgb(0,115,170);
+}
+QSlider::handle:horizontal:hover {
+background:rgb(0,115,170);
+}

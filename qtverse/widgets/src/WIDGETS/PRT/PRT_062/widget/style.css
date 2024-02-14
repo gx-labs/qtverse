@@ -1,0 +1,15 @@
+QSlider::groove:horizontal {
+	border: 0.10em solid #4d4940;
+	border-radius: 0.10em;
+}
+
+QSlider::handle:horizontal {
+	background: #4d4940;
+	width: 0.50em;
+}
+
+QSlider#sizeSlider::groove:horizontal {
+	border: 0.10em solid #4d4940;
+	border-radius: 0.10em;
+	height: 1.5em;
+}
