@@ -77,13 +77,17 @@ class DesignerAppWidget(QWidget):
 
         # Developer name cb
         self.create_widget_dev_combo = QComboBox()
+        self.create_widget_dev_combo.setEnabled(False)
         self.create_widget_dev_combo.addItem("Select developer")
         self.create_widget_dev_combo.addItems(self.all_developers)
         self.create_widget_dev_combo.currentIndexChanged.connect(self.index_changed_update_dev_sequence_combo)
                 
         # Widget sequence cb
         self.create_widget_sequence_combo = QComboBox()
-        self.create_widget_sequence_combo.setEnabled(False)
+        # self.create_widget_sequence_combo.setEnabled(False)
+        self.create_widget_sequence_combo.addItem("Select a sequence")
+        self.create_widget_sequence_combo.addItems(self.all_sequence_codes)
+        
             
         # Widget type cb
         self.create_widget_type_combo = QComboBox()
@@ -334,6 +338,8 @@ class DesignerAppWidget(QWidget):
             self.preview_widget.deleteLater()
         except AttributeError:
             pass
+        except RuntimeError:
+            pass
             
     def clicked_reset_widget_selection(self):
         '''
@@ -361,7 +367,7 @@ class DesignerAppWidget(QWidget):
         sequence number.
         '''
         
-        if self.create_widget_dev_combo.currentIndex() != 0:
+        if self.create_widget_sequence_combo.currentIndex() != 0:
             # Call function to reset and clear any previous widget/selection
             self.clicked_reset_widget_selection()
             
