@@ -84,24 +84,32 @@ class PreviewAppWidget(QWidget):
 
         self.archive_layout = QHBoxLayout()
         self.archive_widget = ThumbnailViewerWidget()
-        # self.thumbnail_widget.setStyleSheet("margin:5px; border:1px solid rgb(0, 255, 0); ")
+        # self.archive_widget.setStyleSheet("margin:5px; border:1px solid rgb(0, 255, 0); ")
         self.archive_layout.addWidget(self.archive_widget)
 
+        self.widget_dev_layout = QHBoxLayout()
+        self.widget_dev_widget = ThumbnailViewerWidget()
+        # self.widget_dev_widget.setStyleSheet("margin:5px; border:1px solid rgb(0, 255, 0); ")
+        self.widget_dev_layout.addWidget(self.widget_dev_widget)
+        
         # -----------------------
         # Viewer Tab's  ( Thumbnail View - Archive View ) TABS
         viewer_tab_widget = QTabWidget()
         
         tab_1 = QWidget()
         tab_2 = QWidget()
+        tab_3 = QWidget()
 
         # tab1_layout = QHBoxLayout()
         # tab2_layout = QHBoxLayout()
 
         tab_1.setLayout(self.thumbnail_layout)
         tab_2.setLayout(self.archive_layout)
+        tab_3.setLayout(self.widget_dev_layout)
 
         viewer_tab_widget.addTab(tab_1, "All Widgets")
         viewer_tab_widget.addTab(tab_2, "Archived Widgets")
+        viewer_tab_widget.addTab(tab_3, "Developing Widgets")
 
         self.vertical_layout.addWidget(viewer_tab_widget)
 
@@ -191,8 +199,14 @@ class PreviewAppWidget(QWidget):
             info_dict = read_yaml(filepath=info_filepath)
 
             css_filepath = os.path.join(each_widget_path, "widget", "style.css")
-            with open(css_filepath) as file:
-                css_data = file.read().replace('\n',' ')
+           
+           # Catch FileNotFoundError and prevent app from crashing
+            try:
+                with open(css_filepath) as file:
+                    css_data = file.read().replace('\n',' ')
+            except FileNotFoundError:
+                print(f"{each_widget_path} seems to be empty.")
+                pass
             
             if os.path.exists(widget_py_path):
                 imported_widget = self._import_ui_as_module("CustomWidget", widget_py_path)
