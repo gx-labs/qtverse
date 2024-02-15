@@ -1,0 +1,25 @@
+QCheckBox::indicator:unchecked {
+  color: #797e82;
+  background-color: #797e82;
+  border: 1px solid #797e82;
+  border-radius: 8px;
+}
+
+QCheckBox::indicator:checked {
+  color: #18d91b;
+  background-color: #18d91b;
+  border: 1px solid #18d91b;
+}
+
+QCheckBox::indicator:unchecked:pressed,
+QCheckBox::indicator:checked:pressed {
+  color: white; 
+  background-color: #18d91b;
+  border: 1px solid #18d91b; 
+}
+
+QCheckBox::indicator:checked {
+  image: url(":/widget/check-mark.png"); 
+  width: 16px; 
+  height: 16px; 
+}

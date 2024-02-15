@@ -1,0 +1,19 @@
+QSlider::handle
+{
+border-radius: 3px;
+}
+
+QSlider::groove:vertical,QSlider::add-page:vertical,QSlider::sub-page:vertical
+{
+width: 20px;
+background: rgb(255, 255, 255);
+}
+
+QSlider::handle:vertical {
+margin-top: -10px;
+margin-bottom: -10px;
+background: rgb(0,115,170);
+}
+QSlider::handle:vertical:hover {
+background: rgb(0,115,170);
+}

@@ -1,0 +1,37 @@
+QRadioButton {
+        padding: 8px;
+        border: 1px solid #9e9e9e;
+        border-radius: 5px;
+        background-color: #D9D9D9;
+}
+
+QRadioButton:checked {
+        border-color: #FF1B18;
+        border-width: 3px;
+        background-color: #FFC9C9;
+}
+
+QRadioButton::indicator {
+        height: 12px;
+        width: 12px;
+        border: 1px solid #a1a1a1;
+        border-radius: 7px;
+        background-color: #D9D9D9;
+}
+
+QRadioButton::indicator:checked {
+        border-width: 2px;
+        border-radius: 8px;
+        border-color: #FF1B18;
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.5,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 #FF1B18,
+                stop: 0.5 #FF1B18,
+                stop: 0.55 #FF6F6D,
+                stop: 1 #FFC9C9
+        )
+}

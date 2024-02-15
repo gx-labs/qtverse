@@ -1,0 +1,11 @@
+QProgressBar{
+    text-align: center;
+    border-radius: 2px;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+    stop: 0 #c0c0c0, stop: 1 #d3d3d3);
+}
+QProgressBar:chunk{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+    stop: 0 #1E90FF, stop: 1 #00BFFF);
+    border-radius: 2px;
+}

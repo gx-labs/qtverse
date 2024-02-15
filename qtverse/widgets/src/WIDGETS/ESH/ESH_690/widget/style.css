@@ -1,0 +1,13 @@
+QProgressBar{
+    text-align: center;
+    border-radius: 2px;
+    background:#dfdfdf;
+    color: rgba(255, 255, 255, 0);  
+    border: 0px solid rgb(0,0,0) ;
+    font-size: 10px;
+}
+QProgressBar:chunk{
+    background-color: qlineargradient(x1: 0, x2: 1, stop: 0 #ec0909,stop: 0.10 #F04A13, stop: 0.11 #F17612, stop: 0.20 #F6B100, stop: 0.21 #F0B113, stop: 0.30 #F2DE15,stop: 0.31 #FAFF05, stop: 0.40 #CDD948, stop: 0.41 #A7B528,stop: 0.50 #A4D42F, stop: 0.51 #96C81C, stop: 0.60 #A7EB03, stop: 0.61 #5BEB03, stop: 0.70 #24EF26, stop: 0.71 #06ED39, stop: 0.80 #03C63F,stop: 0.81 #06C44C, stop: 0.90 #05CB72,stop: 0.91 #04A45C ,stop: 1 #024214);   
+    border-radius: 2px;
+    border: 0px solid rgb(0,0,0) ;
+}

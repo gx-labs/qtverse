@@ -1,0 +1,23 @@
+QRadioButton::indicator {
+        height: 20px;
+        width: 20px;
+        border: 1px solid black;
+        border-radius: 4px;
+        background-color: grey;
+}
+
+QRadioButton::indicator:checked {
+        background: qradialgradient(
+                cx: 0.5,
+                cy: 0.5,
+                radius: 0.5,
+                fx: 0.5,
+                fy: 0.5,
+                stop: 0 red,
+                stop: 0.74 red,
+                stop: 0.75 grey,
+                stop: 1 grey
+        )
+}
+
+

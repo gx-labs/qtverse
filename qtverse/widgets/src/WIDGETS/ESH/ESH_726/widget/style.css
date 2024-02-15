@@ -1,0 +1,10 @@
+QProgressBar {
+    min-height: 12px;
+    max-height: 12px;
+    border-radius: 6px;
+    background-color: #d7d7d7 ;
+}
+QProgressBar::chunk {
+    border-radius: 6px;
+    background-color: #009688;
+}

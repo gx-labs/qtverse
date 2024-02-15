@@ -1,0 +1,12 @@
+QLineEdit{
+    border: 1px solid transparent;
+    border-radius: 3px;
+    font-size: 18px;
+    padding: 3px;
+    min-width: 18em;
+    height: 30px;
+    color: white;
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0.2 #78ABE2, stop:0.5 #8986D1, stop:1 #9564BD);
+    selection-background-color: pink;
+    selection-color: white;
+}

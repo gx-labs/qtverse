@@ -1,0 +1,89 @@
+QRadioButton::indicator {
+        height: 0px;
+        width: 0px;
+        border: none;
+}
+
+QRadioButton {
+        border-radius: 2px;
+}
+
+QRadioButton#red {
+        background-color: #FF3433;
+}
+
+QRadioButton#red:checked {
+        border: 2px solid #6d1717;
+}
+
+QRadioButton#green {
+        background-color: #2EDC55;
+}
+
+QRadioButton#green:checked {
+        border: 2px solid #156326;
+}
+
+QRadioButton#yellow {
+        background-color: #FFDA14;
+}
+
+QRadioButton#yellow:checked {
+        border: 2px solid #72620b;
+}
+
+QRadioButton#lime {
+        background-color: #D3ED21;
+}
+
+QRadioButton#lime:checked {
+        border: 2px solid #6b7912;
+}
+
+QRadioButton#orange {
+        background-color: #FF8826;
+}
+
+QRadioButton#orange:checked {
+        border: 2px solid #6b3911;
+}
+
+QRadioButton#cyan {
+        background-color: #0AD6CC;
+}
+
+QRadioButton#cyan:checked {
+        border: 2px solid #057771;
+}
+
+QRadioButton#blue {
+        background-color: #2D9EF5;
+}
+
+QRadioButton#blue:checked {
+        border: 2px solid #195583;
+}
+
+QRadioButton#violet {
+        background-color: #7842EF;
+}
+
+QRadioButton#violet:checked {
+        border: 2px solid #432583;
+}
+
+QRadioButton#purple {
+        background-color: #C040EC;
+}
+
+QRadioButton#purple:checked {
+        border: 2px solid #75278f;
+}
+
+QRadioButton#pink {
+        background-color: #FF46B4;
+}
+
+QRadioButton#pink:checked {
+        border: 2px solid #A7266F;
+}

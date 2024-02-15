@@ -1,0 +1,22 @@
+QRadioButton {
+        border: 2px solid #403F57;
+        border-radius: 4px;
+        background-color: #36385D;
+        color: #D6D4DB;
+}
+
+QRadioButton::indicator {
+        width: 15px;
+        height: 15px;
+        border: 2px solid #6761FF;
+        border-radius: 8px;
+        margin: 10px;
+}
+
+QRadioButton:focus {
+        border-color: #6761FF;
+}
+
+QRadioButton::indicator:checked {
+        background-color: #6761FF;
+}

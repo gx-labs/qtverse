@@ -1,0 +1,23 @@
+QRadioButton {
+   color: #000000; 
+   background-color: #FFFFFF; 
+   font-size: 14px; 
+   font-weight: bold; 
+   border: 1px solid #000000; 
+   border-radius: 5px; 
+   padding: 5px;
+   margin: 5px;
+}
+
+QRadioButton:hover {
+   background-color: grey;
+}
+
+QRadioButton:checked {
+   background-color: skyblue; 
+}
+
+QRadioButton:indicator {
+   width: 0;
+   height: 0;
+}

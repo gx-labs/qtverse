@@ -1,0 +1,17 @@
+QProgressBar {
+	text-align: center;
+	color: rgb(255, 255, 255);
+	border-radius: 10px;
+    border: 3px solid rgb(0, 0, 0);
+	background-color:rgb(0, 0, 0);
+	font:bold;
+}
+QProgressBar::chunk {
+	background: qradialgradient(
+                    cx: -1, cy: 0,
+                    fx: 0, fy: 1,
+                    radius: 2.5,
+                    stop: 0 rgb(5, 48, 129), stop: 1 rgb(231, 5, 5)
+                );
+	border-radius: 5px;
+}

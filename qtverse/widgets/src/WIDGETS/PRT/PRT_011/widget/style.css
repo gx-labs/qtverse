@@ -1,0 +1,11 @@
+QProgressBar {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 3px;
+    border-color: accent_saturated;
+    color: transparent;
+}
+
+QProgressBar::chunk{
+    background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:0.5, y2:0, stop:0 white, stop:1 orange);
+}

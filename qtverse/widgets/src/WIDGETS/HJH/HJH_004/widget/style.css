@@ -1,0 +1,22 @@
+QRadioButton {
+        padding: 10px;
+        background-color: lightgreen;
+        border: 1px solid black;
+        border-radius: 20px;
+}
+
+QRadioButton::indicator::unchecked {
+        background-color: skyblue;
+        width: 20px;
+        height: 20px;
+        border: 1px solid black;
+        border-radius: 4px;
+}
+
+QRadioButton::indicator::checked {
+        background-color: blue;
+        width: 20px;
+        height: 20px;
+        border: 1px solid black;
+        border-radius: 4px;
+}

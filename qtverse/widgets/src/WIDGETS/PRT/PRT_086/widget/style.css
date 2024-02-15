@@ -1,0 +1,26 @@
+QCheckBox {
+	color: #000000;
+
+}
+
+QCheckBox::indicator::unchecked  {
+	background-color: #263238;
+	border: 1px solid #536D79;
+  height: 20px; 
+  width: 20px;
+}
+
+QCheckBox::indicator::checked {
+	background-color: qradialgradient(cx:0.5, cy:0.5, fx:0.25, fy:0.15, radius:0.3, stop:0 #80CBC4, stop:1 #263238);
+	border: 1px solid #536D79;
+  height: 20px; 
+  width: 20px;
+}
+
+QCheckBox::indicator:disabled, {
+	background-color: #444444;			/* Not sure what this looks like */
+}
+
+QCheckBox::indicator::checked:disabled{  
+	background-color: qradialgradient(cx:0.5, cy:0.5, fx:0.25, fy:0.15, radius:0.3, stop:0 #BBBBBB, stop:1 #444444); /* Not sure what this looks like */
+}

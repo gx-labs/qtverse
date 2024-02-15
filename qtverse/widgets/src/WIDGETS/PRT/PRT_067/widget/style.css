@@ -1,0 +1,27 @@
+QProgressBar {
+	background-color: #FAFAFA;
+	border: 1px solid #C0C4C8;
+	color: #19232D;
+	border-radius: 4px;
+	text-align: center;
+  }
+  
+  QProgressBar:disabled {
+	background-color: #FAFAFA;
+	border: 1px solid #C0C4C8;
+	color: #9DA9B5;
+	border-radius: 4px;
+	text-align: center;
+  }
+  
+  QProgressBar::chunk {
+	background-color: #9FCBFF;
+	color: #FAFAFA;
+	border-radius: 4px;
+  }
+  
+  QProgressBar::chunk:disabled {
+	background-color: #DAEDFF;
+	color: #9DA9B5;
+	border-radius: 4px;
+  }

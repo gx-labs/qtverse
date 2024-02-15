@@ -1,0 +1,52 @@
+developers:
+  Esha: 
+    - ESH
+    - ESA
+    - ESB
+    - ESC
+    - ESD
+
+  Hriday:
+    - HJH
+    - HJA
+    - HJB
+    - HJC
+    - HJD
+
+  Preetish:
+    - PRT
+    - PRA
+    - PRB
+    - PRC
+    - PRD
+
+  Sambhav:
+    - SAM
+    - SAA
+    - SAB
+    - SAC
+    - SAD
+
+  Shubham:
+    - SHB
+    - SHA
+    - SHC
+    - SHD
+    - SHE
+
+  Vishal:
+    - VIS
+    - VIA
+    - VIB
+    - VIC
+    - VID
+
+widgets:
+  default_widgets:
+    - QPushButton
+    - QRadioButton
+    - QComboBox
+    - QLineEdit
+    - QProgressBar
+    - QToolTip
+    - QGroupBox

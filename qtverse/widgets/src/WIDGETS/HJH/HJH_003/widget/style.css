@@ -1,0 +1,15 @@
+QPushButton{
+        font-family: Helvetica;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        background: black;
+        border-radius: 12px;
+}
+
+QPushButton::pressed{
+        background: white;
+        border: 2px solid black;
+        border-radius: 12px;
+        color: black;
+}
