@@ -22,8 +22,9 @@ class DesignerAppWidget(QWidget):
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
         self.project_dir = os.path.abspath(os.path.join(self.current_dir, '..', '..'))
         self.widgets_src_dir = os.path.join(self.project_dir, "qtverse", "widgets", "src", "WIDGETS")
+        self.widgets_dev_dir = os.path.join(self.project_dir, "qtverse", "widgets", "src", "WIDGETS_DEV")
         self.templates_dir = os.path.join(self.current_dir, "templates")
-                
+        
         # Store config in variable
         self.designer_config = read_yaml(designer_config_file_path)
                                 
@@ -32,10 +33,29 @@ class DesignerAppWidget(QWidget):
         
         # Get all sequence codes by iterating through sequence codes(list) for each developer in yaml
         self.all_sequence_codes = os.listdir(self.widgets_src_dir)
-        self.all_sequence_codes.remove(".gitkeep")
+        try:
+            self.all_sequence_codes.remove(".gitkeep")
+        except ValueError:
+            pass
                 
-        # Read default widget types from config
+        # Read default widget types from disk
         self.default_widget_types_list = os.listdir(os.path.join(self.templates_dir, "WIDGETS"))
+        
+        # Create WIDGETS_DEV folder if it doesnt exist
+        if not os.path.exists(self.widgets_dev_dir):
+            os.mkdir(self.widgets_dev_dir)
+        # Create sequence folders in WIDGET_DEV based on sequences is WIDGETS folder
+        for seq in self.all_sequence_codes:
+            dev_sequences = os.listdir(self.widgets_dev_dir)
+            if seq not in dev_sequences:
+                os.mkdir(os.path.join(self.widgets_dev_dir, seq))
+        
+        # Store list of develop widget sequences in var        
+        self.all_develop_sequence_codes = os.listdir(self.widgets_dev_dir)
+        try:
+            self.all_develop_sequence_codes.remove(".gitkeep")
+        except ValueError:
+            pass
         
         # --------------------------------------------------
         self.master_layout = QVBoxLayout()
@@ -43,7 +63,7 @@ class DesignerAppWidget(QWidget):
         # Create frame for load and create section
         self.load_create_section_frame = QFrame()
         self.load_create_section_frame.setFrameShape(QFrame.StyledPanel)
-        self.load_create_section_frame.setMaximumHeight(40)
+        self.load_create_section_frame.setMaximumHeight(55)
         self.load_create_section_frame.setStyleSheet("QFrame{border: 1px solid lightgrey; border-radius: 2px} QLabel{border: none}")
 
         self.load_create_section_layout = QHBoxLayout(self.load_create_section_frame)
@@ -51,18 +71,27 @@ class DesignerAppWidget(QWidget):
         # Load section label
         self.load_widget_label = QLabel('Load Widget ')
         
+        # select dev or complete widgets
+        self.load_complete_or_dev_widgets_cb = QComboBox()
+        self.load_complete_or_dev_widgets_cb.addItem("Select Widgets Group")
+        self.load_complete_or_dev_widgets_cb.addItem("Completed Widgets")
+        self.load_complete_or_dev_widgets_cb.addItem("Development Widgets")
+        self.load_complete_or_dev_widgets_cb.currentIndexChanged.connect(self.index_changed_update_load_widget_seq)
+        
         # Select widget sequence cb
         self.load_widget_sequence_combo = QComboBox()
         self.load_widget_sequence_combo.addItem("Select a sequence")
-        self.load_widget_sequence_combo.addItems(list(self.all_sequence_codes))
+        self.load_widget_sequence_combo.setEnabled(False)
         self.load_widget_sequence_combo.currentIndexChanged.connect(self.index_changed_update_load_widget_numbers)
                 
         # Selec widget number cb
         self.load_widget_number_combo = QComboBox()
+        self.load_widget_number_combo.setMinimumWidth(75)
         self.load_widget_number_combo.setEnabled(False)
         
         # Load button
         self.load_button = QPushButton("Load")
+        self.load_button.setEnabled(False)
         self.load_button.setIcon(QIcon(qt_icon("load.png")))
         self.load_button.clicked.connect(self.clicked_load_selected_widget)
         
@@ -70,7 +99,6 @@ class DesignerAppWidget(QWidget):
         self.reset_button = QPushButton()
         self.reset_button.setIcon(QIcon(qt_icon("reset.png")))
         self.reset_button.clicked.connect(self.clicked_reset_widget_selection)
-        
 
         # Create section label        
         self.create_widget_label = QLabel('Create Widget ')
@@ -84,22 +112,24 @@ class DesignerAppWidget(QWidget):
                 
         # Widget sequence cb
         self.create_widget_sequence_combo = QComboBox()
-        # self.create_widget_sequence_combo.setEnabled(False)
+        self.create_widget_sequence_combo.setEnabled(False)
         self.create_widget_sequence_combo.addItem("Select a sequence")
         self.create_widget_sequence_combo.addItems(self.all_sequence_codes)
-        
             
         # Widget type cb
         self.create_widget_type_combo = QComboBox()
+        self.create_widget_type_combo.setEnabled(False)
         self.create_widget_type_combo.addItems(self.default_widget_types_list)
                 
         # Create button
-        self.create_widget_button = QPushButton("Create")        
+        self.create_widget_button = QPushButton("Create")     
+        self.create_widget_button.setEnabled(False)     
         self.create_widget_button.setIcon(QIcon(qt_icon("create.png")))  
         self.create_widget_button.clicked.connect(self.clicked_create_new_widget_from_template)          
         
         # Add widgets to load create section layout
         self.load_create_section_layout.addWidget(self.load_widget_label)
+        self.load_create_section_layout.addWidget(self.load_complete_or_dev_widgets_cb)
         self.load_create_section_layout.addWidget(self.load_widget_sequence_combo)
         self.load_create_section_layout.addWidget(self.load_widget_number_combo)
         self.load_create_section_layout.addWidget(self.load_button)
@@ -262,6 +292,45 @@ class DesignerAppWidget(QWidget):
         else:
             self.create_widget_sequence_combo.clear()
             self.create_widget_sequence_combo.setEnabled(False)
+            
+    def index_changed_update_load_widget_seq(self, index):
+        '''
+        Handles the logic of previewing individual completed widgets or creating new widgets in the WIDGETS_DEV folder. 
+        '''
+        
+        self.load_widget_sequence_combo.setEnabled(True)
+        
+        # If Completed Widgets is selected
+        if index == 1:
+            self.load_button.setEnabled(True)
+            self.load_widget_sequence_combo.clear()
+            self.load_widget_sequence_combo.addItem("Select a sequence")
+            self.load_widget_sequence_combo.addItems(self.all_sequence_codes)
+            self.create_widget_sequence_combo.setCurrentIndex(0)
+            self.create_widget_sequence_combo.setEnabled(False)
+            self.create_widget_type_combo.setCurrentIndex(0)
+            self.create_widget_type_combo.setEnabled(False)
+            self.create_widget_button.setEnabled(False)
+        # If Develop Widgets is selected
+        elif index == 2:
+            self.load_button.setEnabled(True)
+            self.load_widget_sequence_combo.clear()
+            self.load_widget_sequence_combo.addItem("Select a sequence")
+            self.load_widget_sequence_combo.addItems(self.all_develop_sequence_codes)
+            self.create_widget_sequence_combo.setEnabled(True)
+            self.create_widget_type_combo.setEnabled(True)
+            self.create_widget_button.setEnabled(True)
+        else:
+            self.load_button.setEnabled(False)
+            self.load_widget_sequence_combo.setCurrentIndex(0)
+            self.load_widget_sequence_combo.setEnabled(False)
+            self.create_widget_sequence_combo.setCurrentIndex(0)
+            self.create_widget_sequence_combo.setEnabled(False)
+            self.create_widget_type_combo.setCurrentIndex(0)
+            self.create_widget_type_combo.setEnabled(False)
+            self.create_widget_button.setEnabled(False)
+            
+
                         
     def index_changed_update_load_widget_numbers(self, index):
         '''
@@ -275,9 +344,15 @@ class DesignerAppWidget(QWidget):
         '''
         # Skip the placeholder item (Select a sequence)
         if index > 0:
-            sequence = self.all_sequence_codes[index - 1]
-            sequence_dir = os.path.join(self.widgets_src_dir, sequence)
-            widgets_list = os.listdir(sequence_dir)
+            # set correct path (WIDGETS or WIDGETS_DEV based on cb selection)
+            if self.load_complete_or_dev_widgets_cb.currentIndex() == 1:
+                sequence = self.all_sequence_codes[index - 1]
+                sequence_dir = os.path.join(self.widgets_src_dir, sequence)
+                widgets_list = os.listdir(sequence_dir)
+            elif self.load_complete_or_dev_widgets_cb.currentIndex() == 2:
+                sequence = self.all_develop_sequence_codes[index - 1]
+                sequence_dir = os.path.join(self.widgets_dev_dir, sequence)
+                widgets_list = os.listdir(sequence_dir)
             
             if widgets_list:
                 self.load_widget_number_combo.setEnabled(True)
@@ -305,9 +380,14 @@ class DesignerAppWidget(QWidget):
         if self.load_widget_sequence_combo.currentIndex() != 0:
             print(f"load seq combo: {self.load_widget_sequence_combo.currentIndex()}")
             
-            # Sets path variables based on cb selection
-            selected_widget_dir = os.path.join(self.widgets_src_dir, self.load_widget_sequence_combo.currentText())
-            selected_widget_seq_dir = os.path.join(selected_widget_dir, f"{self.load_widget_number_combo.currentText()}\widget")
+            # Sets path variables (WIDGETS or WIDGETS_DEV) based on cb selection
+            if self.load_complete_or_dev_widgets_cb.currentIndex() == 1:
+                selected_widget_dir = os.path.join(self.widgets_src_dir, self.load_widget_sequence_combo.currentText())
+                selected_widget_seq_dir = os.path.join(selected_widget_dir, self.load_widget_number_combo.currentText(), "widget")
+            elif self.load_complete_or_dev_widgets_cb.currentIndex() == 2:
+                selected_widget_dir = os.path.join(self.widgets_dev_dir, self.load_widget_sequence_combo.currentText())
+                selected_widget_seq_dir = os.path.join(selected_widget_dir, self.load_widget_number_combo.currentText(), "widget")
+                
             
             # Sets py data in a var. Display py in textedit and filepath in label
             python_data = read_python(selected_widget_seq_dir)
@@ -336,9 +416,7 @@ class DesignerAppWidget(QWidget):
         '''
         try:
             self.preview_widget.deleteLater()
-        except AttributeError:
-            pass
-        except RuntimeError:
+        except (AttributeError, RuntimeError):
             pass
             
     def clicked_reset_widget_selection(self):
@@ -356,8 +434,6 @@ class DesignerAppWidget(QWidget):
         self.python_filepath_display_label.setText("")
         self.python_text_editor.setText("")
 
-        # TODO : this line fails when there is no widget previewed.
-        # need to fix this logic
         self.clear_preview_widget()
         
     def clicked_create_new_widget_from_template(self):
@@ -374,7 +450,7 @@ class DesignerAppWidget(QWidget):
             print(f"Creating new {self.create_widget_type_combo.currentText()} widget...")
             
             # Build file path based on selected sequence
-            selected_sequence_path = os.path.join(self.widgets_src_dir, self.create_widget_sequence_combo.currentText())
+            selected_sequence_path = os.path.join(self.widgets_dev_dir, self.create_widget_sequence_combo.currentText())
             
             # Check if the selected sequence exists on disk
             if not os.path.exists(selected_sequence_path):
@@ -390,8 +466,14 @@ class DesignerAppWidget(QWidget):
                     
 
             # Calculate the next widget number in a sequence & assign new directory path to var
+            completed_widgets_path = os.path.join(self.widgets_src_dir, self.create_widget_sequence_combo.currentText())
+
             try:
-                last_widget_in_sequence = os.listdir(selected_sequence_path)[-1]
+                if not os.listdir(selected_sequence_path):
+                    last_widget_in_sequence = os.listdir(completed_widgets_path)[-1]
+                else:
+                    last_widget_in_sequence = os.listdir(selected_sequence_path)[-1]
+                    
                 last_widget_number = int(last_widget_in_sequence[-3:])
                 new_widget_number = str(last_widget_number + 1).zfill(3)
             except IndexError:
@@ -482,7 +564,10 @@ class DesignerAppWidget(QWidget):
         Updates the load widget sequence combo box
         '''
         self.all_sequence_codes = os.listdir(self.widgets_src_dir)
-        self.all_sequence_codes.remove(".gitkeep")
+        try:
+            self.all_sequence_codes.remove(".gitkeep")
+        except ValueError:
+            pass
         self.load_widget_sequence_combo.clear()
         self.load_widget_sequence_combo.addItem("Select a sequence")
         self.load_widget_sequence_combo.addItems(self.all_sequence_codes)
