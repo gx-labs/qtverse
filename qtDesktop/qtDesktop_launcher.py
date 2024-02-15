@@ -18,7 +18,7 @@ class QtWorldMainWindow(QWidget):
     def __init__(self):
         super().__init__()
         
-        self.setWindowTitle("qtVerse")
+        self.setWindowTitle("qtDesktop")
         
         # MENU BAR
         # ---------------------------------------------------------------------------
@@ -30,7 +30,7 @@ class QtWorldMainWindow(QWidget):
         menubar_layout = QHBoxLayout()
 
         # 'menu
-        qtverse_menu = QMenu("Qt Verse", self)
+        qtverse_menu = QMenu("Qt Desktop", self)
         
         qtverse_menu.addAction("Clean Favorites")
         qtverse_menu.addSeparator()
