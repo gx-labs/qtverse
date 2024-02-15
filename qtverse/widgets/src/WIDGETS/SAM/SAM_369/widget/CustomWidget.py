@@ -19,14 +19,14 @@ class CustomWidget(QWidget):
         layout = QVBoxLayout()
 
         self.lineedit = QLineEdit()
-        self.lineedit.setPlaceholderText("Your E-Mail Address")
+        self.lineedit.setPlaceholderText("First Name")
         self.lineedit.setStyleSheet(css_data)
 
         self.shadow = QGraphicsDropShadowEffect()
 
-        self.shadow.setColor("#E3E5E9")
+        self.shadow.setColor("#FF4E5A")
         self.shadow.setBlurRadius(4)
-        self.shadow.setOffset(4,4)
+        self.shadow.setOffset(2,-2)
         self.lineedit.setGraphicsEffect(self.shadow)
 
         self.setLayout(layout)
