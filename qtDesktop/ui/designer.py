@@ -74,8 +74,8 @@ class DesignerAppWidget(QWidget):
         # select dev or complete widgets
         self.load_complete_or_dev_widgets_cb = QComboBox()
         self.load_complete_or_dev_widgets_cb.addItem("Select Widgets Group")
-        self.load_complete_or_dev_widgets_cb.addItem("Completed Widgets")
-        self.load_complete_or_dev_widgets_cb.addItem("Development Widgets")
+        self.load_complete_or_dev_widgets_cb.addItem("All Widgets")
+        self.load_complete_or_dev_widgets_cb.addItem("Dev Widgets")
         self.load_complete_or_dev_widgets_cb.currentIndexChanged.connect(self.index_changed_update_load_widget_seq)
         
         # Select widget sequence cb
@@ -86,7 +86,7 @@ class DesignerAppWidget(QWidget):
                 
         # Selec widget number cb
         self.load_widget_number_combo = QComboBox()
-        self.load_widget_number_combo.setMinimumWidth(75)
+        self.load_widget_number_combo.setMinimumWidth(90)
         self.load_widget_number_combo.setEnabled(False)
         
         # Load button
@@ -114,7 +114,7 @@ class DesignerAppWidget(QWidget):
         self.create_widget_sequence_combo = QComboBox()
         self.create_widget_sequence_combo.setEnabled(False)
         self.create_widget_sequence_combo.addItem("Select a sequence")
-        self.create_widget_sequence_combo.addItems(self.all_sequence_codes)
+        self.create_widget_sequence_combo.addItems(self.all_develop_sequence_codes)
             
         # Widget type cb
         self.create_widget_type_combo = QComboBox()
@@ -226,7 +226,11 @@ class DesignerAppWidget(QWidget):
         self.widget_preview_layout.setAlignment(Qt.AlignTop)
                 
         # section label
-        self.preview_section_label = QLabel('Preview')
+        self.preview_font = QFont()
+        self.preview_font.setBold(True)
+        self.preview_font.setPixelSize(18)
+        self.preview_section_label = QLabel('Widget Name')
+        self.preview_section_label.setFont(self.preview_font)
         # self.preview_section_label1 = QLabel('Preview')
         
         # adding widget to preview layout
@@ -388,6 +392,7 @@ class DesignerAppWidget(QWidget):
                 selected_widget_dir = os.path.join(self.widgets_dev_dir, self.load_widget_sequence_combo.currentText())
                 selected_widget_seq_dir = os.path.join(selected_widget_dir, self.load_widget_number_combo.currentText(), "widget")
                 
+            self.preview_section_label.setText(self.load_widget_number_combo.currentText())
             
             # Sets py data in a var. Display py in textedit and filepath in label
             python_data = read_python(selected_widget_seq_dir)
@@ -425,6 +430,8 @@ class DesignerAppWidget(QWidget):
         clears the widget from the preview section.
         '''
         print("Reset selection")
+        
+        self.preview_section_label.setText("Widget Name")
 
         self.load_widget_sequence_combo.setCurrentIndex(0)
         
@@ -476,7 +483,7 @@ class DesignerAppWidget(QWidget):
                     
                 last_widget_number = int(last_widget_in_sequence[-3:])
                 new_widget_number = str(last_widget_number + 1).zfill(3)
-            except IndexError:
+            except (IndexError, FileNotFoundError):
                 new_widget_number = "001"
                 pass
             
@@ -571,9 +578,7 @@ class DesignerAppWidget(QWidget):
         self.load_widget_sequence_combo.clear()
         self.load_widget_sequence_combo.addItem("Select a sequence")
         self.load_widget_sequence_combo.addItems(self.all_sequence_codes)
-        
-
-
+    
 class CustomDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
