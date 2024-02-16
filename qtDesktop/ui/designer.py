@@ -42,13 +42,13 @@ class DesignerAppWidget(QWidget):
         self.default_widget_types_list = os.listdir(os.path.join(self.templates_dir, "WIDGETS"))
         
         # Create WIDGETS_DEV folder if it doesnt exist
-        if not os.path.exists(self.widgets_dev_dir):
-            os.mkdir(self.widgets_dev_dir)
-        # Create sequence folders in WIDGET_DEV based on sequences is WIDGETS folder
-        for seq in self.all_sequence_codes:
-            dev_sequences = os.listdir(self.widgets_dev_dir)
-            if seq not in dev_sequences:
-                os.mkdir(os.path.join(self.widgets_dev_dir, seq))
+        # if not os.path.exists(self.widgets_dev_dir):
+        #     os.mkdir(self.widgets_dev_dir)
+        # # Create sequence folders in WIDGET_DEV based on sequences is WIDGETS folder
+        # for seq in self.all_sequence_codes:
+        #     dev_sequences = os.listdir(self.widgets_dev_dir)
+        #     if seq not in dev_sequences:
+        #         os.mkdir(os.path.join(self.widgets_dev_dir, seq))
         
         # Store list of develop widget sequences in var        
         self.all_develop_sequence_codes = os.listdir(self.widgets_dev_dir)
