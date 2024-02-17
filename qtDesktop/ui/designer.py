@@ -77,13 +77,17 @@ class DesignerAppWidget(QWidget):
 
         # Developer name cb
         self.create_widget_dev_combo = QComboBox()
+        self.create_widget_dev_combo.setEnabled(False)
         self.create_widget_dev_combo.addItem("Select developer")
         self.create_widget_dev_combo.addItems(self.all_developers)
         self.create_widget_dev_combo.currentIndexChanged.connect(self.index_changed_update_dev_sequence_combo)
                 
         # Widget sequence cb
         self.create_widget_sequence_combo = QComboBox()
-        self.create_widget_sequence_combo.setEnabled(False)
+        # self.create_widget_sequence_combo.setEnabled(False)
+        self.create_widget_sequence_combo.addItem("Select a sequence")
+        self.create_widget_sequence_combo.addItems(self.all_sequence_codes)
+        
             
         # Widget type cb
         self.create_widget_type_combo = QComboBox()
@@ -334,6 +338,8 @@ class DesignerAppWidget(QWidget):
             self.preview_widget.deleteLater()
         except AttributeError:
             pass
+        except RuntimeError:
+            pass
             
     def clicked_reset_widget_selection(self):
         '''
@@ -361,7 +367,7 @@ class DesignerAppWidget(QWidget):
         sequence number.
         '''
         
-        if self.create_widget_dev_combo.currentIndex() != 0:
+        if self.create_widget_sequence_combo.currentIndex() != 0:
             # Call function to reset and clear any previous widget/selection
             self.clicked_reset_widget_selection()
             
@@ -381,11 +387,19 @@ class DesignerAppWidget(QWidget):
                     self.index_changed_update_load_widget_numbers(self.load_widget_number_combo.currentIndex())   
                 else:
                     print("Cancel!")
+                    
 
             # Calculate the next widget number in a sequence & assign new directory path to var
-            new_widget_number = str(len(os.listdir(selected_sequence_path)) + 1).zfill(3)
-            new_widget_directory = os.path.join(selected_sequence_path, f"{self.create_widget_sequence_combo.currentText()}_{new_widget_number}")
+            try:
+                last_widget_in_sequence = os.listdir(selected_sequence_path)[-1]
+                last_widget_number = int(last_widget_in_sequence[-3:])
+                new_widget_number = str(last_widget_number + 1).zfill(3)
+            except IndexError:
+                new_widget_number = "001"
+                pass
             
+            new_widget_directory = os.path.join(selected_sequence_path, f"{self.create_widget_sequence_combo.currentText()}_{new_widget_number}")
+
             # Get selected default widget and assign correct template path to var
             selected_default_widget_template = self.create_widget_type_combo.currentText()
             selected_default_widget_template_directory = os.path.join(self.templates_dir, "WIDGETS", selected_default_widget_template)
@@ -450,8 +464,16 @@ class DesignerAppWidget(QWidget):
         '''
         widget_py_path = self.python_filepath_display_label.text()
 
-        self.preview_widget = self._import_widget_as_module(widget_filename="CustomWidget", 
-                                                        widget_py_path=widget_py_path)
+        try:        
+            self.preview_widget = self._import_widget_as_module(widget_filename="CustomWidget", 
+                                                            widget_py_path=widget_py_path)
+        except FileNotFoundError as err:
+            selected_widget = self.load_widget_number_combo.currentText()
+            button = QMessageBox.warning(self, "File Not Found!", f"{str(err)}\n\nWidget {selected_widget} is missing!")
+            if button == QMessageBox.Ok:
+                print("Abort!")
+            self.clicked_reset_widget_selection()
+            return
 
         self.widget_preview_layout.addWidget(self.preview_widget)
         
