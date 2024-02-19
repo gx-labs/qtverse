@@ -19,15 +19,23 @@ def qt_icon(filename):
 def read_python(filepath):
     widget_python_filepath = filepath
     if os.path.exists(widget_python_filepath):
-        with open(f"{widget_python_filepath}\CustomWidget.py", 'r') as f:
-            python_data = f.read()
-        return python_data
+        try:
+            with open(f"{widget_python_filepath}\CustomWidget.py", 'r') as f:
+                python_data = f.read()
+            return python_data
+        except FileNotFoundError:
+            print(f"{widget_python_filepath} seems to be empty.")
+            pass
     return None
 
 def read_css(filepath):
     widget_css_filepath = filepath
     if os.path.exists(widget_css_filepath):
-        with open(f"{widget_css_filepath}\style.css", 'r') as f:
-            css_data = f.read()
-        return css_data
+        try:
+            with open(f"{widget_css_filepath}\style.css", 'r') as f:
+                css_data = f.read()
+            return css_data
+        except FileNotFoundError:
+            print(f"{widget_css_filepath} seems to be empty.")
+            pass
     return None
