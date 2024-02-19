@@ -21,8 +21,7 @@ class CustomWidget(QWidget):
 
         self.messagebox = QMessageBox()
         self.messagebox.setWindowTitle("Styled MessageBox")
-        self.message_text = "Do you know that you can assign status and relation to a \ncompany right in the visit list?"
-        self.messagebox.setText(self.message_text)
+        self.messagebox.setText("Thanks for subscription to Geeks Portal.")
         self.messagebox.setStyleSheet(css_data)
 
         self.shadow = QGraphicsDropShadowEffect()
@@ -31,16 +30,7 @@ class CustomWidget(QWidget):
         self.shadow.setOffset(2, 2)
         self.messagebox.setGraphicsEffect(self.shadow)
 
-        # Set the standard buttons before accessing them
         self.messagebox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-
-        # Get the QPushButton objects
-        ok_button = self.messagebox.button(QMessageBox.Ok)
-        cancel_button = self.messagebox.button(QMessageBox.Cancel)
-
-        # Set the text for the QPushButton objects
-        ok_button.setText("OK")
-        cancel_button.setText("Cancel")
 
         self.messagebox.accepted.connect(self.ok_button_clicked)
         self.messagebox.rejected.connect(self.cancel_button_clicked)

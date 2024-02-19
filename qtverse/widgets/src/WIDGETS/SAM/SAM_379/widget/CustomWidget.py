@@ -21,7 +21,7 @@ class CustomWidget(QWidget):
 
         self.messagebox = QMessageBox()
         self.messagebox.setWindowTitle("Styled MessageBox")
-        self.message_text = "Do you know that you can assign status and relation to a \ncompany right in the visit list?"
+        self.message_text = "<b>⚠ Confirm</b><br>Are you sure you want to permanently<br> delete this Photo?"
         self.messagebox.setText(self.message_text)
         self.messagebox.setStyleSheet(css_data)
 
@@ -39,7 +39,7 @@ class CustomWidget(QWidget):
         cancel_button = self.messagebox.button(QMessageBox.Cancel)
 
         # Set the text for the QPushButton objects
-        ok_button.setText("OK")
+        ok_button.setText("Yes, Delete!")
         cancel_button.setText("Cancel")
 
         self.messagebox.accepted.connect(self.ok_button_clicked)

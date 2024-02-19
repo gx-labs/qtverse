@@ -39,8 +39,8 @@ class CustomWidget(QWidget):
         cancel_button = self.messagebox.button(QMessageBox.Cancel)
 
         # Set the text for the QPushButton objects
-        ok_button.setText("OK")
-        cancel_button.setText("Cancel")
+        ok_button.setText("Show me how")
+        cancel_button.setText("Nah, not interested")
 
         self.messagebox.accepted.connect(self.ok_button_clicked)
         self.messagebox.rejected.connect(self.cancel_button_clicked)
