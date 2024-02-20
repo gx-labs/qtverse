@@ -1,6 +1,5 @@
 import os
 import sys
-import yaml
 import importlib.util
 from pprint import pprint
 
@@ -9,6 +8,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 
 from ui.general_utils import read_yaml
+from ui.general_utils import qt_icon
 
 from ui.widgets.custom.clickable_label import ClickableLabel
 from ui.widgets.custom.flow_layout import FlowLayout
@@ -23,12 +23,17 @@ STATUS_COLOR_MAP = {
     "approved": "rgb(0, 168, 107)"
 }
 
+WIDGET_STATUS_LIST = ["WiP", "Submitted", "Review", "Approved"]
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
+widget_templates_dir = os.path.join(project_dir, "qtDesktop", "ui", "templates", "WIDGETS")
 
 widgets_src_dir = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
-config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "settings.yaml")
+config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "cfg.yaml")
 
+config_data = read_yaml(config_file_path)
+all_developers = config_data["developers"].keys()
 
 class ThumbnailViewerWidget(QWidget):
 
@@ -56,7 +61,6 @@ class ThumbnailViewerWidget(QWidget):
         self.main_layout.addWidget(self.scroll_area)
 
         # self.populateThumbnails()
-        
 
     def populateThumbnails(self):
 
@@ -74,8 +78,67 @@ class ThumbnailViewerWidget(QWidget):
 class PreviewAppWidget(QWidget):
     def __init__(self):
         super().__init__()
+        
+        self.widget_load_start_index = 0
+        self.widget_load_end_index = 99
 
-        self.vertical_layout = QVBoxLayout()
+        self.master_vbox = QVBoxLayout()
+        
+        self.filters_hbox = QHBoxLayout()
+        
+        self.all_widgets_button = QPushButton("All")
+        self.all_widgets_button.clicked.connect(self.clicked_show_all_widgets)
+        
+        self.widget_type_vbox = QVBoxLayout()
+        self.widget_type_label = QLabel("Filter by Widget Type")
+        
+        self.all_widget_types = os.listdir(widget_templates_dir)
+        self.widget_type_cb = QComboBox()
+        self.widget_type_cb.addItem("Select Widget Type")
+        self.widget_type_cb.addItems(self.all_widget_types)
+        
+        self.widget_type_vbox.addWidget(self.widget_type_label)
+        self.widget_type_vbox.addWidget(self.widget_type_cb)
+        
+        self.developer_vbox = QVBoxLayout()
+        self.developer_label = QLabel("Filter by Developer")
+        
+        self.developer_cb = QComboBox()
+        self.developer_cb.addItem("Select Developer")
+        self.developer_cb.addItems(all_developers)
+        
+        self.developer_vbox.addWidget(self.developer_label)
+        self.developer_vbox.addWidget(self.developer_cb)
+        
+        self.status_vbox = QVBoxLayout()
+        self.status_label = QLabel("Filter by Status")
+        
+        self.status_cb = QComboBox()
+        self.status_cb.addItem("Select Status")
+        self.status_cb.addItems(WIDGET_STATUS_LIST)
+        
+        self.status_vbox.addWidget(self.status_label)
+        self.status_vbox.addWidget(self.status_cb)
+        
+        self.widget_search_box = QLineEdit("Search")
+        
+        self.reset_filters_button = QPushButton()
+        self.reset_filters_button.setIcon(QIcon(qt_icon("reset.png")))
+        self.reset_filters_button.clicked.connect(self.clicked_reset_filters)
+        
+        self.load_button = QPushButton("Load")
+        self.load_button.clicked.connect(self.clicked_load_button)
+        
+        self.filters_hbox.addWidget(self.all_widgets_button)
+        self.filters_hbox.addStretch()
+        self.filters_hbox.addLayout(self.widget_type_vbox)
+        self.filters_hbox.addLayout(self.developer_vbox)
+        self.filters_hbox.addLayout(self.status_vbox)
+        self.filters_hbox.addStretch()
+        self.filters_hbox.addWidget(self.widget_search_box)
+        self.filters_hbox.addWidget(self.reset_filters_button)
+        self.filters_hbox.addWidget(self.load_button)
+        
 
         self.thumbnail_layout = QHBoxLayout()
         self.thumbnail_widget = ThumbnailViewerWidget()
@@ -109,53 +172,36 @@ class PreviewAppWidget(QWidget):
 
         viewer_tab_widget.addTab(tab_1, "All Widgets")
         viewer_tab_widget.addTab(tab_2, "Archived Widgets")
-        viewer_tab_widget.addTab(tab_3, "Developing Widgets")
+        viewer_tab_widget.addTab(tab_3, "Dev Widgets")
 
-        self.vertical_layout.addWidget(viewer_tab_widget)
+        self.master_vbox.addLayout(self.filters_hbox)
+        self.master_vbox.addWidget(viewer_tab_widget)
 
         ##
 
-        self.setLayout(self.vertical_layout)
+        self.setLayout(self.master_vbox)
         self.showMaximized()
         
         # Populate the QListWidget with folders based on the initial state (ALL)
         # self.filter_by_developer("ALL")
+        all_widgets_dict = self._get_all_widgets_dict()
+        
+        self.all_widgets_list = []
+        for each_widget_seq in all_widgets_dict.values():
+            for each_widget in each_widget_seq:
+                self.all_widgets_list.append(each_widget)
 
-        # self.populate_widgets()
-
-    def _get_developer_folders(self):
-        """
-        dev_folders : ['ESH', 'PRT', 'SHB', 'SMB']
-        """
-        dev_folders = []
-        for entry in os.scandir(widgets_src_dir):
-            if entry.is_dir():
-                dev_folders.append(entry.name)
-
-        return dev_folders
-
-    def _get_widget_folders_for_dev(self, dev_folder):
-        """
-        returns a dict :
-        {dev_folder : widget_folder_path}
-
-        example:
-        {'ESH_001': 'e:\\HDD\\Partition2\\programming\\_code\\repos_C\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_001', 
-        'ESH_002': 'e:\\HDD\\Partition2\\programming\\_code\\repos_C\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_002', 
-        'ESH_003': 'e:\\HDD\\Partition2\\programming\\_code\\repos_C\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_003', 
-        'ESH_004': 'e:\\HDD\\Partition2\\programming\\_code\\repos_C\\qtverse\\qtverse\\widgets\\src\\WIDGETS\\ESH\\ESH_004'}
-        """
-        widget_folders = {}
-        dev_folder_path = os.path.join(widgets_src_dir, dev_folder)
-
-        if os.path.exists(dev_folder_path):
-            for folder_name in os.listdir(dev_folder_path):
-                folder_path = os.path.join(dev_folder_path, folder_name)
-
-                if os.path.isdir(folder_path):
-                    widget_folders[folder_name] = folder_path
-
-        return widget_folders
+        self.populate_widgets()
+        self.thumbnail_widget.scroll_area.verticalScrollBar().valueChanged.connect(self.update_widgets_to_load)
+        
+    def clicked_show_all_widgets(self):
+        print("Clicked Show All Widgets")
+        
+    def clicked_reset_filters(self):
+        print("Clicked Reset Filters")
+        
+    def clicked_load_button(self):
+        print("Clicked Load Button")
 
     def _import_ui_as_module(self, widget_filename, widget_py_path):
         spec = importlib.util.spec_from_file_location(widget_filename, widget_py_path)
@@ -166,146 +212,66 @@ class PreviewAppWidget(QWidget):
         ui_instance = ui_class()
 
         return ui_instance
+    
+    def _get_all_widgets_dict(self):
+        all_seq_list = os.listdir(widgets_src_dir)
+        all_seq_list.remove(".gitkeep")
+        all_widgets_dict = {}
+        for seq in all_seq_list:
+            all_widgets_in_seq = os.listdir(os.path.join(widgets_src_dir, seq))
+            all_widgets_dict[seq] = all_widgets_in_seq
+            
+        return all_widgets_dict
 
     def populate_widgets(self):
-
-        # populalte_listView()
-        # populate_thumbnailView()
-        all_widgets = {}
-
-        all_dev_folders = self._get_developer_folders()
-        for each_dev_folder in all_dev_folders:
-            all_dev_widget = self._get_widget_folders_for_dev(each_dev_folder)
-            all_widgets[each_dev_folder] = all_dev_widget
         
-        # print("------------------------")
+        # for each_widget in self.all_widgets_list:
+        for index in range(self.widget_load_start_index, self.widget_load_end_index):
+            if(index < len(self.all_widgets_list)):
+                each_widget_name = self.all_widgets_list[index]
+                widget_seq_name = str(each_widget_name[:3])
+                each_widget_path = os.path.join(widgets_src_dir, widget_seq_name, each_widget_name)
 
-        all_widgets_dict = {}
-        for each_dev_tuple in all_widgets.items():
-            # pprint(each_dev_tuple, each_dev_tuple[0] , each_dev_tuple[1])
-            for each_widget in each_dev_tuple[1].items():
-                each_widget_list = (list(each_widget))
-                all_widgets_dict[each_widget_list[0]] = each_widget_list[1]
-        
-        pprint(all_widgets_dict)
-
-        for each_widget in all_widgets_dict.items():
-            each_widget_name = each_widget[0]
-            each_widget_path = each_widget[1]
-
-            widget_py_path = os.path.join(each_widget_path, "widget", "CustomWidget.py")
-            
-            info_filepath = os.path.join(each_widget_path, "info.yaml")
-            info_dict = read_yaml(filepath=info_filepath)
-
-            css_filepath = os.path.join(each_widget_path, "widget", "style.css")
-           
-           # Catch FileNotFoundError and prevent app from crashing
-            try:
-                with open(css_filepath) as file:
-                    css_data = file.read().replace('\n',' ')
-            except FileNotFoundError:
-                print(f"{each_widget_path} seems to be empty.")
-                pass
-            
-            if os.path.exists(widget_py_path):
-                imported_widget = self._import_ui_as_module("CustomWidget", widget_py_path)
-                print(imported_widget)
-
-                self.custom_thumbnail_widget = ThumbnailWidget(
-                    widget_name=each_widget_name,
-                    widget_path=each_widget_path,
-                    css_data=css_data,
-                    custom_widget=imported_widget, 
-                    info_dict=info_dict,
-                    width=200, 
-                    height=100
-                    )
-                
-                self.thumbnail_widget.scroll_area_layout.addWidget(self.custom_thumbnail_widget)
-
-
-
-    # def filter_by_developer(self, developer):
-    #     # Store the currently selected developer
-    #     self.current_developer = developer
-
-    #     # Clear the list widget
-    #     self.list_widget.clear()
-
-    #     # Repopulate the list widget with widgets that match the selected developer
-    #     dev_folders = self._get_developer_folders()
-    #     for dev_folder in dev_folders:
-    #         if self.current_developer == "ALL" or self.current_developer == dev_folder:
-    #             widget_folders = self._get_widget_folders_for_dev(dev_folder)
-    #             for folder_name, folder_path in widget_folders.items():
-    #                 # Read status from info.yaml
-    #                 info_yaml_file_path = os.path.join(folder_path, "info.yaml")
-    #                 info_data = read_yaml(info_yaml_file_path)
-
-    #                 folder_status = info_data.get('status')
-    #                 status_color = STATUS_COLOR_MAP.get(folder_status, "black")  # Get the color based on status, default to black if not found
-
-    #                 custom_widget = CustomListWidgetItem(folder_name, folder_path, status_color)
-    #                 list_item = QListWidgetItem()
-    #                 list_item.setSizeHint(custom_widget.sizeHint())
-    #                 self.list_widget.addItem(list_item)
-    #                 self.list_widget.setItemWidget(list_item, custom_widget)
-
-    # def filter_by_status(self, status):
-    #     # Store the currently selected status
-    #     self.current_status = status
-
-    #     # Clear the list widget
-    #     self.list_widget.clear()
-
-    #     # Repopulate the list widget with widgets that match the selected status
-    #     dev_folders = self._get_developer_folders()
-    #     for dev_folder in dev_folders:
-    #         widget_folders = self._get_widget_folders_for_dev(dev_folder)
-    #         for folder_name, folder_path in widget_folders.items():
-    #             # Read status from info.yaml
-    #             info_yaml_file_path = os.path.join(folder_path, "info.yaml")
-    #             info_data = read_yaml(info_yaml_file_path)
-
-    #             folder_status = info_data.get('status')
-
-    #             if self.current_status == "ALL" or self.current_status == folder_status:
-    #                 status_color = STATUS_COLOR_MAP.get(folder_status, "black")  # Get the color based on status, default to black if not found
-    #                 custom_widget = CustomListWidgetItem(folder_name, folder_path, status_color)
-    #                 list_item = QListWidgetItem()
-    #                 list_item.setSizeHint(custom_widget.sizeHint())
-    #                 self.list_widget.addItem(list_item)
-    #                 self.list_widget.setItemWidget(list_item, custom_widget)
-
-    def on_item_clicked(self, item):
-        
-        config_dict = read_yaml(config_file_path)
-        widget_foldername = config_dict.get("widget_foldername")
-        widget_filename = config_dict.get("widget_filename")
-
-        if isinstance(item, QListWidgetItem):
-            widget_item = self.list_widget.itemWidget(item)
-            print(f"widget item: {widget_item}")
-
-            if widget_item:
-                widget_py_path = os.path.join(widget_item.folder_path, widget_foldername, (widget_filename + ".py"))
-            
-                if os.path.exists(widget_py_path):
-                    try:
-                        ui_instance = self._import_ui_as_module(widget_filename, widget_py_path)
-                    except Exception as e:
-                        print(f"Error: {e}")
+                widget_py_path = os.path.join(each_widget_path, "widget", "CustomWidget.py")
                     
-                    # display widget
-                    while self.contents_layout.count():
-                        item = self.contents_layout.takeAt(0)
-                        widget = item.widget()
+                info_filepath = os.path.join(each_widget_path, "info.yaml")
+                info_dict = read_yaml(filepath=info_filepath)
 
-                        if widget:
-                            widget.setParent(None)
+                css_filepath = os.path.join(each_widget_path, "widget", "style.css")
+                
+                # Catch FileNotFoundError and prevent app from crashing
+                try:
+                    with open(css_filepath) as file:
+                        css_data = file.read().replace('\n',' ')
+                except FileNotFoundError:
+                    print(f"{each_widget_path} seems to be empty.")
+                    pass
+                    
+                if os.path.exists(widget_py_path):
+                    imported_widget = self._import_ui_as_module("CustomWidget", widget_py_path)
+                    print(imported_widget)
 
-                    self.contents_layout.addWidget(ui_instance)
+                    self.custom_thumbnail_widget = ThumbnailWidget(
+                        widget_name=each_widget_name,
+                        widget_path=each_widget_path,
+                        css_data=css_data,
+                        custom_widget=imported_widget, 
+                        info_dict=info_dict,
+                        width=200, 
+                        height=100)
+                        
+                    self.thumbnail_widget.scroll_area_layout.addWidget(self.custom_thumbnail_widget)
+                else:
+                    break
+
+    
+    def update_widgets_to_load(self):
+        scrollbar = self.thumbnail_widget.scroll_area.verticalScrollBar()
+        if scrollbar.value() == scrollbar.maximum():
+            self.widget_load_start_index += 100
+            self.widget_load_end_index += 100
+            
+            self.populate_widgets()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
