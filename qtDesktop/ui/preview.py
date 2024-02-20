@@ -29,7 +29,10 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
 widget_templates_dir = os.path.join(project_dir, "qtDesktop", "ui", "templates", "WIDGETS")
 
-widgets_src_dir = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
+all_widgets_src_dir = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS")
+arch_widgets_src_dir = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS_ARC")
+dev_widgets_src_dir = os.path.join(project_dir, "qtverse", "widgets", "src", "WIDGETS_DEV")
+
 config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "cfg.yaml")
 
 config_data = read_yaml(config_file_path)
@@ -81,6 +84,14 @@ class PreviewAppWidget(QWidget):
         
         self.widget_load_start_index = 0
         self.widget_load_end_index = 99
+        
+        self.all_widgets_dict = self._get_all_widgets_dict()
+        self.arch_widgets_dict = self._get_arch_widgets_dict()
+        self.dev_widgets_dict = self._get_dev_widgets_dict()
+        
+        self.all_widgets_list = self._flatten_dict_to_list(self.all_widgets_dict)
+        self.arch_widgets_list = self._flatten_dict_to_list(self.arch_widgets_dict)
+        self.dev_widgets_list = self._flatten_dict_to_list(self.dev_widgets_dict)
 
         self.master_vbox = QVBoxLayout()
         
@@ -88,6 +99,19 @@ class PreviewAppWidget(QWidget):
         
         self.all_widgets_button = QPushButton("All")
         self.all_widgets_button.clicked.connect(self.clicked_show_all_widgets)
+        
+        self.count_labels_font = QFont()
+        self.count_labels_font.setBold(True)
+        self.count_labels_font.setPointSize(10)
+
+        self.all_widgets_count_label = QLabel(f"All Widgets:\n  {len(self.all_widgets_list)}")
+        self.all_widgets_count_label.setFont(self.count_labels_font)
+        
+        self.arch_widgets_count_label = QLabel(f"Arch. Widgets:\n   {len(self.arch_widgets_list)}")
+        self.arch_widgets_count_label.setFont(self.count_labels_font)
+        
+        self.dev_widgets_count_label = QLabel(f"Dev Widgets:\n  {len(self.dev_widgets_list)}")
+        self.dev_widgets_count_label.setFont(self.count_labels_font)
         
         self.widget_type_vbox = QVBoxLayout()
         self.widget_type_label = QLabel("Filter by Widget Type")
@@ -100,12 +124,42 @@ class PreviewAppWidget(QWidget):
         self.widget_type_vbox.addWidget(self.widget_type_label)
         self.widget_type_vbox.addWidget(self.widget_type_cb)
         
+        self.group_widget_vbox = QVBoxLayout()
+        self.group_widget_label = QLabel("Group By")
+        
+        self.group_widget_cb = QComboBox()
+        self.group_widget_cb.addItem("Select Grouping Type")
+        self.group_widget_cb.addItem("Widget Type")
+        self.group_widget_cb.addItem("Developer")
+        self.group_widget_cb.addItem("Status")
+        
+        self.group_widget_cb.currentIndexChanged.connect(self.index_changed_group_widget_cb)
+        
+        self.group_widget_vbox.addWidget(self.group_widget_label)
+        self.group_widget_vbox.addWidget(self.group_widget_cb)
+        
+        self.sort_widget_vbox = QVBoxLayout()
+        self.sort_widget_label = QLabel("Sort By")
+        
+        self.sort_widget_cb = QComboBox()
+        self.sort_widget_cb.addItem("Select Sorting Type")
+        self.sort_widget_cb.addItem("Widget Type")
+        self.sort_widget_cb.addItem("Developer")
+        self.sort_widget_cb.addItem("Status")
+        
+        self.sort_widget_cb.currentIndexChanged.connect(self.index_changed_sort_widget_cb)
+        
+        self.sort_widget_vbox.addWidget(self.sort_widget_label)
+        self.sort_widget_vbox.addWidget(self.sort_widget_cb)
+        
         self.developer_vbox = QVBoxLayout()
         self.developer_label = QLabel("Filter by Developer")
         
         self.developer_cb = QComboBox()
         self.developer_cb.addItem("Select Developer")
         self.developer_cb.addItems(all_developers)
+        
+        self.developer_cb.currentIndexChanged.connect(self.index_changed_developer_cb)
         
         self.developer_vbox.addWidget(self.developer_label)
         self.developer_vbox.addWidget(self.developer_cb)
@@ -116,6 +170,8 @@ class PreviewAppWidget(QWidget):
         self.status_cb = QComboBox()
         self.status_cb.addItem("Select Status")
         self.status_cb.addItems(WIDGET_STATUS_LIST)
+        
+        self.status_cb.currentIndexChanged.connect(self.index_changed_status_cb)
         
         self.status_vbox.addWidget(self.status_label)
         self.status_vbox.addWidget(self.status_cb)
@@ -130,7 +186,12 @@ class PreviewAppWidget(QWidget):
         self.load_button.clicked.connect(self.clicked_load_button)
         
         self.filters_hbox.addWidget(self.all_widgets_button)
+        self.filters_hbox.addWidget(self.all_widgets_count_label)
+        self.filters_hbox.addWidget(self.arch_widgets_count_label)
+        self.filters_hbox.addWidget(self.dev_widgets_count_label)
         self.filters_hbox.addStretch()
+        self.filters_hbox.addLayout(self.group_widget_vbox)
+        self.filters_hbox.addLayout(self.sort_widget_vbox)
         self.filters_hbox.addLayout(self.widget_type_vbox)
         self.filters_hbox.addLayout(self.developer_vbox)
         self.filters_hbox.addLayout(self.status_vbox)
@@ -184,12 +245,6 @@ class PreviewAppWidget(QWidget):
         
         # Populate the QListWidget with folders based on the initial state (ALL)
         # self.filter_by_developer("ALL")
-        all_widgets_dict = self._get_all_widgets_dict()
-        
-        self.all_widgets_list = []
-        for each_widget_seq in all_widgets_dict.values():
-            for each_widget in each_widget_seq:
-                self.all_widgets_list.append(each_widget)
 
         self.populate_widgets()
         self.thumbnail_widget.scroll_area.verticalScrollBar().valueChanged.connect(self.update_widgets_to_load)
@@ -202,6 +257,18 @@ class PreviewAppWidget(QWidget):
         
     def clicked_load_button(self):
         print("Clicked Load Button")
+        
+    def index_changed_group_widget_cb(self):
+        print("Group index changed")
+        
+    def index_changed_sort_widget_cb(self):
+        print("Sort index changed")
+        
+    def index_changed_developer_cb(self):
+        print("Developer index changed")
+        
+    def index_changed_status_cb(self):
+        print("Status index changed")
 
     def _import_ui_as_module(self, widget_filename, widget_py_path):
         spec = importlib.util.spec_from_file_location(widget_filename, widget_py_path)
@@ -214,14 +281,42 @@ class PreviewAppWidget(QWidget):
         return ui_instance
     
     def _get_all_widgets_dict(self):
-        all_seq_list = os.listdir(widgets_src_dir)
+        all_seq_list = os.listdir(all_widgets_src_dir)
         all_seq_list.remove(".gitkeep")
         all_widgets_dict = {}
         for seq in all_seq_list:
-            all_widgets_in_seq = os.listdir(os.path.join(widgets_src_dir, seq))
+            all_widgets_in_seq = os.listdir(os.path.join(all_widgets_src_dir, seq))
             all_widgets_dict[seq] = all_widgets_in_seq
             
         return all_widgets_dict
+    
+    def _get_arch_widgets_dict(self):
+        arch_seq_list = os.listdir(arch_widgets_src_dir)
+        arch_seq_list.remove(".gitkeep")
+        arch_widgets_dict = {}
+        for seq in arch_seq_list:
+            arch_widgets_in_seq = os.listdir(os.path.join(arch_widgets_src_dir, seq))
+            arch_widgets_dict[seq] = arch_widgets_in_seq
+            
+        return arch_widgets_dict
+    
+    def _get_dev_widgets_dict(self):
+        dev_seq_list = os.listdir(dev_widgets_src_dir)
+        dev_seq_list.remove(".gitkeep")
+        dev_widgets_dict = {}
+        for seq in dev_seq_list:
+            dev_widgets_in_seq = os.listdir(os.path.join(dev_widgets_src_dir, seq))
+            dev_widgets_dict[seq] = dev_widgets_in_seq
+            
+        return dev_widgets_dict
+    
+    def _flatten_dict_to_list(self, dict):
+        list = []
+        for each_dict_value in dict.values():
+            for value in each_dict_value:
+                list.append(value)
+                
+        return list
 
     def populate_widgets(self):
         
@@ -230,7 +325,7 @@ class PreviewAppWidget(QWidget):
             if(index < len(self.all_widgets_list)):
                 each_widget_name = self.all_widgets_list[index]
                 widget_seq_name = str(each_widget_name[:3])
-                each_widget_path = os.path.join(widgets_src_dir, widget_seq_name, each_widget_name)
+                each_widget_path = os.path.join(all_widgets_src_dir, widget_seq_name, each_widget_name)
 
                 widget_py_path = os.path.join(each_widget_path, "widget", "CustomWidget.py")
                     
