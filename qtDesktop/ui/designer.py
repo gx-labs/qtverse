@@ -12,7 +12,7 @@ from ui.general_utils import qt_icon
 from ui.general_utils import read_python
 from ui.general_utils import read_css
 
-designer_config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "designer.yaml")
+designer_config_file_path = os.path.join(os.path.dirname(__file__), "cfg", "cfg.yaml")
 
 class DesignerAppWidget(QWidget):
     def __init__(self):
