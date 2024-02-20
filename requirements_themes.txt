@@ -1,0 +1,4 @@
+qdarkstyle
+pyqtdarktheme
+qt-material
+qdarkgraystyle
