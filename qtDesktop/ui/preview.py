@@ -42,6 +42,9 @@ class ThumbnailViewerWidget(QWidget):
 
     def __init__(self):
         super(ThumbnailViewerWidget, self).__init__()
+        
+        self.widget_load_start_index = 0
+        self.widget_load_end_index = 99
 
         self.main_layout = QVBoxLayout()
         self.setLayout(self.main_layout)
@@ -63,27 +66,9 @@ class ThumbnailViewerWidget(QWidget):
 
         self.main_layout.addWidget(self.scroll_area)
 
-        # self.populateThumbnails()
-
-    def populateThumbnails(self):
-
-        while self.scroll_area_layout.count():
-            item = self.scroll_area_layout.takeAt(0)
-            widget = item.widget()
-
-            if widget is not None:
-                widget.deleteLater()
-
-        for i in range(1, 20):
-            self.thumbnail_widget = ThumbnailWidget(width = 200, height = 100)
-            self.scroll_area_layout.addWidget(self.thumbnail_widget)
-
 class PreviewAppWidget(QWidget):
     def __init__(self):
         super().__init__()
-        
-        self.widget_load_start_index = 0
-        self.widget_load_end_index = 99
         
         self.all_widgets_dict = self._get_all_widgets_dict()
         self.arch_widgets_dict = self._get_arch_widgets_dict()
@@ -218,35 +203,29 @@ class PreviewAppWidget(QWidget):
         
         # -----------------------
         # Viewer Tab's  ( Thumbnail View - Archive View ) TABS
-        viewer_tab_widget = QTabWidget()
+        self.viewer_tab_widget = QTabWidget()
+        self.viewer_tab_widget.currentChanged.connect(self._clear_scroll_area)
         
         tab_1 = QWidget()
         tab_2 = QWidget()
         tab_3 = QWidget()
 
-        # tab1_layout = QHBoxLayout()
-        # tab2_layout = QHBoxLayout()
-
         tab_1.setLayout(self.thumbnail_layout)
         tab_2.setLayout(self.archive_layout)
         tab_3.setLayout(self.widget_dev_layout)
 
-        viewer_tab_widget.addTab(tab_1, "All Widgets")
-        viewer_tab_widget.addTab(tab_2, "Archived Widgets")
-        viewer_tab_widget.addTab(tab_3, "Dev Widgets")
+        self.viewer_tab_widget.addTab(tab_1, "All Widgets")
+        self.viewer_tab_widget.addTab(tab_2, "Archived Widgets")
+        self.viewer_tab_widget.addTab(tab_3, "Dev Widgets")
+        
+        self.viewer_tab_widget.setCurrentIndex(2)
 
         self.master_vbox.addLayout(self.filters_hbox)
-        self.master_vbox.addWidget(viewer_tab_widget)
-
-        ##
+        self.master_vbox.addWidget(self.viewer_tab_widget)
 
         self.setLayout(self.master_vbox)
         self.showMaximized()
         
-        # Populate the QListWidget with folders based on the initial state (ALL)
-        # self.filter_by_developer("ALL")
-
-        self.populate_widgets()
         self.thumbnail_widget.scroll_area.verticalScrollBar().valueChanged.connect(self.update_widgets_to_load)
         
     def clicked_show_all_widgets(self):
@@ -318,14 +297,65 @@ class PreviewAppWidget(QWidget):
                 
         return list
 
+    def _get_widgets_list(self):
+        if (self.viewer_tab_widget.currentIndex() == 0):
+            widgets_list = self.all_widgets_list
+        if (self.viewer_tab_widget.currentIndex() == 1):
+            widgets_list = self.arch_widgets_list
+        if (self.viewer_tab_widget.currentIndex() == 2):
+            widgets_list = self.dev_widgets_list
+
+        return widgets_list
+    
+    def _get_widgets_path(self):
+        if (self.viewer_tab_widget.currentIndex() == 0):
+            widgets_path = all_widgets_src_dir
+        if (self.viewer_tab_widget.currentIndex() == 1):
+            widgets_path = arch_widgets_src_dir
+        if (self.viewer_tab_widget.currentIndex() == 2):
+            widgets_path = dev_widgets_src_dir
+            
+        return widgets_path
+    
+    def _get_widgets_tab(self):
+        if (self.viewer_tab_widget.currentIndex() == 0):
+            widgets_tab = self.thumbnail_widget
+        elif (self.viewer_tab_widget.currentIndex() == 1):
+            widgets_tab = self.archive_widget
+        elif (self.viewer_tab_widget.currentIndex() == 2):
+            widgets_tab = self.widget_dev_widget
+            
+        return widgets_tab
+    
+    def _clear_scroll_area(self):
+        print("Called Clear Scroll Area")
+        self.widget_load_start_index = 0
+        self.widget_load_end_index = 99
+        if (self.viewer_tab_widget.currentIndex() == 0):
+            for i in range(self.thumbnail_widget.scroll_area_layout.count()):
+                    self.thumbnail_widget.scroll_area_layout.itemAt(i).widget().deleteLater()
+        elif (self.viewer_tab_widget.currentIndex() == 1):
+            for i in range(self.archive_widget.scroll_area_layout.count()):
+                    self.archive_widget.scroll_area_layout.itemAt(i).widget().deleteLater()
+        elif (self.viewer_tab_widget.currentIndex() == 2):
+            for i in range(self.widget_dev_widget.scroll_area_layout.count()):
+                    self.widget_dev_widget.scroll_area_layout.itemAt(i).widget().deleteLater()
+                  
+        self.populate_widgets()
+    
     def populate_widgets(self):
+        print("Called Populate Widgets")
+        
+        widgets_list = self._get_widgets_list()
+        widgets_path = self._get_widgets_path()
+        widgets_tab = self._get_widgets_tab()
         
         # for each_widget in self.all_widgets_list:
-        for index in range(self.widget_load_start_index, self.widget_load_end_index + 1):
-            if(index < len(self.all_widgets_list)):
-                each_widget_name = self.all_widgets_list[index]
+        for index in range(widgets_tab.widget_load_start_index, widgets_tab.widget_load_end_index + 1):
+            if(index < len(widgets_list)):
+                each_widget_name = widgets_list[index]
                 widget_seq_name = str(each_widget_name[:3])
-                each_widget_path = os.path.join(all_widgets_src_dir, widget_seq_name, each_widget_name)
+                each_widget_path = os.path.join(widgets_path, widget_seq_name, each_widget_name)
 
                 widget_py_path = os.path.join(each_widget_path, "widget", "CustomWidget.py")
                     
@@ -355,18 +385,38 @@ class PreviewAppWidget(QWidget):
                         width=200, 
                         height=100)
                         
-                    self.thumbnail_widget.scroll_area_layout.addWidget(self.custom_thumbnail_widget)
+                    widgets_tab.scroll_area_layout.addWidget(self.custom_thumbnail_widget)
                 else:
                     break
 
     
     def update_widgets_to_load(self):
-        scrollbar = self.thumbnail_widget.scroll_area.verticalScrollBar()
-        if scrollbar.value() == scrollbar.maximum():
-            self.widget_load_start_index += 100
-            self.widget_load_end_index += 100
-            
+        print("Called Update Widgets To Load")
+        populate_more_widgets = False
+        if self.viewer_tab_widget.currentIndex() == 0:
+            scrollbar = self.thumbnail_widget.scroll_area.verticalScrollBar()
+            if scrollbar.value() >= scrollbar.maximum():
+                self.thumbnail_widget.widget_load_start_index += 100
+                self.thumbnail_widget.widget_load_end_index += 100
+                populate_more_widgets = True
+                
+        elif self.viewer_tab_widget.currentIndex() == 1:
+            scrollbar = self.archive_widget.scroll_area.verticalScrollBar()
+            if scrollbar.value() >= scrollbar.maximum():
+                self.archive_widget.widget_load_start_index += 100
+                self.archive_widget.widget_load_end_index += 100
+                populate_more_widgets = True
+                
+        elif self.viewer_tab_widget.currentIndex() == 2:
+            scrollbar = self.widget_dev_widget.scroll_area.verticalScrollBar()
+            if scrollbar.value() >= scrollbar.maximum():
+                self.widget_dev_widget.widget_load_start_index += 100
+                self.widget_dev_widget.widget_load_end_index += 100
+                populate_more_widgets = True
+                
+        if populate_more_widgets:
             self.populate_widgets()
+        
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
