@@ -351,43 +351,51 @@ class PreviewAppWidget(QWidget):
         widgets_tab = self._get_widgets_tab()
         
         # for each_widget in self.all_widgets_list:
-        for index in range(widgets_tab.widget_load_start_index, widgets_tab.widget_load_end_index + 1):
-            if(index < len(widgets_list)):
-                each_widget_name = widgets_list[index]
-                widget_seq_name = str(each_widget_name[:3])
-                each_widget_path = os.path.join(widgets_path, widget_seq_name, each_widget_name)
+        if widgets_list:
+            for index in range(widgets_tab.widget_load_start_index, widgets_tab.widget_load_end_index + 1):
+                if(index < len(widgets_list)):
+                    each_widget_name = widgets_list[index]
+                    widget_seq_name = str(each_widget_name[:3])
+                    each_widget_path = os.path.join(widgets_path, widget_seq_name, each_widget_name)
 
-                widget_py_path = os.path.join(each_widget_path, "widget", "CustomWidget.py")
-                    
-                info_filepath = os.path.join(each_widget_path, "info.yaml")
-                info_dict = read_yaml(filepath=info_filepath)
-
-                css_filepath = os.path.join(each_widget_path, "widget", "style.css")
-                
-                # Catch FileNotFoundError and prevent app from crashing
-                try:
-                    with open(css_filepath) as file:
-                        css_data = file.read().replace('\n',' ')
-                except FileNotFoundError:
-                    print(f"{each_widget_path} seems to be empty.")
-                    pass
-                    
-                if os.path.exists(widget_py_path):
-                    imported_widget = self._import_ui_as_module("CustomWidget", widget_py_path)
-                    print(imported_widget)
-
-                    self.custom_thumbnail_widget = ThumbnailWidget(
-                        widget_name=each_widget_name,
-                        widget_path=each_widget_path,
-                        css_data=css_data,
-                        custom_widget=imported_widget, 
-                        info_dict=info_dict,
-                        width=200, 
-                        height=100)
+                    widget_py_path = os.path.join(each_widget_path, "widget", "CustomWidget.py")
                         
-                    widgets_tab.scroll_area_layout.addWidget(self.custom_thumbnail_widget)
-                else:
-                    break
+                    info_filepath = os.path.join(each_widget_path, "info.yaml")
+                    info_dict = read_yaml(filepath=info_filepath)
+
+                    css_filepath = os.path.join(each_widget_path, "widget", "style.css")
+                    
+                    # Catch FileNotFoundError and prevent app from crashing
+                    try:
+                        with open(css_filepath) as file:
+                            css_data = file.read().replace('\n',' ')
+                    except FileNotFoundError:
+                        print(f"{each_widget_path} seems to be empty.")
+                        pass
+                        
+                    if os.path.exists(widget_py_path):
+                        imported_widget = self._import_ui_as_module("CustomWidget", widget_py_path)
+                        print(imported_widget)
+
+                        self.custom_thumbnail_widget = ThumbnailWidget(
+                            widget_name=each_widget_name,
+                            widget_path=each_widget_path,
+                            css_data=css_data,
+                            custom_widget=imported_widget, 
+                            info_dict=info_dict,
+                            width=200, 
+                            height=100)
+                            
+                        widgets_tab.scroll_area_layout.addWidget(self.custom_thumbnail_widget)
+                    else:
+                        break
+        else:
+            font = QFont()
+            font.setBold(True)
+            font.setPointSize(20)
+            no_widgets_label = QLabel("No Widgets Found")
+            no_widgets_label.setFont(font)
+            widgets_tab.scroll_area_layout.addWidget(no_widgets_label)
 
     
     def update_widgets_to_load(self):
