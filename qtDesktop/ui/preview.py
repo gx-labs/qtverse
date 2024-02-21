@@ -321,7 +321,7 @@ class PreviewAppWidget(QWidget):
     def populate_widgets(self):
         
         # for each_widget in self.all_widgets_list:
-        for index in range(self.widget_load_start_index, self.widget_load_end_index):
+        for index in range(self.widget_load_start_index, self.widget_load_end_index + 1):
             if(index < len(self.all_widgets_list)):
                 each_widget_name = self.all_widgets_list[index]
                 widget_seq_name = str(each_widget_name[:3])
