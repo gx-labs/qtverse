@@ -15,16 +15,16 @@ from ui.widgets.custom.flow_layout import FlowLayout
 from ui.widgets.custom.thumbnail import ThumbnailWidget
 
 
-
-STATUS_COLOR_MAP = {
-    "wip": "rgb(18, 46, 204)",
-    "submitted": "rgb(219, 166, 20)",
-    "review": "rgb(255, 0, 127)",
-    "approved": "rgb(0, 168, 107)"
-}
+# STATUS_COLOR_MAP = {
+#     "wip": "rgb(18, 46, 204)",
+#     "submitted": "rgb(219, 166, 20)",
+#     "review": "rgb(255, 0, 127)",
+#     "approved": "rgb(0, 168, 107)"
+# }
 
 WIDGET_STATUS_LIST = ["WiP", "Submitted", "Review", "Approved"]
 
+# setup path variables
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
 widget_templates_dir = os.path.join(project_dir, "qtDesktop", "ui", "templates", "WIDGETS")
@@ -39,10 +39,14 @@ config_data = read_yaml(config_file_path)
 all_developers = config_data["developers"].keys()
 
 class ThumbnailViewerWidget(QWidget):
-
+    '''
+    This class is the scroll area where all the widgets are populated. Each tab (all, archive and dev) have their own instance
+    of this class
+    '''
     def __init__(self):
         super(ThumbnailViewerWidget, self).__init__()
         
+        # vars to load widgets 100 at a time (lazy loading)
         self.widget_load_start_index = 0
         self.widget_load_end_index = 99
 
@@ -70,21 +74,28 @@ class PreviewAppWidget(QWidget):
     def __init__(self):
         super().__init__()
         
+        # vars for storing dict of widgets according to seq
         self.all_widgets_dict = self._get_all_widgets_dict()
         self.arch_widgets_dict = self._get_arch_widgets_dict()
         self.dev_widgets_dict = self._get_dev_widgets_dict()
         
+        # vars for storing lists of widgets
         self.all_widgets_list = self._flatten_dict_to_list(self.all_widgets_dict)
         self.arch_widgets_list = self._flatten_dict_to_list(self.arch_widgets_dict)
         self.dev_widgets_list = self._flatten_dict_to_list(self.dev_widgets_dict)
 
+        # ------------------------------------------------------
+        
         self.master_vbox = QVBoxLayout()
         
+        # layout for all the filter options
         self.filters_hbox = QHBoxLayout()
         
+        # button to load all widgets
         self.all_widgets_button = QPushButton("All")
         self.all_widgets_button.clicked.connect(self.clicked_show_all_widgets)
         
+        # labels to show count of all, archived and dev widgets
         self.count_labels_font = QFont()
         self.count_labels_font.setBold(True)
         self.count_labels_font.setPointSize(10)
@@ -98,17 +109,7 @@ class PreviewAppWidget(QWidget):
         self.dev_widgets_count_label = QLabel(f"Dev Widgets:\n  {len(self.dev_widgets_list)}")
         self.dev_widgets_count_label.setFont(self.count_labels_font)
         
-        self.widget_type_vbox = QVBoxLayout()
-        self.widget_type_label = QLabel("Filter by Widget Type")
-        
-        self.all_widget_types = os.listdir(widget_templates_dir)
-        self.widget_type_cb = QComboBox()
-        self.widget_type_cb.addItem("Select Widget Type")
-        self.widget_type_cb.addItems(self.all_widget_types)
-        
-        self.widget_type_vbox.addWidget(self.widget_type_label)
-        self.widget_type_vbox.addWidget(self.widget_type_cb)
-        
+        # group widgets by
         self.group_widget_vbox = QVBoxLayout()
         self.group_widget_label = QLabel("Group By")
         
@@ -123,6 +124,7 @@ class PreviewAppWidget(QWidget):
         self.group_widget_vbox.addWidget(self.group_widget_label)
         self.group_widget_vbox.addWidget(self.group_widget_cb)
         
+        # sort widgets by
         self.sort_widget_vbox = QVBoxLayout()
         self.sort_widget_label = QLabel("Sort By")
         
@@ -137,6 +139,19 @@ class PreviewAppWidget(QWidget):
         self.sort_widget_vbox.addWidget(self.sort_widget_label)
         self.sort_widget_vbox.addWidget(self.sort_widget_cb)
         
+        # filter by widget type section
+        self.widget_type_vbox = QVBoxLayout()
+        self.widget_type_label = QLabel("Filter by Widget Type")
+        
+        self.all_widget_types = os.listdir(widget_templates_dir)
+        self.widget_type_cb = QComboBox()
+        self.widget_type_cb.addItem("Select Widget Type")
+        self.widget_type_cb.addItems(self.all_widget_types)
+        
+        self.widget_type_vbox.addWidget(self.widget_type_label)
+        self.widget_type_vbox.addWidget(self.widget_type_cb)
+        
+        # filter by developer section
         self.developer_vbox = QVBoxLayout()
         self.developer_label = QLabel("Filter by Developer")
         
@@ -149,6 +164,7 @@ class PreviewAppWidget(QWidget):
         self.developer_vbox.addWidget(self.developer_label)
         self.developer_vbox.addWidget(self.developer_cb)
         
+        # filter by status section
         self.status_vbox = QVBoxLayout()
         self.status_label = QLabel("Filter by Status")
         
@@ -161,15 +177,25 @@ class PreviewAppWidget(QWidget):
         self.status_vbox.addWidget(self.status_label)
         self.status_vbox.addWidget(self.status_cb)
         
+        # search widgets line edit
         self.widget_search_box = QLineEdit("Search")
         
+        # reset filters button
         self.reset_filters_button = QPushButton()
         self.reset_filters_button.setIcon(QIcon(qt_icon("reset.png")))
         self.reset_filters_button.clicked.connect(self.clicked_reset_filters)
         
+        # load/apply filters button
         self.load_button = QPushButton("Load")
         self.load_button.clicked.connect(self.clicked_load_button)
         
+        # light/dark mode switch button
+        self.light_mode = True
+        self.light_dark_mode_button = QPushButton()
+        self.light_dark_mode_button.setIcon(QIcon(qt_icon("mode.png")))
+        self.light_dark_mode_button.clicked.connect(self.clicked_light_dark_mode_switch)
+        
+        # add widgets to filters layout
         self.filters_hbox.addWidget(self.all_widgets_button)
         self.filters_hbox.addWidget(self.all_widgets_count_label)
         self.filters_hbox.addWidget(self.arch_widgets_count_label)
@@ -184,24 +210,29 @@ class PreviewAppWidget(QWidget):
         self.filters_hbox.addWidget(self.widget_search_box)
         self.filters_hbox.addWidget(self.reset_filters_button)
         self.filters_hbox.addWidget(self.load_button)
+        self.filters_hbox.addWidget(self.light_dark_mode_button)
         
-
+        # ------------------------------------------------------
+        
+        # all widgets tab
         self.thumbnail_layout = QHBoxLayout()
         self.thumbnail_widget = ThumbnailViewerWidget()
-        # self.thumbnail_widget.setStyleSheet("margin:5px; border:1px solid rgb(0, 255, 0); ")
+        self.thumbnail_widget.scroll_area_qwidget.setStyleSheet("background-color: #e8e8e8; color: #212121")
         self.thumbnail_layout.addWidget(self.thumbnail_widget)
 
+        # archived widgets tab
         self.archive_layout = QHBoxLayout()
         self.archive_widget = ThumbnailViewerWidget()
-        # self.archive_widget.setStyleSheet("margin:5px; border:1px solid rgb(0, 255, 0); ")
+        self.archive_widget.scroll_area_qwidget.setStyleSheet("background-color: #e8e8e8; color: #212121")
         self.archive_layout.addWidget(self.archive_widget)
 
+        # dev widgets tab
         self.widget_dev_layout = QHBoxLayout()
         self.widget_dev_widget = ThumbnailViewerWidget()
-        # self.widget_dev_widget.setStyleSheet("margin:5px; border:1px solid rgb(0, 255, 0); ")
+        self.widget_dev_widget.scroll_area_qwidget.setStyleSheet("background-color: #e8e8e8; color: #212121")
         self.widget_dev_layout.addWidget(self.widget_dev_widget)
         
-        # -----------------------
+        # ------------------------------------------------------
         # Viewer Tab's  ( Thumbnail View - Archive View ) TABS
         self.viewer_tab_widget = QTabWidget()
         self.viewer_tab_widget.currentChanged.connect(self._clear_scroll_area)
@@ -220,13 +251,17 @@ class PreviewAppWidget(QWidget):
         
         self.viewer_tab_widget.setCurrentIndex(2)
 
+        # add widgets to master layout
         self.master_vbox.addLayout(self.filters_hbox)
         self.master_vbox.addWidget(self.viewer_tab_widget)
 
         self.setLayout(self.master_vbox)
         self.showMaximized()
         
+        # lazy loading
         self.thumbnail_widget.scroll_area.verticalScrollBar().valueChanged.connect(self.update_widgets_to_load)
+        self.archive_widget.scroll_area.verticalScrollBar().valueChanged.connect(self.update_widgets_to_load)
+        self.widget_dev_widget.scroll_area.verticalScrollBar().valueChanged.connect(self.update_widgets_to_load)
         
     def clicked_show_all_widgets(self):
         print("Clicked Show All Widgets")
@@ -248,6 +283,21 @@ class PreviewAppWidget(QWidget):
         
     def index_changed_status_cb(self):
         print("Status index changed")
+        
+    def clicked_light_dark_mode_switch(self):
+        '''
+        Called when light/dark mode button is clicked. Switched background of scroll area of each tab between light and dark mode
+        '''
+        if self.light_mode:
+            self.thumbnail_widget.scroll_area_qwidget.setStyleSheet("background-color: #212121; color: #e8e8e8")
+            self.archive_widget.scroll_area_qwidget.setStyleSheet("background-color: #212121; color: #e8e8e8")
+            self.widget_dev_widget.scroll_area_qwidget.setStyleSheet("background-color: #212121; color: #e8e8e8")
+            self.light_mode = False
+        else:
+            self.thumbnail_widget.scroll_area_qwidget.setStyleSheet("background-color: #e8e8e8; color: #212121")
+            self.archive_widget.scroll_area_qwidget.setStyleSheet("background-color: #e8e8e8; color: #212121")
+            self.widget_dev_widget.scroll_area_qwidget.setStyleSheet("background-color: #e8e8e8; color: #212121")
+            self.light_mode = True
 
     def _import_ui_as_module(self, widget_filename, widget_py_path):
         spec = importlib.util.spec_from_file_location(widget_filename, widget_py_path)
@@ -260,16 +310,30 @@ class PreviewAppWidget(QWidget):
         return ui_instance
     
     def _get_all_widgets_dict(self):
+        '''
+        Returns dict of all widgets in the WIDGETS folder. For example:
+        {
+            ESH: [ESH_001, ESH_002, ESH_003,..........]
+            HJH: [HJH_001. HJH_002, HJH_003,..........]
+        }
+        '''
         all_seq_list = os.listdir(all_widgets_src_dir)
         all_seq_list.remove(".gitkeep")
         all_widgets_dict = {}
         for seq in all_seq_list:
             all_widgets_in_seq = os.listdir(os.path.join(all_widgets_src_dir, seq))
             all_widgets_dict[seq] = all_widgets_in_seq
-            
+    
         return all_widgets_dict
     
     def _get_arch_widgets_dict(self):
+        '''
+        Returns dict of all widgets in the WIDGETS_ARC folder. For example:
+        {
+            ESH: [ESH_001, ESH_002, ESH_003,..........]
+            HJH: [HJH_001. HJH_002, HJH_003,..........]
+        }
+        '''
         arch_seq_list = os.listdir(arch_widgets_src_dir)
         arch_seq_list.remove(".gitkeep")
         arch_widgets_dict = {}
@@ -280,6 +344,13 @@ class PreviewAppWidget(QWidget):
         return arch_widgets_dict
     
     def _get_dev_widgets_dict(self):
+        '''
+        Returns dict of all widgets in the WIDGETS_DEV folder. For example:
+        {
+            ESH: [ESH_001, ESH_002, ESH_003,..........]
+            HJH: [HJH_001. HJH_002, HJH_003,..........]
+        }
+        '''
         dev_seq_list = os.listdir(dev_widgets_src_dir)
         dev_seq_list.remove(".gitkeep")
         dev_widgets_dict = {}
@@ -290,6 +361,15 @@ class PreviewAppWidget(QWidget):
         return dev_widgets_dict
     
     def _flatten_dict_to_list(self, dict):
+        '''
+        Returns list of all values from dict into a single list. For example:
+        dict = {
+            ESH: [ESH_001, ESH_002, ESH_003]
+            HJH: [HJH_001, HJH_002, HJH_003]
+        }
+        
+        list = [ESH_001, ESH_002, ESH_003, HJH_001, HJH_002, HJH_003]
+        '''
         list = []
         for each_dict_value in dict.values():
             for value in each_dict_value:
@@ -298,6 +378,9 @@ class PreviewAppWidget(QWidget):
         return list
 
     def _get_widgets_list(self):
+        '''
+        Returns a list of all widgets depending on the tab selected (all, archived or dev)
+        '''
         if (self.viewer_tab_widget.currentIndex() == 0):
             widgets_list = self.all_widgets_list
         if (self.viewer_tab_widget.currentIndex() == 1):
@@ -308,6 +391,9 @@ class PreviewAppWidget(QWidget):
         return widgets_list
     
     def _get_widgets_path(self):
+        '''
+        Returns the path of the src directory of widgets based on tab selected (WIDGETS, WIDGETS_ARC or WIDGETS_DEV)
+        '''
         if (self.viewer_tab_widget.currentIndex() == 0):
             widgets_path = all_widgets_src_dir
         if (self.viewer_tab_widget.currentIndex() == 1):
@@ -318,6 +404,9 @@ class PreviewAppWidget(QWidget):
         return widgets_path
     
     def _get_widgets_tab(self):
+        '''
+        Returns the active tab (All, Archived or Dev)
+        '''
         if (self.viewer_tab_widget.currentIndex() == 0):
             widgets_tab = self.thumbnail_widget
         elif (self.viewer_tab_widget.currentIndex() == 1):
@@ -328,9 +417,14 @@ class PreviewAppWidget(QWidget):
         return widgets_tab
     
     def _clear_scroll_area(self):
-        print("Called Clear Scroll Area")
+        '''
+        Removes all widgets populated in the scroll_area in the tab
+        '''
+        # resets the vars to track indices for lazy loading
         self.widget_load_start_index = 0
         self.widget_load_end_index = 99
+        
+        # delete each widget
         if (self.viewer_tab_widget.currentIndex() == 0):
             for i in range(self.thumbnail_widget.scroll_area_layout.count()):
                     self.thumbnail_widget.scroll_area_layout.itemAt(i).widget().deleteLater()
@@ -344,14 +438,19 @@ class PreviewAppWidget(QWidget):
         self.populate_widgets()
     
     def populate_widgets(self):
-        print("Called Populate Widgets")
+        '''
+        Populates the scroll area of the tab based on which tab is selected and number of widgets.
+        Implements lazy loading. Up to 100 widgets are loaded at first. If scrollbar hits its max range,
+        100 more widgets are loaded.
+        '''
         
+        # set vars to track which widgets need to be populated (all, archived or dev)
         widgets_list = self._get_widgets_list()
         widgets_path = self._get_widgets_path()
         widgets_tab = self._get_widgets_tab()
         
-        # for each_widget in self.all_widgets_list:
         if widgets_list:
+            # loop through the indices set for lazy loading (100 at a time)
             for index in range(widgets_tab.widget_load_start_index, widgets_tab.widget_load_end_index + 1):
                 if(index < len(widgets_list)):
                     each_widget_name = widgets_list[index]
@@ -399,8 +498,13 @@ class PreviewAppWidget(QWidget):
 
     
     def update_widgets_to_load(self):
-        print("Called Update Widgets To Load")
+        '''
+        Updates the indices used to track which next 100 widgets to load
+        '''
+        
+        # bool flag to check whether scrollbar has reached max value
         populate_more_widgets = False
+        
         if self.viewer_tab_widget.currentIndex() == 0:
             scrollbar = self.thumbnail_widget.scroll_area.verticalScrollBar()
             if scrollbar.value() >= scrollbar.maximum():
@@ -422,6 +526,7 @@ class PreviewAppWidget(QWidget):
                 self.widget_dev_widget.widget_load_end_index += 100
                 populate_more_widgets = True
                 
+        # flag only true if scrollbar reached max value
         if populate_more_widgets:
             self.populate_widgets()
         
