@@ -18,19 +18,18 @@ class CustomWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        self.lineedit = QLineEdit()
-        self.lineedit.setPlaceholderText("Your E-Mail Address")
-        self.lineedit.setStyleSheet(css_data)
+        self.inputdialog = QInputDialog()
+        self.inputdialog.setStyleSheet(css_data)
 
         self.shadow = QGraphicsDropShadowEffect()
 
-        self.shadow.setColor("#E3E5E9")
-        self.shadow.setBlurRadius(4)
-        self.shadow.setOffset(4,4)
-        self.lineedit.setGraphicsEffect(self.shadow)
+        self.shadow.setColor("#A3C7F6")
+        self.shadow.setBlurRadius(7)
+        self.shadow.setOffset(-2,2)
+        self.inputdialog.setGraphicsEffect(self.shadow)
 
         self.setLayout(layout)
-        layout.addWidget(self.lineedit, alignment=Qt.AlignCenter)
+        layout.addWidget(self.inputdialog, alignment=Qt.AlignCenter)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

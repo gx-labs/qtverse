@@ -26,7 +26,7 @@ class CustomWidget(QWidget):
 
         self.shadow.setColor("#E3E5E9")
         self.shadow.setBlurRadius(4)
-        self.shadow.setOffset(4,4)
+        self.shadow.setOffset(3,3)
         self.lineedit.setGraphicsEffect(self.shadow)
 
         self.setLayout(layout)

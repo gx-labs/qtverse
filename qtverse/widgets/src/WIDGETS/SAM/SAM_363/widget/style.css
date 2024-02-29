@@ -1,0 +1,18 @@
+QLineEdit{
+    font-size: 18px;
+    padding: 3px;
+    min-width: 18em;
+    height: 40px;
+    font-style: Times New Roman;
+    color: #bbbbbb;
+    background-color: transparent;
+    selection-background-color: #a3dcfe;
+    selection-color: white;
+    border: 2px solid transparent;
+    border-bottom: 2px solid #D6D6D6;
+}
+QLineEdit:hover{
+    border: 2px solid transparent;
+    border-bottom: 2px solid #5784E8;
+    color: black;
+}

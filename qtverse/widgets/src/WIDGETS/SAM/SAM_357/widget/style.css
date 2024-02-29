@@ -1,0 +1,18 @@
+QLineEdit{
+    border: 3px solid #F7A29D;
+    border-radius: 7px;
+    font-size: 18px;
+    padding: 3px;
+    min-width: 18em;
+    height: 30px;
+    color: grey;
+    background-color: white;
+    font-style: Arial;
+    selection-background-color: pink;
+    selection-color: white;
+    text-align: center;
+}
+QLineEdit:hover{
+    border: 3px solid #56D01B;
+    color: black;
+}

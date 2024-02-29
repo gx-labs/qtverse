@@ -1,0 +1,9 @@
+QInputDialog{
+    border: 2px solid #3399FF;
+    border-radius: 2px;
+    background-color: #FF0000;
+}
+QInputDialog QLabel{
+    font-size: 14px;
+    color: black;
+}

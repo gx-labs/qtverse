@@ -1,0 +1,27 @@
+QMessageBox {
+    background-color: #d1d1d1;
+    border: 1px solid transparent;
+    min-width: 350px;  /* Set the minimum width */
+    max-width: 500px;
+    border-radius: 5px;
+}
+QLabel {
+    min-width: 300px;  /* Set the minimum width */
+    max-width: 500px;
+    min-height: 60px;  /* Set the minimum height */
+    max-height: 100px;
+}
+QPushButton {
+    background-color: #960001;
+    color: white;
+    font-weight: bold;
+    border: 2px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 13px;
+    padding: 5px 10px;
+}
+QPushButton:hover {
+    background-color: white;
+    color: #960001;
+}
