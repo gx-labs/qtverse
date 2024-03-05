@@ -18,7 +18,7 @@ class CustomDialog(QWidget):
         super().__init__()
 
         self.dialog = QDialog()
-        # self.dialog.setWindowTitle("Sample Dialog")
+        self.dialog.setWindowTitle("Sample Dialog")
         self.setStyleSheet(css_data)
 
         # Create layout for dialog

@@ -18,20 +18,20 @@ class CustomDialog(QWidget):
         super().__init__()
 
         self.dialog = QDialog()
-        self.dialog.setWindowTitle("Sample Dialog")
-        self.dialog.resize(400, 150)  # Width, Height
+        self.dialog.setWindowTitle("Do You like CodeHim?")
+        self.dialog.resize(350, 200)  # Width, Height
         self.dialog.setStyleSheet(css_data)
 
         # Create layout for dialog
         self.layout = QVBoxLayout()
 
         # Create label
-        self.label = QLabel("<div style='text-align: center;'><span style='font-size: 20px; color: black; font-weight:bold;'>Delete</span><br><span style='font-size: 16px; color: grey;'>Are you sure you want to delete this post?</span></div>")
+        self.label = QLabel("<div style='text-align: center;'><span style='font-size: 19px; color: black;'>📨</span></div><br><span style='font-size: 15px; color: black;'>CodeHim is one of the BEST developer<br>websites that provide web designers and<br>developers with simaple way to preview scripts.</span>")
         self.layout.addWidget(self.label, alignment=Qt.AlignCenter)
 
         # Create button box
         self.button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        self.layout.addWidget(self.button_box, alignment=Qt.AlignCenter)
+        self.layout.addWidget(self.button_box, alignment=Qt.AlignRight)
 
         # Set layout for dialog
         self.dialog.setLayout(self.layout)

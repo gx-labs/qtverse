@@ -18,20 +18,20 @@ class CustomDialog(QWidget):
         super().__init__()
 
         self.dialog = QDialog()
-        self.dialog.setWindowTitle("Sample Dialog")
-        self.dialog.resize(400, 150)  # Width, Height
+        self.dialog.setWindowTitle("Confirmation")
+        self.dialog.resize(290, 150)  # Width, Height
         self.dialog.setStyleSheet(css_data)
 
         # Create layout for dialog
         self.layout = QVBoxLayout()
 
         # Create label
-        self.label = QLabel("<div style='text-align: center;'><span style='font-size: 20px; color: black; font-weight:bold;'>Delete</span><br><span style='font-size: 16px; color: grey;'>Are you sure you want to delete this post?</span></div>")
-        self.layout.addWidget(self.label, alignment=Qt.AlignCenter)
+        self.label = QLabel("<span style='font-size: 18px; color: black;'>Upload</span><br><br><span style='font-size: 14px; color: grey;'>Are you sure you want to upload 3 files(s)?</span>")
+        self.layout.addWidget(self.label, alignment=Qt.AlignLeft)
 
         # Create button box
         self.button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        self.layout.addWidget(self.button_box, alignment=Qt.AlignCenter)
+        self.layout.addWidget(self.button_box, alignment=Qt.AlignRight)
 
         # Set layout for dialog
         self.dialog.setLayout(self.layout)
