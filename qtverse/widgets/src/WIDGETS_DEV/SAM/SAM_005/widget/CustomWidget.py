@@ -18,18 +18,34 @@ class CustomDialog(QWidget):
         super().__init__()
 
         self.dialog = QDialog()
-        self.dialog.resize(290, 150)  # Width, Height
+        self.dialog.resize(290, 170)  # Width, Height
 
-        self.dialog.setWindowTitle("Confirmation")
+        self.dialog.setWindowTitle("Delete Confirmation")
 
         self.dialog.setStyleSheet(css_data)
 
         # Create layout for dialog
         self.layout = QVBoxLayout()
 
+        # Add horizontal separator line after title bar
+        # self.h_line1 = QFrame(self)
+        # self.h_line1.setFrameShape(QFrame.HLine)
+        # self.h_line1.setFrameShadow(QFrame.Sunken)
+        # self.h_line1.setGeometry(0, 0, self.width(), 1)
+        # self.h_line1.setStyleSheet("QFrame { border: 1px solid transparent; border-top: 1px solid rgb(219, 219, 219); }")  # Change the color here
+        # self.layout.addWidget(self.h_line1)
+
         # Create label
-        self.label = QLabel("<span style='font-size: 18px; color: black;'>Upload</span><br><br><span style='font-size: 14px; color: grey;'>Are you sure you want to upload 3 files(s)?</span>")
+        self.label = QLabel("<span style='font-size: 15px; color: rgb(52, 52, 52);'>This is very dangerous, you shouldn't do it! Are you<br>really really sure?</span>")
         self.layout.addWidget(self.label, alignment=Qt.AlignLeft)
+
+        # Add separator line
+        self.line = QFrame()
+        self.line.setFrameShape(QFrame.HLine)
+        self.line.setFrameShadow(QFrame.Sunken)
+        self.line.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.line.setStyleSheet("QFrame{ border: 1px solid transparent; border-top: 1px solid rgb(219, 219, 219);}")
+        self.layout.addWidget(self.line)
 
         # Create button box
         self.button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
@@ -37,6 +53,10 @@ class CustomDialog(QWidget):
 
         # Set layout for dialog
         self.dialog.setLayout(self.layout)
+
+        # Change button labels
+        self.button_box.button(self.button_box.Ok).setText("Yes, I am")
+        self.button_box.button(self.button_box.Cancel).setText("No")
 
         # Connect signals
         self.button_box.accepted.connect(self.accept)

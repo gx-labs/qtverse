@@ -18,18 +18,24 @@ class CustomDialog(QWidget):
         super().__init__()
 
         self.dialog = QDialog()
-        self.dialog.resize(290, 150)  # Width, Height
-
-        self.dialog.setWindowTitle("Confirmation")
-
+        self.dialog.setWindowTitle("Sample Dialog")
+        self.dialog.resize(550, 170)  # Width, Height
         self.dialog.setStyleSheet(css_data)
 
         # Create layout for dialog
         self.layout = QVBoxLayout()
 
         # Create label
-        self.label = QLabel("<span style='font-size: 18px; color: black;'>Upload</span><br><br><span style='font-size: 14px; color: grey;'>Are you sure you want to upload 3 files(s)?</span>")
-        self.layout.addWidget(self.label, alignment=Qt.AlignLeft)
+        self.label = QLabel("<div style='text-align: left;'><span style='font-size: 30px; color: #00A2FC; font-weight: bold;'>!</span><span style='font-size: 22px; color: black;'> System Updated</span><br><span style='font-size: 16px; color: grey;'>Your system has been updated to version 3.0 and all new features<br>are now available.</span></div>")
+        self.layout.addWidget(self.label, alignment=Qt.AlignCenter)
+
+        # Add separator line
+        self.line = QFrame()
+        self.line.setFrameShape(QFrame.HLine)
+        self.line.setFrameShadow(QFrame.Sunken)
+        self.line.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.line.setStyleSheet("QFrame{ border: 1px solid transparent; border-top: 1px solid rgb(228, 228, 228);}")
+        self.layout.addWidget(self.line)
 
         # Create button box
         self.button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
@@ -37,6 +43,10 @@ class CustomDialog(QWidget):
 
         # Set layout for dialog
         self.dialog.setLayout(self.layout)
+
+        # Change button labels
+        self.button_box.button(self.button_box.Ok).setText("See new features")
+        self.button_box.button(self.button_box.Cancel).setText("Understood")
 
         # Connect signals
         self.button_box.accepted.connect(self.accept)

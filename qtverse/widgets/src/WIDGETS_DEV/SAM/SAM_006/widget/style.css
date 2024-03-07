@@ -5,16 +5,15 @@ QDialog {
 }
 
 QPushButton {
-    background-color: #51616E; 
+    background-color: #6C757E; 
     color: white;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 8px;
-    width: 60px;
-    height: 12px;
+    font-size: 14px; 
+    border-radius: 5px; /* Button border radius */
+    padding: 9px;
     border: 1px solid transparent;
 }
 
 QPushButton:hover {
-    background-color: #5b6369;
+    color: white;
+    background-color: #007AFF;
 }
