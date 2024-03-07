@@ -19,15 +19,29 @@ class CustomDialog(QWidget):
 
         self.dialog = QDialog()
         self.dialog.setWindowTitle("Sample Dialog")
-        self.dialog.resize(550, 170)  # Width, Height
+        self.dialog.resize(550, 180)  # Width, Height
         self.dialog.setStyleSheet(css_data)
 
         # Create layout for dialog
         self.layout = QVBoxLayout()
 
+        # Create a frame for the label
+        self.label_frame = QFrame()
+        self.label_frame.setStyleSheet("QFrame { background-color: #575757; }")
+
         # Create label
-        self.label = QLabel("<div style='text-align: left;'><span style='font-size: 30px; color: #00A2FC; font-weight: bold;'>!</span><span style='font-size: 24px; color: black;'> System Updated</span><br><span style='font-size: 16px; color: grey;'>Your system has been updated to version 3.0 and all new features<br>are now available.</span></div>")
-        self.layout.addWidget(self.label, alignment=Qt.AlignCenter)
+        self.label = QLabel("<span style='font-size: 18px; color: white; font-weight:bold; '>Custom Confirm Dialog</span>")
+        self.label.setAlignment(Qt.AlignCenter)
+        self.label_frame_layout = QVBoxLayout()
+        self.label_frame_layout.addWidget(self.label)
+        self.label_frame.setLayout(self.label_frame_layout)
+        self.label_frame.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.layout.addWidget(self.label_frame)
+
+        # Create label
+        self.label1 = QLabel("<span style='font-size: 18px; color: black;'>Do you want to visit the channel?</span>")
+        self.label1.setAlignment(Qt.AlignCenter)
+        self.layout.addWidget(self.label1)
 
         # Add separator line
         self.line = QFrame()
@@ -39,14 +53,14 @@ class CustomDialog(QWidget):
 
         # Create button box
         self.button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        self.layout.addWidget(self.button_box, alignment=Qt.AlignRight)
+        self.layout.addWidget(self.button_box, alignment=Qt.AlignCenter)
 
         # Set layout for dialog
         self.dialog.setLayout(self.layout)
 
         # Change button labels
-        self.button_box.button(self.button_box.Ok).setText("See new features")
-        self.button_box.button(self.button_box.Cancel).setText("Understood")
+        self.button_box.button(self.button_box.Ok).setText("OK")
+        self.button_box.button(self.button_box.Cancel).setText("Cancel")
 
         # Connect signals
         self.button_box.accepted.connect(self.accept)
