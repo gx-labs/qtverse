@@ -48,23 +48,6 @@ class CustomDialog(QWidget):
         self.label2 = QLabel("<span style='font-size: 13px; color: black;'>By enabling cookies, you are giving us an opportunity to deliver the best results with<br>the advertisements on the website. Please accept the cookies and continue browsing<br>on the website.</span>")
         self.label2.setAlignment(Qt.AlignLeft)
         self.label_frame2_layout.addWidget(self.label2)
-
-    #     # Create a button box
-    #     self.button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-    #     self.layout.addWidget(self.button_box, alignment=Qt.AlignCenter)
-
-    #     # Connect signals
-    #     self.button_box.accepted.connect(self.accept)
-    #     self.button_box.rejected.connect(self.reject)
-
-    #     # Set layout for dialog
-    #     self.dialog.setLayout(self.layout)
-
-    # def accept(self):
-    #     print("hello")
-
-    # def reject(self):
-    #     print("cancel")
         
         # Create a QHBoxLayout for buttons
         self.button_layout = QHBoxLayout()
