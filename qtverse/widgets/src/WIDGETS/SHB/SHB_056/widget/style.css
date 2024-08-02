@@ -1,0 +1,22 @@
+QComboBox {
+	background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #757575, stop: 1 #383838 );
+	color: #ffffff;
+	border : 4px solid #757575 ;
+	border-radius: 0.4em; 
+	padding-bottom: 0.2em;
+	padding-left: 0.6em;
+  	font: 70 12pt"Sans Serif"
+}
+QComboBox:hover{
+    border : 4px solid;
+    border-color : #00777f;                                  
+                                     }
+QComboBox QAbstractItemView
+{   background-color: #757575; 
+    selection-color: #ffffff;
+	selection-background-color: #00777f;
+	outline: 0;
+	padding-left: 0.2em;
+	padding-right: 0.2em;
+  	color : #fdfdfd
+}

@@ -1,0 +1,26 @@
+QComboBox {
+	color: #ffffff;	
+	background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #cc2b5e , stop: 1 #753a88  );
+	font : bold "Times New Roman";
+	font-size : 20px;
+	padding-left: 0.2em;
+}
+QComboBox:editable {
+	background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #cc2b5e , stop: 1 #753a88  );
+	color: #ffffff;
+	selection-background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #cc2b5e , stop: 1 #753a88  );
+}
+QComboBox QAbstractItemView {
+	color: #ffffff;	
+	background: #cc2b5e ;
+	selection-color: #ffffff;
+	selection-background-color: #753a88;
+	outline : 0;
+
+}
+QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+	color: #ffffff;	
+	background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #753a88 , stop: 1 #cc2b5e  );
+}
+
+background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #cc2b5e , stop: 1 #753a88  );
